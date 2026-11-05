@@ -30,7 +30,7 @@ dependencies = [
 # downloading and pre-processing the UCI German Credit data, retraining
 data = ["mlaas>=0.1.0"]
 # Raspberry Pi LEDs (WS281x); the AIY Voice Kit library is installed
-# separately -- see docs/hardware.md
+# separately -- see the Hardware section of the README
 pi = [
     "neopixel-python>=0.1.0 ; sys_platform == 'linux'",
     "rpi-ws281x>=4.3 ; sys_platform == 'linux'",
@@ -49,7 +49,6 @@ dev = [
 ]
 notebooks = [
     "glassbox[data]",
-    "ctreex[plot,sklearn]",
     "jupyterlab>=4",
     "ipykernel>=6",
     "nbconvert>=7",

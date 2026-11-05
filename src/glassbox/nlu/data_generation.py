@@ -1,10 +1,13 @@
 """
 Generates the additional NLU training data and the held-out NLU test set.
 
-    uv run python tools/nlu/generate_data.py
+The examples are generated from sentence templates with slots for features,
+personas and marker words (``given``, ``despite``, ``reset``) -- see
+:data:`TRAIN` and :data:`TEST`;
+the test set uses different templates (and partly different feature phrases)
+than the training data.
+Use ``glassbox nlu generate`` to write the files.
 
-Writes ``src/glassbox/resources/nlu/training_data_extra.json`` and
-``tests/data/nlu_test_set.json`` (generated with different sentence templates).
 Examples use the markup ``[text](entity=value)``.
 """
 import json
@@ -12,7 +15,15 @@ import os
 import random
 import re
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+from glassbox.resources import resource_path
+
+__all__ = ['generate', 'write_data', 'TRAIN', 'TEST',
+           'DEFAULT_TRAINING_OUTPUT', 'DEFAULT_TEST_OUTPUT']
+
+#: the training data added in 2026 (shipped with the package)
+DEFAULT_TRAINING_OUTPUT = resource_path('nlu', 'training_data_extra.json')
+#: the held-out test set (part of the repository's tests)
+DEFAULT_TEST_OUTPUT = os.path.join('tests', 'data', 'nlu_test_set.json')
 
 PERSONAS = {"00": "Stu", "01": "Jonathan", "02": "Lurleen", "03": "Ruth",
             "04": "Joe", "05": "Kirk", "06": "Mona", "07": "Selma",
@@ -57,32 +68,32 @@ TRAIN = {
               "good evening", "hey there", "hi there", "greetings",
               "hello robot", "hello Glass-Box", "hi Glass-Box",
               "hey, anyone there?", "morning",
-        "hello, how are you today",
-        "hi, is this the bank",
-        "hello, can you hear me"],
+              "hello, how are you today",
+              "hi, is this the bank",
+              "hello, can you hear me"],
     "farewell": ["see you", "goodbye then", "that is all, thanks",
                  "I am done", "thanks, bye", "cheers, bye",
                  "that will be all", "good bye", "see you later",
                  "I have no more questions",
-        "ok, that is everything, bye"],
+                 "ok, that is everything, bye"],
     "help": ["help", "help me", "how does this work",
              "what should I ask", "I need help", "what can you do for me",
              "what are my options", "how do I use this"],
     "repeat": ["say that again", "pardon", "come again",
                "what did you say", "can you say it again",
                "one more time please", "repeat that",
-        "I did not catch that",
-        "what was that",
-        "sorry, say it again please"],
+               "I did not catch that",
+               "what was that",
+               "sorry, say it again please"],
     "outcome": ["did I get the loan", "was my loan approved",
                 "what was the decision", "has my application been approved",
                 "tell me the outcome", "did you accept my application",
                 "am I getting the loan", "what is the decision",
                 "was my application successful", "was my loan rejected",
-        "have I been approved",
-        "am I accepted",
-        "was I successful",
-        "did my loan get approved"],
+                "have I been approved",
+                "am I accepted",
+                "was I successful",
+                "did my loan get approved"],
     "fairness": ["is this decision fair", "was I treated fairly",
                  "is the decision biased", "was I discriminated against",
                  "is this outcome unfair", "did you discriminate against me",
@@ -90,12 +101,12 @@ TRAIN = {
     "apply_name": ["I am {name}", "my name is {name}", "this is {name}",
                    "{name} here", "I would like to apply, I am {name}",
                    "I want to apply as {name}", "call me {name}",
-        "it's {name}",
-        "hi, I am {name}",
-        "hello, my name is {name}",
-        "the name is {name}",
-        "{name} is my name",
-        "I am {name} and I want a loan"],
+                   "it's {name}",
+                   "hi, I am {name}",
+                   "hello, my name is {name}",
+                   "the name is {name}",
+                   "{name} is my name",
+                   "I am {name} and I want a loan"],
     "apply_number": ["my application number is {num}", "my number is {num}",
                      "application {num}", "applicant number {num}",
                      "I have application number {num}"],
@@ -112,40 +123,41 @@ TRAIN = {
             "why did I not get the loan", "explain the decision",
             "why was my application accepted", "explain why",
             "why did you decline me", "can you explain the outcome",
-        "what's the reason my application was declined",
-        "give me the reasons",
-        "tell me why",
-        "what are the reasons behind the decision",
-        "what led to this decision"],
+            "what's the reason my application was declined",
+            "give me the reasons",
+            "tell me why",
+            "what are the reasons behind the decision",
+            "what led to this decision"],
     "why_given": ["why, {given} my {f}", "explain the decision {given} my {f}",
                   "why was I declined {given} my {f} and {f2}",
-        "tell me why, {given} my {f}",
-        "what are the reasons, {given} my {f}",
-        "explain this {given} my {f}"],
+                  "tell me why, {given} my {f}",
+                  "what are the reasons, {given} my {f}",
+                  "explain this {given} my {f}"],
     "why_despite": ["why, {despite} my {f}",
                     "explain the decision {despite} my {f}",
                     "{despite} my {f}, why was I declined",
-        "tell me why, {despite} my {f}",
-        "what are the reasons, {despite} my {f}",
-        "give me the reasons {despite} my {f}"],
+                    "tell me why, {despite} my {f}",
+                    "what are the reasons, {despite} my {f}",
+                    "give me the reasons {despite} my {f}"],
     "why_both": ["why {given} my {f} {despite} my {f2}",
                  "explain the decision {given} my {f} and {despite} my {f2}"],
     "why_reset": ["{reset} the explanations", "{reset} why",
                   "{reset} the reasons from the beginning",
-        "please {reset} the reasons",
-        "can you {reset} the why"],
+                  "please {reset} the reasons",
+                  "can you {reset} the why"],
     "action": ["what can I do to get the loan",
                "how can I get my loan approved",
                "what should I change to get the loan", "what can I change",
                "how could I improve my chances",
                "what would I have to change to be accepted",
-        "what else could I change",
-        "what would help me get the loan",
-        "how can I get accepted",
-        "what steps can I take"],
-    "action_despite": ["{despite} my {f}, what can I do to get my loan accepted",
-                       "what can I do {despite} my {f}",
-                       "how can I get the loan {despite} my {f}",
+               "what else could I change",
+               "what would help me get the loan",
+               "how can I get accepted",
+               "what steps can I take"],
+    "action_despite": [
+        "{despite} my {f}, what can I do to get my loan accepted",
+        "what can I do {despite} my {f}",
+        "how can I get the loan {despite} my {f}",
         "what else could I change, {despite} my {f}",
         "what steps can I take {despite} my {f}"],
     "action_given": ["what can I do with my {f} to get my loan accepted",
@@ -228,6 +240,25 @@ def to_example(intent, markup):
 
 
 def generate(templates, split, repeats, seed):
+    """
+    Fills the templates of a split.
+
+    Parameters
+    ----------
+    templates : dict
+        ``{intent: [templates]}`` (:data:`TRAIN` or :data:`TEST`).
+    split : {'train', 'test'}
+        Selects the feature phrases and marker words of the split.
+    repeats : int
+        How many times every template with slots is filled.
+    seed : int
+        Seed of the random choice of the slot fillers.
+
+    Returns
+    -------
+    list of dict
+        Rasa NLU ``common_examples`` (duplicates removed).
+    """
     rng = random.Random(seed)
     examples = []
     for intent, group in templates.items():
@@ -240,13 +271,33 @@ def generate(templates, split, repeats, seed):
     return list(unique.values())
 
 
-if __name__ == '__main__':
-    train = generate(TRAIN, 'train', repeats=3, seed=2026)
-    test = generate(TEST, 'test', repeats=3, seed=7)
-    with open(os.path.join(ROOT, 'src', 'glassbox', 'resources', 'nlu',
-                           'training_data_extra.json'), 'w') as f:
-        json.dump({'rasa_nlu_data': {'common_examples': train}}, f, indent=1)
-    with open(os.path.join(ROOT, 'tests', 'data', 'nlu_test_set.json'),
-              'w') as f:
-        json.dump({'rasa_nlu_data': {'common_examples': test}}, f, indent=1)
-    print('{} training and {} test examples'.format(len(train), len(test)))
+def _write(path, examples):
+    directory = os.path.dirname(path)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump({'rasa_nlu_data': {'common_examples': examples}}, f,
+                  indent=1)
+
+
+def write_data(training_output=DEFAULT_TRAINING_OUTPUT,
+               test_output=DEFAULT_TEST_OUTPUT, repeats=3, seed=2026,
+               test_repeats=3, test_seed=7):
+    """
+    Generates and writes the training data and the test set.
+
+    The defaults reproduce the shipped training data and the test set of the
+    repository.
+
+    Returns
+    -------
+    tuple
+        The numbers of training and test examples.
+    """
+    train = generate(TRAIN, 'train', repeats=repeats, seed=seed)
+    test = generate(TEST, 'test', repeats=test_repeats, seed=test_seed)
+    if training_output:
+        _write(training_output, train)
+    if test_output:
+        _write(test_output, test)
+    return len(train), len(test)

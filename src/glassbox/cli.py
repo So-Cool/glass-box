@@ -5,6 +5,8 @@ import logging
 import sys
 
 from glassbox.config import load_config
+from glassbox.nlu.data_generation import (DEFAULT_TEST_OUTPUT,
+                                          DEFAULT_TRAINING_OUTPUT)
 
 __all__ = ['main']
 
@@ -49,8 +51,8 @@ def cmd_data(args):
     from glassbox import data
     dh = data.load_german_credit(data_home=args.data_home, verify=False)
     checksum = data.processed_data_checksum(dh.data)
-    print('Pre-processed data: {} rows, checksum {}'.format(len(dh.data),
-                                                           checksum))
+    print('Pre-processed data: {} rows, checksum {}'.format(
+        len(dh.data), checksum))
     ok = checksum == data.PROCESSED_DATA_SHA256
     print('Matches the Glass-Box data: {}'.format(ok))
     personas = data.personas_matching_data(dh)
@@ -59,17 +61,33 @@ def cmd_data(args):
 
 
 def cmd_nlu(args):
-    from glassbox.nlu.spacy_backend import SpacyNLU
-    if args.action == 'train':
-        nlu = SpacyNLU.train(spacy_model=args.spacy_model)
+    if args.nlu_command == 'train':
+        from glassbox.nlu.spacy_backend import SpacyNLU
+        nlu = SpacyNLU.train(spacy_model=args.spacy_model,
+                             random_state=args.seed)
         print('Saved to', nlu.save(args.output) if args.output
               else nlu.save())
-    else:
+    elif args.nlu_command == 'parse':
         from glassbox.nlu import Intentioner
+        from glassbox.nlu.spacy_backend import SpacyNLU
         nlu = SpacyNLU.load()
         parsed = nlu.parse(args.text)
         print(json.dumps(parsed, indent=2))
         print(Intentioner(nlu).parse_to_intent(parsed))
+    elif args.nlu_command == 'generate':
+        from glassbox.nlu import data_generation
+        n_train, n_test = data_generation.write_data(
+            training_output=args.output, test_output=args.test_output,
+            repeats=args.repeats, seed=args.seed,
+            test_repeats=args.test_repeats, test_seed=args.test_seed)
+        print('{} training examples -> {}'.format(n_train, args.output))
+        print('{} test examples -> {}'.format(n_test, args.test_output))
+    else:  # test
+        from glassbox.nlu import evaluation
+        examples = evaluation.load_test_set(args.test_set)
+        rows = evaluation.compare(examples, seed=args.seed)
+        print('{} test sentences'.format(len(examples)))
+        print(evaluation.format_table(rows))
 
 
 def cmd_model(args):
@@ -116,12 +134,43 @@ def main(argv=None):
     p.add_argument('--data-home')
     p.set_defaults(func=cmd_data)
 
-    p = sub.add_parser('nlu', help='train or try the default NLU model')
-    p.add_argument('action', choices=['train', 'parse'])
-    p.add_argument('text', nargs='?', default='')
-    p.add_argument('--spacy-model', default='en_core_web_sm')
-    p.add_argument('--output')
-    p.set_defaults(func=cmd_nlu)
+    p = sub.add_parser('nlu', help='the default NLU model: train, try, '
+                       'generate training data and evaluate')
+    nlu = p.add_subparsers(dest='nlu_command', required=True)
+    q = nlu.add_parser('train', help='train the default NLU model on the '
+                       'original and the added training data')
+    q.add_argument('--spacy-model', default='en_core_web_sm')
+    q.add_argument('--output', help='model directory (default: the model '
+                   'shipped with the package)')
+    q.add_argument('--seed', type=int, default=42,
+                   help='random state of the training (default: 42)')
+    q.set_defaults(func=cmd_nlu)
+    q = nlu.add_parser('parse', help='show how a sentence is understood')
+    q.add_argument('text')
+    q.set_defaults(func=cmd_nlu)
+    q = nlu.add_parser('generate', help='generate the added training data '
+                       'and the held-out test set from templates')
+    q.add_argument('--repeats', type=int, default=3,
+                   help='fills of every training template (default: 3)')
+    q.add_argument('--seed', type=int, default=2026,
+                   help='seed of the training data (default: 2026)')
+    q.add_argument('--test-repeats', type=int, default=3,
+                   help='fills of every test template (default: 3)')
+    q.add_argument('--test-seed', type=int, default=7,
+                   help='seed of the test set (default: 7)')
+    q.add_argument('--output', default=DEFAULT_TRAINING_OUTPUT,
+                   help='training data file (default: the file shipped with '
+                   'the package)')
+    q.add_argument('--test-output', default=DEFAULT_TEST_OUTPUT,
+                   help='test set file (default: %(default)s)')
+    q.set_defaults(func=cmd_nlu)
+    q = nlu.add_parser('test', help='evaluate models trained on the original '
+                       'and on all the training data on the test set')
+    q.add_argument('--test-set', default=DEFAULT_TEST_OUTPUT,
+                   help='test set file (default: %(default)s)')
+    q.add_argument('--seed', type=int, default=42,
+                   help='random state of the training (default: 42)')
+    q.set_defaults(func=cmd_nlu)
 
     p = sub.add_parser('model', help='convert a pickled tree to JSON or '
                        'retrain the tree')

@@ -6,8 +6,8 @@ An applicant -- one of ten predefined personas -- asks *why* their application
 was declined, whether the decision is *fair* and *what they can do*
 to change it, and Glass-Box answers with counterfactual statements, e.g.,:
 
-> Had you asked for at most £883, instead of £3,959,
-> your loan application would have been accepted.
+> If you had requested your loan for at most 11 or between 23 and 43 months,
+> rather than 15 months, your loan would be accepted.
 
 The hardware implementation of Glass-Box (demonstrated at IJCAI 2018)
 is a voice-enabled device based on Raspberry Pi, Google AIY Voice Kit,
@@ -97,25 +97,27 @@ An example conversation (with abridged answers):
 * What is the outcome?
   > Your application has been declined.
 * Why?
-  > [...] Your application has been declined. Had you asked for at most 883 or
-  > between 955 and 1181 or between 1286 and 1917 or between 2111 and 2578
-  > pounds, instead of 3959 pounds, your loan would be accepted.
+  > [...] If you had asked for at most 883 or between 955 and 1181 or
+  > between 1286 and 1917 or between 2111 and 2578 pounds,
+  > rather than 3959 pounds, your loan would be accepted.
 * Is the decision fair?
   > I believe that this decision is indirectly unfair. [...]
   > if you had been male (divorced or separated) or male (single) or male
   > (married or widowed), rather than being female
   > (divorced or separated or married).
 * Disregarding my loan amount, what can I do to get my loan accepted?
-  > [...] The outcome of your application would change assuming that you had
+  > [...] The outcome of your application would change if you had
   > requested your loan for at most 11 or between 23 and 43 months,
   > rather than 15 months. (When avoiding using: loan amount.)
 * What is my age?
   > Dear Ruth, at the time of application: you have been 29 years old.
+* Tell me about myself.
+  > Dear Ruth, at the time of application: you have requested your loan for
+  > 15 months and you have asked for 3959 pounds and [...]
 * cmd: why->features_drop:[A2,A5]
-  > [...] If you had had less than 200 pounds on your current account or
-  > no current account, rather than having overdraft on your current account,
-  > your loan would be accepted.
-  > (When avoiding using: loan duration and loan amount.)
+  > [...] Your loan would be accepted had you had less than 200 pounds on your
+  > current account or no current account, instead of having overdraft on your
+  > current account. (When avoiding using: loan duration and loan amount.)
 * Goodbye!
   > Thank you for your application. Goodbye.
 
@@ -123,7 +125,10 @@ A conversation starts with a greeting, continues with an application
 (a persona's name or number, or a scanned application card) and then the
 applicant can ask any of the questions below in any order.
 Asking the same question again gives the next explanation
-(the next counterfactual).
+(the next counterfactual);
+when all the explanations have been given Glass-Box says so, and the next
+request starts from the beginning.
+The wording of the answers is chosen at random from a few sentence templates.
 
 | Request                           | Example sentences | Answer |
 |-----------------------------------|-------------------|--------|
@@ -136,7 +141,7 @@ Asking the same question again gives the next explanation
 | fairness (`fairness`)             | "is the decision fair", "was I discriminated against" | counterfactuals involving the protected features (marital status and gender, migrant status); "indirectly unfair" when they need other changes too |
 | what to do (`action`)             | "what can I do to get my loan accepted", "what steps can I take" | counterfactuals that change only *actionable* features |
 | restricted suggestions (`action`) | "disregarding my age, what can I do to get my loan accepted", "what can I do with my instalment rate to get my loan accepted" | suggestions without (or with) the features mentioned |
-| about me (`myself`)               | "tell me about myself", "what is my age", "tell me about my savings account and my job" | the applicant's details (all of them, or the features mentioned) |
+| about me (`myself`)               | "tell me about myself", "what is my age", "tell me about my savings account and my job" | the applicant's details: the features mentioned or, without any, all of them in the chat and only the current account status when speaking (to keep spoken answers short) |
 | help (`help`)                     | "help", "what should I ask" | example questions |
 | repeat (`repeat`)                 | "repeat", "say that again" | the last answer |
 | goodbye (`bye`)                   | "goodbye", "that is all, thanks" | ends the application |
@@ -263,8 +268,10 @@ The following options can be configured:
 | `glassbox serve [--host H] [--port P] [--implementation original]` | the web chat (and the endpoints of the voice input and the QR scanner) |
 | `glassbox device [--host H] [--port P]`                            | the Raspberry Pi device server (LEDs, speech, voice input, QR scanner) |
 | `glassbox data [--data-home DIR]`                                  | download the German Credit data, pre-process it and verify it against the original data |
-| `glassbox nlu train [--spacy-model M] [--output DIR]`              | retrain the default NLU model |
+| `glassbox nlu train [--spacy-model M] [--output DIR] [--seed N]`   | retrain the default NLU model on the original and the added training data |
 | `glassbox nlu parse "sentence"`                                    | show how a sentence is understood |
+| `glassbox nlu generate [--repeats N] [--seed N] [--test-repeats N] [--test-seed N] [--output FILE] [--test-output FILE]` | generate the added NLU training data and the held-out test set from templates (the defaults reproduce the shipped files) |
+| `glassbox nlu test [--test-set FILE] [--seed N]`                   | train on the original and on all the training data and evaluate both on the test set |
 | `glassbox model retrain --output tree.json [--random-state N]`     | train a new tree on the German Credit data |
 | `glassbox model export --input tree.pkl --output tree.json`        | convert a scikit-learn tree to JSON |
 | `glassbox config`                                                  | print the effective configuration |
@@ -297,7 +304,7 @@ Two backends turn sentences into requests
   docker build -t glassbox-rasa-legacy docker/rasa-legacy
   docker run --rm -p 5005:5005 glassbox-rasa-legacy
 
-  curl -XPOST localhost:5005/parse -d '{"q": "hello", "project": "default"}'
+  curl -XPOST 127.0.0.1:5005/parse -d '{"q": "hello", "project": "default"}'
   ```
 
   the `docker/rasa-legacy/projects/default/chat` directory holds the original
@@ -310,12 +317,12 @@ these can be found in
 with the format adapted to the new pipeline in
 `src/glassbox/resources/nlu/training_data.json`.
 To improve the accuracy of the new (`spacy`) pipeline, 241 examples
-(generated from templates by `tools/nlu/generate_data.py`)
+(generated from templates by `glassbox nlu generate`)
 were added in 2026 and can be found in the
 `src/glassbox/resources/nlu/training_data_extra.json` file.
-On 49 held-out sentences -- generated with different templates by
-`tools/nlu/evaluate.py` and stored in `tests/data/nlu_test_set.json` --
-the accuracy improved as follow:
+On 49 held-out sentences -- generated with different templates by the same
+command and stored in `tests/data/nlu_test_set.json` --
+the accuracy (`glassbox nlu test`) improved as follows:
 
 |                              | original data | original + new data |
 |------------------------------|---------------|---------------------|
@@ -408,7 +415,7 @@ share the ground with the Pi.
  └───────────────────────────────┘               └──────────────────────────┘
 ```
 
-The original set-up was run the application on a laptop, with the remaining
+The original set-up ran the application on a laptop, with the remaining
 hardware functionality on the Raspberry Pi;
 this can be replicated with the `config/raspberry-pi-device.toml` and
 `config/laptop-with-device.toml` configuration files.
@@ -420,7 +427,7 @@ Alternatively, both processes can be run on the Raspberry Pi with the
 The original Raspberry Pi setup is described in
 the [changelog](./CHANGELOG.md#pre-001).
 Below is this process adapted for modern Raspberry Pi OS;
-**note that is has not been tested yet**.
+**note that it has not been tested yet**.
 
 1. Flash *Raspberry Pi OS (64-bit) Bookworm* (Python 3.11) and enable SSH and
    the camera (`sudo raspi-config` -> *Interface Options*).
@@ -488,12 +495,13 @@ uv run pytest                             # tests
 
 uv run glassbox data                      # download and process German Credit
 
-uv run glassbox model retrain             # train new tree on German Credit
-uv run glassbox model export              # convert scikit-learn to JSON tree
+uv run glassbox model retrain --output tree.json   # train a new tree
+uv run glassbox model export --input tree.pkl --output tree.json
+                                          # convert a scikit-learn tree to JSON
 
-uv run python tools/nlu/generate_data.py  # regenerate the added NLU data
+uv run glassbox nlu generate              # regenerate the added NLU data
 uv run glassbox nlu train                 # retrain shipped NLU model
-uv run python tools/nlu/evaluate.py       # evaluate the NLU
+uv run glassbox nlu test                  # evaluate the NLU
 uv run glassbox nlu parse "txt"           # show how txt is understood
 ```
 

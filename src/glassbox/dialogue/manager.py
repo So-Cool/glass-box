@@ -9,7 +9,15 @@ The dialogue manager: a state machine answering the applicant's requests.
 ``restart``), ``myself`` (``features``), ``repeat``.
 
 With ``implementation='original'`` (and the explainer's ``deterministic_order``
-fix) the answers are identical to the original implementation.
+fix) the answers are those of the original implementation, except that the
+wording is corrected, ranges of whole-number features are described with whole
+numbers and the applicant is told when all the explanations have been given
+(these changes are always used).
+
+The answers depend on the output channel only for "tell me about myself"
+without naming any feature:
+in chat all the features are listed, when speaking only the current account
+status (to keep spoken answers short).
 
 Hardware feedback (the LEDs of the original device) is reported to an optional
 ``on_event`` callback -- see :mod:`glassbox.hardware.leds` for the events.
@@ -27,12 +35,13 @@ from glassbox.model import GlassBoxModel
 __all__ = ['DialogueManager']
 
 logger = logging.getLogger(__name__)
+CHANNELS = ('chat', 'speech')
 INTENTS = ('hello', 'bye', 'apply', 'outcome', 'help', 'fairness', 'action',
            'why', 'myself', 'repeat')
 
 
 def _tidy(text):
-    """Collapses spaces, capitalises and ends a sentence (``wording``)."""
+    """Collapses spaces, capitalises and ends a sentence."""
     text = re.sub(r'\s+', ' ', text).strip()
     text = re.sub(r' ([,.])', r'\1', text)
     text = re.sub(r'([.?!]) ([a-z])',
@@ -101,10 +110,9 @@ class DialogueManager(object):
         self.action_require = []
         self._exhausted = {'why': False, 'fairness': False, 'action': False}
 
-    def fixes(self, channel='chat'):
-        """The dialogue switches used for a channel."""
-        return resolve_dialogue_fixes(self.implementation, self.fix_overrides,
-                                      channel)
+    def fixes(self):
+        """The dialogue switches."""
+        return resolve_dialogue_fixes(self.implementation, self.fix_overrides)
 
     def _event(self, name, **params):
         if self.on_event is not None:
@@ -114,7 +122,7 @@ class DialogueManager(object):
                 logger.exception('Event handler failed for %s.', name)
 
     def _say(self, text, fixes):
-        if fixes.wording and text:
+        if text:
             text = _tidy(text)
         self.last_said = text
         return text
@@ -145,8 +153,7 @@ class DialogueManager(object):
     def get_counterfactual(self, cf_dictionary, templates, fixes):
         """Phrases a counterfactual (``{feature: {'is', 'wannabe'}}``)."""
         t = templates
-        translated = self.model.describe(cf_dictionary,
-                                         integer_ranges=fixes.integer_ranges)
+        translated = self.model.describe(cf_dictionary)
         comp = [t.COUNTERFACTUAL_TEMPLATE_COMP_1,
                 t.COUNTERFACTUAL_TEMPLATE_COMP_2,
                 t.COUNTERFACTUAL_TEMPLATE_COMP_3]
@@ -180,15 +187,10 @@ class DialogueManager(object):
                     value=talk["value_hypothetical2"][value], a=a)
                 options = [talk["value_hypothetical1"][i]
                            for i in cf["wannabe"]]
-                if fixes.wording:  # the article of every option
-                    hypothetical = ' or '.join(
-                        talk["part1"].format(
-                            value=v, a="" if i == "council" else "a")
-                        for v, i in zip(options, cf["wannabe"]))
-                else:  # article chosen from the last option only
-                    a = "" if cf["wannabe"][-1] == "council" else "a"
-                    hypothetical = talk["part1"].format(
-                        value=' or '.join(options), a=a)
+                hypothetical = ' or '.join(  # the article of every option
+                    talk["part1"].format(
+                        value=v, a="" if i == "council" else "a")
+                    for v, i in zip(options, cf["wannabe"]))
                 sentences.append(choice.format(
                     hypothetical_state=hypothetical, current_state=current))
             elif "map" in talk:  # categorical with a simple map
@@ -215,8 +217,8 @@ class DialogueManager(object):
         Pops the next item of the ``name`` queue, rebuilding it when empty.
 
         Returns ``(item, rebuilt)``; ``item`` is ``None`` when nothing is
-        available or -- with ``stop_when_exhausted`` -- when the queue has
-        just run out (then ``'exhausted'`` is returned).
+        available and ``'exhausted'`` when the queue has just run out (the
+        next request starts from the beginning).
         """
         attribute = {'fairness': 'unfairness', 'action': 'actionability',
                      'why': 'why'}[name]
@@ -224,7 +226,7 @@ class DialogueManager(object):
         if queue:
             item = queue.pop(0)
             return item, False
-        if fixes.stop_when_exhausted and self._exhausted[name]:
+        if self._exhausted[name]:
             self._exhausted[name] = False
             return 'exhausted', False
         queue = build()
@@ -303,7 +305,9 @@ class DialogueManager(object):
         args : dict, optional
             Intent arguments.
         channel : {'chat', 'speech'}
-            The output channel (selects the channel-dependent fixes).
+            The output channel: "tell me about myself" without features lists
+            all of them in chat and only the current account status when
+            speaking.
 
         Returns
         -------
@@ -311,12 +315,16 @@ class DialogueManager(object):
             The answer.
         """
         args = {} if args is None else args
-        fixes = self.fixes(channel)
-        t = Templates(fixed=fixes.wording)
+        if channel not in CHANNELS:
+            raise ValueError('channel has to be one of {}.'.format(CHANNELS))
+        fixes = self.fixes()
+        t = Templates()
         handler = getattr(self, '_intent_' + intent, None) \
             if intent in INTENTS else None
         if handler is None:
             return self._intent_unknown(args, fixes, t)
+        if intent == 'myself':
+            return handler(args, fixes, t, channel=channel)
         return handler(args, fixes, t)
 
     def _intent_hello(self, args, fixes, t):
@@ -461,8 +469,8 @@ class DialogueManager(object):
 
         note = ""
         if restart or not self.why or not cont:  # rebuild the list
-            if (fixes.stop_when_exhausted and not restart and cont
-                    and not self.why and self._exhausted['why']):
+            if (not restart and cont and not self.why
+                    and self._exhausted['why']):
                 self._exhausted['why'] = False
                 self._event('why')
                 return self._say(t.NO_MORE['why'], fixes)
@@ -490,32 +498,23 @@ class DialogueManager(object):
                 outcome=OUTCOME_MAP[self.outcome_complement(self.outcome)])
             cf = self.get_counterfactual(why_first, t, fixes)
 
-            # mention the restrictions imposed
-            name = self.model.feature_name
-            regard = " and ".join(t.feature_talk[name(i)]["name"]
-                                  for i in self.features_require
-                                  if i in why_first)
-            disregard = " and ".join(t.feature_talk[name(i)]["name"]
-                                     for i in self.features_drop)
-            if regard and disregard:
-                outro += ". (When considering: {} and avoiding: {}.)".format(
-                    regard, disregard)
-            elif regard:
-                outro += ". (When considering using: {}.)".format(regard)
-            elif disregard:
-                outro += ". (When avoiding using: {}.)".format(disregard)
-            answer = note + template.format(intro=intro,
-                                            counterfactual_statement=cf,
-                                            counterfactual_outcome=outro)
+            sentence = template.format(intro=intro,
+                                       counterfactual_statement=cf,
+                                       counterfactual_outcome=outro).rstrip()
+            # mention the restrictions imposed (after the whole sentence)
+            answer = note + sentence + '.' + self._restrictions_note(
+                self.features_require, self.features_drop, why_first, t)
         self._event('why')
         return self._say(answer, fixes)
 
-    def _intent_myself(self, args, fixes, t):
+    def _intent_myself(self, args, fixes, t, channel='chat'):
         if self.conversation_started and not self.applied:
             return self._say(t.HOW_TO_APPLY, fixes)
         if not self.conversation_started:
             return self._say(t.SAY_HELLO, fixes)
-        default = [] if fixes.myself_all_features else ["A1"]
+        # without features: all of them in chat, the current account status
+        # (A1) when speaking -- spoken answers are kept short
+        default = [] if channel == 'chat' else ["A1"]
         features_of_interest = args.get("features", default)
         if features_of_interest:
             features_of_interest = [self.model.feature_name(i)

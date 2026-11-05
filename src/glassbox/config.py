@@ -18,7 +18,7 @@ DEFAULTS = {
                  'explainer_fixes': {}},
     'nlu': {'backend': 'spacy', 'thinking_delay': 0.0,
             'spacy': {'model_dir': None, 'spacy_model': None},
-            'rasa_legacy': {'url': 'http://localhost:5005',
+            'rasa_legacy': {'url': 'http://127.0.0.1:5005',
                             'project': 'default', 'model': 'chat'}},
     'hardware': {
         'leds': {'backend': 'mock'},

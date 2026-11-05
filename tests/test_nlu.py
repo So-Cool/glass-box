@@ -82,18 +82,12 @@ def test_spacy_backend():
 def test_held_out_accuracy():
     """The shipped model on sentences not used for training."""
     pytest.importorskip('spacy')
-    import importlib.util
-    import os
     from glassbox.nlu.spacy_backend import SpacyNLU
     try:
         nlu = SpacyNLU.load()
     except OSError:
         pytest.skip('The spaCy model is not installed.')
-    path = os.path.join(os.path.dirname(__file__), '..', 'tools', 'nlu',
-                        'evaluate.py')
-    spec = importlib.util.spec_from_file_location('evaluate', path)
-    evaluate = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(evaluate)
+    from glassbox.nlu import evaluation as evaluate
     test = load_json('nlu_test_set.json')['rasa_nlu_data']['common_examples']
     scores = evaluate.evaluate(nlu, test)
     assert scores['intent accuracy'] >= 0.75
@@ -125,3 +119,21 @@ def test_extra_training_data_mentions():
             if en['entity'] == 'feature':
                 span = e['text'][en['start']:en['end']]
                 assert decode_feature_fixed(span) == en['value'], span
+
+
+def test_data_generation_reproduces_the_data(tmp_path):
+    from glassbox.nlu import data_generation
+    from glassbox.resources import load_json as load_resource
+    n_train, n_test = data_generation.write_data(
+        training_output=str(tmp_path / 'train.json'),
+        test_output=str(tmp_path / 'test.json'))
+    with open(tmp_path / 'train.json') as f:
+        import json
+        train = json.load(f)
+    assert train == load_resource('nlu', 'training_data_extra.json')
+    with open(tmp_path / 'test.json') as f:
+        assert json.load(f) == load_json('nlu_test_set.json')
+    assert (n_train, n_test) == (241, 49)
+    other = data_generation.generate(data_generation.TRAIN, 'train',
+                                     repeats=1, seed=1)
+    assert 0 < len(other) < n_train

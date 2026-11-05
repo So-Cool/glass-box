@@ -25,7 +25,7 @@ backend = "spacy"            # or "rasa-legacy" (Docker, docker/rasa-legacy)
 thinking_delay = 0.0         # pause while the "thinking" LEDs are shown
 
 [nlu.rasa_legacy]
-url = "http://localhost:5005"
+url = "http://127.0.0.1:5005"
 
 [hardware.leds]
 backend = "mock"             # log LED patterns instead of driving LEDs

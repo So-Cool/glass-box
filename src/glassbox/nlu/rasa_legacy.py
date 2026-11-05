@@ -21,7 +21,7 @@ class RasaLegacyNLU(NLUBackend):
         Request timeout in seconds.
     """
 
-    def __init__(self, url='http://localhost:5005', project='default',
+    def __init__(self, url='http://127.0.0.1:5005', project='default',
                  model='chat', timeout=10.):
         self.url = url.rstrip('/')
         self.project = project

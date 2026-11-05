@@ -2,10 +2,10 @@
 The Glass-Box model: the decision tree, its features and the explainer.
 
 The shipped model is the decision tree used in the IJCAI 2018 demo, converted
-from its scikit-learn 0.19 pickle to JSON (see ``tools/convert_original_model``
-in the repository). A tree can also be loaded from any JSON file written by
-:meth:`ctreex.TreeStructure.to_json` or a (modern) pickle of a scikit-learn
-decision tree trained on the same one-hot encoded features.
+from its scikit-learn 0.19 pickle to JSON (the tree arrays were extracted from
+the pickle without scikit-learn 0.19). A tree can also be loaded from any JSON
+file written by :meth:`ctreex.TreeStructure.to_json` or a (modern) pickle of a
+scikit-learn decision tree trained on the same one-hot encoded features.
 """
 import numpy as np
 
@@ -96,22 +96,21 @@ class GlassBoxModel(object):
                         value if m == 'numerical' else m[str(value)]))
         return out
 
-    def describe(self, counterfactual, integer_ranges=False):
+    def describe(self, counterfactual):
         """
         Human-readable counterfactual (``feature name -> {'is', 'wannabe'}``).
+
+        Ranges of whole-number features are described with whole numbers
+        (e.g., ``(954.5, 1181.5]`` -> ``between 955 and 1181``; see
+        :func:`ctreex.counterfactuals.describe_integer_range`).
 
         Parameters
         ----------
         counterfactual : dict
             ``{feature id: {'is': [...], 'wannabe': [...]}}``.
-        integer_ranges : bool
-            Describe intervals of integer features with whole numbers (e.g.,
-            ``(954.5, 1181.5]`` -> ``between 955 and 1181``) instead of the
-            split thresholds
-            (see :func:`ctreex.counterfactuals.describe_integer_range`).
         """
         return self.explainer.describe({0: counterfactual},
-                                       integer_ranges=integer_ranges)[0]
+                                       integer_ranges=True)[0]
 
 
 def train_tree(data_holder, random_state=None, **params):

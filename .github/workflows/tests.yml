@@ -47,6 +47,6 @@ jobs:
         run: uv sync --locked --group notebooks
       - name: Run the notebooks
         run: |
-          for notebook in notebooks/*/*.ipynb; do
+          for notebook in notebooks/*.ipynb; do
             (cd "$(dirname "$notebook")" && uv run jupyter nbconvert --to notebook --execute --output /tmp/out.ipynb "$(basename "$notebook")")
           done

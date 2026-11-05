@@ -1,6 +1,3 @@
-import json
-
-import numpy as np
 import pytest
 
 from ctreex import load_tree
@@ -9,7 +6,6 @@ from glassbox.config import load_config, merge
 from glassbox.core import GlassBox
 from glassbox.hardware.leds import MockLEDs, event_commands
 from glassbox.hardware.qr import persona_from_zbar
-from glassbox.model import GlassBoxModel
 
 
 class FakeNLU(object):
@@ -44,12 +40,10 @@ def test_original_tree_reproduces_its_training_accuracy(model):
 
 
 def test_integer_ranges(model):
-    cf = {'A5': {'is': [3959], 'wannabe': [[None, '883.0'],
-                                          ['954.5', '1181.5']]}}
+    cf = {'A5': {'is': [3959],
+                 'wannabe': [[None, '883.0'], ['954.5', '1181.5']]}}
     assert model.describe(cf)['loan_amount']['wannabe'] == [
-        'less or equal to 883.0', 'between 954.5 and 1181.5']
-    assert model.describe(cf, integer_ranges=True)['loan_amount'][
-        'wannabe'] == ['at most 883', 'between 955 and 1181']
+        'at most 883', 'between 955 and 1181']
 
 
 def test_messages(box):

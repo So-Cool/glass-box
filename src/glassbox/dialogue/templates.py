@@ -1,8 +1,10 @@
 """
-Original answer templates of the dialogue and their corrected versions
-(used with the ``wording`` fix).
+Answer templates of the dialogue.
+
+The templates of the original implementation with corrected grammar and
+typography (missing verbs, articles and punctuation, typos);
+the original wording is not kept.
 """
-import copy
 
 APPLICANT_NAMES = {
     "00": "Stu", "01": "Jonathan", "02": "Lurleen", "03": "Ruth",
@@ -27,10 +29,10 @@ FEATURE_TALK = {
         "property": {"singular": "pound", "plural": "pounds"},
         "name": "loan amount"},
     "installment_rate": {
-        "part1": "received an installment rate of {value} {value_type}",
+        "part1": "received an instalment rate of {value} {value_type}",
         "part2": "{value} {value_type}",
         "property": {"singular": "percent", "plural": "percent"},
-        "name": "installment rate"},
+        "name": "instalment rate"},
     "age": {
         "part1": "been {value} {value_type}",
         "part2": "{value} {value_type}",
@@ -60,26 +62,19 @@ FEATURE_TALK = {
     "duration_of_present_employment": {
         "part1": "been {value}", "part2": "being {value}", "map": None,
         "name": "current employment duration"},
-    "status_of_savings_account": {"part1": "{value}", "part2": "{value}",
-                                  "map": None,
+    "status_of_savings_account": {"part1": "had {value}",
+                                  "part2": "having {value}", "map": None,
                                   "name": "savings account status"},
-    "credit_history": {"part1": "{value}", "part2": "{value}", "map": None,
-                       "name": "credit history"},
+    "credit_history": {"part1": "had {value}", "part2": "having {value}",
+                       "map": None, "name": "credit history"},
     "status_of_existing_current_account": {
-        "part1": "{value}", "part2": "{value}", "map": None,
+        "part1": "had {value}", "part2": "having {value}", "map": None,
         "name": "current account status"}
 }
 
-# The wording fix adds the missing verb of the account/history features.
-FEATURE_TALK_FIXED = copy.deepcopy(FEATURE_TALK)
-for _name in ("status_of_savings_account", "credit_history",
-              "status_of_existing_current_account"):
-    FEATURE_TALK_FIXED[_name]["part1"] = "had {value}"
-    FEATURE_TALK_FIXED[_name]["part2"] = "having {value}"
-
 
 class Templates(object):
-    """Answer templates (``fixed=True`` selects the corrected wording)."""
+    """Answer templates."""
 
     DUNNO = "Sorry but I do not know what to say."
     GREET = "Hello. Welcome to Robo Bank."
@@ -88,7 +83,7 @@ class Templates(object):
                     "scan your application card.")
     BYE = "Thank you for your application. Goodbye."
     APPLICATION_RECEIVED = ("Thank you for your application, {name}. Please "
-                            "bear with me a moment while I process you "
+                            "bear with me a moment while I process your "
                             "application.")
     APPLICATION_PROCESSED = ("Your loan application has been processed. "
                              "Would you like to know the outcome?")
@@ -108,7 +103,7 @@ class Templates(object):
                      "{wannabe_outcome} instead of {current_outcome} please "
                      "consider the following options. The outcome of your "
                      "application would change {counterfactual}.")
-    COUNTERFACTUAL_STATEMENT_1 = ("{intro} {counterfactual_statement} "
+    COUNTERFACTUAL_STATEMENT_1 = ("{intro} {counterfactual_statement}, "
                                   "{counterfactual_outcome}")
     COUNTERFACTUAL_STATEMENT_2 = ("{intro} {counterfactual_outcome} "
                                   "{counterfactual_statement}")
@@ -140,24 +135,24 @@ class Templates(object):
                       "(identification numbers) are: {}.")
     DIFFERENT_PERSON = ("You have already applied for a loan as a different "
                         "person: {}. If you want to reapply as {}, please say "
-                        "'goodbye' to finish this application first?")
+                        "'goodbye' to finish this application first.")
     DIFFERENT_UNKNOWN_PERSON = (
         "You have already applied for a loan as a different person: {}. You "
         "are now trying to apply as {}, but we do not have this person on "
-        "record. Continue you application or say 'goodbye' to end the "
+        "record. Continue your application or say 'goodbye' to end the "
         "process.")
     HELP_APPLIED = (
         "Now that you have applied for a loan you can ask why. Try asking one "
         "of the following questions: 'Why has my loan application been "
         "denied?' or 'Is the decision fair?' or 'What can I do to get my "
         "loan application accepted?' or 'Disregarding my age what can I do "
-        "to get my loan application?' 'What can I do with my installment "
-        "rate to get my loan application accepted?'.")
+        "to get my loan application accepted?' or 'What can I do with my "
+        "instalment rate to get my loan application accepted?'.")
     FAIR = ("I understand that you are concerned about the decision "
             "fairness, however the decision is fair. None of the protected "
             "features has been used in the decisive process.")
     NO_ACTION = ("I am sorry but at the moment there is nothing you can do to "
-                 "change the decision. Your loan is {}")
+                 "change the decision. Your loan is {}.")
     NO_ENQUIRY = ("I do not have any ongoing enquiry. Please give me a moment "
                   "to open one for you. ")
     NO_COUNTERFACTUALS = ("I am sorry. I am afraid that I cannot generate any "
@@ -172,21 +167,4 @@ class Templates(object):
         'action': ("I have no more suggestions for you. Ask me again to hear "
                    "them from the beginning.")}
 
-    def __init__(self, fixed=False):
-        self.fixed = fixed
-        self.feature_talk = FEATURE_TALK_FIXED if fixed else FEATURE_TALK
-        if fixed:
-            self.APPLICATION_RECEIVED = self.APPLICATION_RECEIVED.replace(
-                'process you application', 'process your application')
-            self.DIFFERENT_UNKNOWN_PERSON = \
-                self.DIFFERENT_UNKNOWN_PERSON.replace(
-                    'Continue you application', 'Continue your application')
-            self.DIFFERENT_PERSON = self.DIFFERENT_PERSON.replace(
-                'application first?', 'application first.')
-            self.HELP_APPLIED = self.HELP_APPLIED.replace(
-                "to get my loan application?' 'What",
-                "to get my loan application accepted?' or 'What")
-            self.NO_ACTION = self.NO_ACTION + '.'
-            # a comma between the condition and the outcome
-            self.COUNTERFACTUAL_STATEMENT_1 = (
-                "{intro} {counterfactual_statement}, {counterfactual_outcome}")
+    feature_talk = FEATURE_TALK
