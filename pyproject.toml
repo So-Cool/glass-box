@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "glassbox"
+version = "0.0.1"
+description = "Glass-Box: Explaining automated loan decisions with counterfactual statements through a dialogue"
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+authors = [{ name = "Kacper Sokol", email = "k.sokol@bristol.ac.uk" }]
+requires-python = ">=3.11"
+dependencies = [
+    "ctreex>=0.0.3",
+    "numpy>=1.22",
+    "flask>=3.0",
+    # default NLU backend (reimplementation of the original Rasa pipeline)
+    "spacy>=3.8,<3.9",
+    "en-core-web-sm",
+    # preshed 3.0.14 breaks loading spaCy models
+    # (OverflowError in Tokenizer._flush_specials)
+    "preshed>=3.0.10,!=3.0.14",
+    "sklearn-crfsuite>=0.5",
+    "scikit-learn>=1.4",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+# downloading and pre-processing the UCI German Credit data, retraining
+data = ["mlaas>=0.1.0"]
+# Raspberry Pi LEDs (WS281x); the AIY Voice Kit library is installed
+# separately -- see docs/hardware.md
+pi = [
+    "neopixel-python>=0.1.0 ; sys_platform == 'linux'",
+    "rpi-ws281x>=4.3 ; sys_platform == 'linux'",
+]
+
+[project.scripts]
+glassbox = "glassbox.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/So-Cool/glass-box"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "glassbox[data]",
+]
+notebooks = [
+    "glassbox[data]",
+    "ctreex[plot,sklearn]",
+    "jupyterlab>=4",
+    "ipykernel>=6",
+    "nbconvert>=7",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.uv.sources]
+ctreex = { git = "https://github.com/So-Cool/ctreex", tag = "v0.0.3" }
+mlaas = { git = "https://github.com/So-Cool/MLaaS", tag = "v0.1.0" }
+neopixel-python = { git = "https://github.com/So-Cool/neopixel-python", tag = "v0.1.0" }
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+glassbox = { workspace = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/glassbox"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: needs a trained NLU model or downloads"]

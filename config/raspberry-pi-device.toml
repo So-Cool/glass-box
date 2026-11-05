@@ -1,0 +1,25 @@
+# The Raspberry Pi device server (LEDs, speech, voice input, QR scanner).
+#   uv run glassbox -c config/raspberry-pi-device.toml device
+# The Glass-Box application runs on another computer (or on the Pi itself,
+# see raspberry-pi-standalone.toml) at hardware.*.app_url.
+
+[device]
+host = "0.0.0.0"
+port = 5001
+
+[hardware.leds]
+backend = "neopixel"
+ring = { led_dma = 11, brightness = 165 }
+square = { led_dma = 11, brightness = 165 }
+
+[hardware.speech]
+backend = "aiy"
+
+[hardware.voice]
+enabled = true
+app_url = "http://192.168.1.32:5000"   # the computer running "glassbox serve"
+
+[hardware.qr]
+enabled = true
+app_url = "http://192.168.1.32:5000"
+device = "/dev/video0"

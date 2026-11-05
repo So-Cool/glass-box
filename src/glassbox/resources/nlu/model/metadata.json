@@ -1,0 +1,19 @@
+{
+  "spacy_model": "en_core_web_sm",
+  "labels": [
+    "action",
+    "apply",
+    "fairness",
+    "farewell",
+    "greet",
+    "help",
+    "myself",
+    "outcome",
+    "repeat",
+    "why"
+  ],
+  "versions": {
+    "spacy": "3.8.18",
+    "scikit-learn": "1.9.1"
+  }
+}

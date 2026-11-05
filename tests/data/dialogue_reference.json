@@ -1,0 +1,3788 @@
+{
+"script": [
+[
+"hello",
+{}
+],
+[
+"outcome",
+{}
+],
+[
+"apply",
+{}
+],
+[
+"apply",
+{
+"persona": "42"
+}
+],
+[
+"apply",
+{
+"persona": "P"
+}
+],
+[
+"help",
+{}
+],
+[
+"outcome",
+{}
+],
+[
+"myself",
+{}
+],
+[
+"myself",
+{
+"features": [
+"A9"
+]
+}
+],
+[
+"myself",
+{
+"features": [
+"A2",
+"A5",
+"A13",
+"A20",
+"A14",
+"A15",
+"A6",
+"A1",
+"A3",
+"A7",
+"A17",
+"A8",
+"A9"
+]
+}
+],
+[
+"fairness",
+{}
+],
+[
+"fairness",
+{}
+],
+[
+"fairness",
+{}
+],
+[
+"fairness",
+{}
+],
+[
+"fairness",
+{}
+],
+[
+"action",
+{}
+],
+[
+"action",
+{}
+],
+[
+"action",
+{}
+],
+[
+"action",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{}
+],
+[
+"why",
+{
+"features_require": [
+"A9"
+]
+}
+],
+[
+"why",
+{
+"features_require": [
+"A9"
+]
+}
+],
+[
+"why",
+{
+"features_drop": [
+"A9",
+"A13"
+]
+}
+],
+[
+"why",
+{
+"features_require": [
+"A2"
+],
+"features_drop": [
+"A13"
+]
+}
+],
+[
+"why",
+{
+"restart": true
+}
+],
+[
+"repeat",
+{}
+],
+[
+"help",
+{}
+],
+[
+"unknown",
+{}
+],
+[
+"hello",
+{}
+],
+[
+"apply",
+{
+"persona": "P"
+}
+],
+[
+"apply",
+{
+"persona": "OTHER"
+}
+],
+[
+"bye",
+{}
+],
+[
+"bye",
+{}
+],
+[
+"repeat",
+{}
+]
+],
+"runs": {
+"00": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Stu. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Stu, at the time of application: you have less than 200 pounds on your current account.",
+"Dear Stu, at the time of application: you have been male (single).",
+"Dear Stu, at the time of application: you have requested your loan for 36 months and  you have asked for 2225 pounds and  you have less than 200 pounds on your current account and  you have less than 100 pounds on your savings account and  you have  had other loans and  you have delay in paying back loans in the past and  you have received an installment rate of 4 percent and  you have been skilled employee and  you have been employed for more than 7 years and  you have  been a foreign worker and  you have lived in a council  house and  you have been 57 years old and  you have been male (single).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been male (divorced or separated), rather than being male (single) and had you requested your loan for less or equal to 11.5 months, instead of 36 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you owned a house, instead of living in a council  house and if you had been female (divorced or separated or married), rather than being male (single) and assuming that you had asked for between 2313.0 and 8015.5 pounds, rather than 2225 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been female (divorced or separated or married), rather than being male (single) and assuming that you had been between 24.5 and 27.5 years old, rather than 57 years old and if you had requested your loan for between 7.5 and 9.5 months, rather than 36 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been female (divorced or separated or married), instead of being male (single) and if you had been less or equal to 27.5 years old, rather than 57 years old and assuming that you had requested your loan for between 9.5 and 11.5 months, rather than 36 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been self-employed or highly qualified employee or unskilled -- resident, rather than being skilled employee and had you been female (divorced or separated or married), instead of being male (single) and had you requested your loan for between 15.5 and 22.5 months, instead of 36 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you between 100 and 500 pounds on your savings account or unknown or no savings account or at least a 1000 pounds on your savings account or between 500 and a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 11.5 months, instead of 36 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you asked for between 2313.0 and 8015.5 pounds, instead of 2225 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change if you had no current account, rather than less than 200 pounds on your current account.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. assuming that you had between 100 and 500 pounds on your savings account or unknown or no savings account or at least a 1000 pounds on your savings account or between 500 and a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account your loan would be accepted",
+" assuming that you had requested your loan for less or equal to 11.5 months, rather than 36 months your loan would be accepted",
+" had you asked for between 2313.0 and 8015.5 pounds, instead of 2225 pounds your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had no current account, rather than less than 200 pounds on your current account",
+"Your application has been declined. if you had requested your loan for between 11.5 and 22.5 months, rather than 36 months and if you had asked for less or equal to 632.0 pounds, rather than 2225 pounds your loan would be accepted",
+"Your application has been declined. your loan would be accepted had you requested your loan for between 11.5 and 22.5 months, instead of 36 months and assuming that you had asked for between 632.0 and 663.0 pounds, rather than 2225 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When considering using: marital status and gender.) had you been male (divorced or separated), instead of being male (single) and if you had requested your loan for less or equal to 11.5 months, rather than 36 months",
+"Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) if you had been female (divorced or separated or married), rather than being male (single) and if you had been between 24.5 and 27.5 years old, rather than 57 years old and had you requested your loan for between 7.5 and 9.5 months, instead of 36 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When avoiding using: marital status and gender and age.) had you between 100 and 500 pounds on your savings account or unknown or no savings account or at least a 1000 pounds on your savings account or between 500 and a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for less or equal to 11.5 months, rather than 36 months your loan would be accepted. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had between 100 and 500 pounds on your savings account or unknown or no savings account or at least a 1000 pounds on your savings account or between 500 and a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account your loan would be accepted",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had between 100 and 500 pounds on your savings account or unknown or no savings account or at least a 1000 pounds on your savings account or between 500 and a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account your loan would be accepted",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Stu. If you want to reapply as Jonathan, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"01": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Jonathan. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Jonathan, at the time of application: you have at least 200 pounds on your current account.",
+"Dear Jonathan, at the time of application: you have been male (divorced or separated).",
+"Dear Jonathan, at the time of application: you have requested your loan for 21 months and  you have asked for 2319 pounds and  you have at least 200 pounds on your current account and  you have less than 100 pounds on your savings account and  you have not had other loans and  you have existing loans not at this bank and  you have received an installment rate of 2 percent and  you have been skilled employee and  you have been employed for less than 1 year and  you have not been a foreign worker and  you have rented a house and  you have been 33 years old and  you have been male (divorced or separated).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had no current account, rather than at least 200 pounds on your current account and had you all loans at this bank paid back on time or existing loans paid back on time until now or no loans taken or all loans paid back on time, instead of existing loans not at this bank and had you been male (married or widowed), instead of being male (divorced or separated).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had less than 200 pounds on your current account, rather than at least 200 pounds on your current account and assuming that you had owned a house, rather than renting a house and assuming that you had been female (divorced or separated or married) or male (married or widowed) or male (single), rather than being male (divorced or separated).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been female (divorced or separated or married), rather than being male (divorced or separated) and if you had been between 24.5 and 27.5 years old, rather than 33 years old and had you requested your loan for between 7.5 and 9.5 months, instead of 21 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had been female (divorced or separated or married), rather than being male (divorced or separated) and assuming that you had been less or equal to 27.5 years old, rather than 33 years old and assuming that you had requested your loan for between 9.5 and 11.5 months, rather than 21 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you lived in a council  house, instead of renting a house and had you been self-employed or highly qualified employee or unskilled -- resident, instead of being skilled employee and had you been female (divorced or separated or married), instead of being male (divorced or separated).",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you asked for less or equal to 663.0 or between 838.5 and 883.0 pounds, instead of 2319 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 months, instead of 21 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change if you had no current account, rather than at least 200 pounds on your current account.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change assuming that you had requested your loan for less or equal to 7.5 months, rather than 21 months and assuming that you had asked for less or equal to 451.0 pounds, rather than 2319 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. assuming that you had asked for less or equal to 663.0 or between 838.5 and 883.0 pounds, rather than 2319 pounds your loan would be accepted",
+" assuming that you had requested your loan for less or equal to 7.5 months, rather than 21 months your loan would be accepted",
+" had you owned a house, instead of renting a house your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had been employed between 4 and 7 years, rather than being employed for less than 1 year",
+"Your application has been declined. if you had all loans at this bank paid back on time, rather than existing loans not at this bank your loan would be accepted",
+"Your application has been declined. your loan would be accepted if you had no current account, rather than at least 200 pounds on your current account",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. had you less than 200 pounds on your current account, instead of at least 200 pounds on your current account and had you owned a house, instead of renting a house and if you had been female (divorced or separated or married) or male (married or widowed) or male (single), rather than being male (divorced or separated) your loan would be accepted. (When considering using: marital status and gender.)",
+"Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) if you had been female (divorced or separated or married), rather than being male (divorced or separated) and if you had been between 24.5 and 27.5 years old, rather than 33 years old and had you requested your loan for between 7.5 and 9.5 months, instead of 21 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When avoiding using: marital status and gender and age.) had you asked for less or equal to 663.0 or between 838.5 and 883.0 pounds, instead of 2319 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for less or equal to 7.5 months, rather than 21 months your loan would be accepted. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had asked for less or equal to 663.0 or between 838.5 and 883.0 pounds, rather than 2319 pounds your loan would be accepted",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had asked for less or equal to 663.0 or between 838.5 and 883.0 pounds, rather than 2319 pounds your loan would be accepted",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Jonathan. If you want to reapply as Lurleen, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"02": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Lurleen. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Lurleen, at the time of application: you have less than 200 pounds on your current account.",
+"Dear Lurleen, at the time of application: you have been female (divorced or separated or married).",
+"Dear Lurleen, at the time of application: you have requested your loan for 12 months and  you have asked for 836 pounds and  you have less than 200 pounds on your current account and  you have between 100 and 500 pounds on your savings account and  you have  had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 4 percent and  you have been unskilled -- resident and  you have been employed for less than 1 year and  you have  been a foreign worker and  you have owned a house and  you have been 23 years old and  you have been female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married) and had you requested your loan for between 7.5 and 11.5 months, instead of 12 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you no current account, instead of less than 200 pounds on your current account and if you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married) and assuming that you had been between 41.5 and 44.5 years old, rather than 23 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married) and assuming that you had been between 26.5 and 47.5 years old, rather than 23 years old and if you had asked for between 1934.5 and 8176.0 pounds, rather than 836 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (divorced or separated), instead of being female (divorced or separated or married) and if you had been more than 34.5 years old, rather than 23 years old and assuming that you had requested your loan for less or equal to 11.5 months, rather than 12 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had not been a foreign worker and had you requested your loan for more than 22.5 months, instead of 12 months and had you asked for more than 5488.0 pounds, instead of 836 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you asked for less or equal to 663.0 or between 838.5 and 883.0 or between 954.5 and 1266.5 or more than 1285.5 pounds, instead of 836 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 or between 9.5 and 11.5 or more than 22.5 months, instead of 12 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you unknown or no savings account, instead of between 100 and 500 pounds on your savings account.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change if you had no current account, rather than less than 200 pounds on your current account.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. assuming that you had asked for less or equal to 663.0 or between 838.5 and 883.0 or between 954.5 and 1266.5 or more than 1285.5 pounds, rather than 836 pounds your loan would be accepted",
+" assuming that you had requested your loan for less or equal to 7.5 or between 9.5 and 11.5 or more than 22.5 months, rather than 12 months your loan would be accepted",
+" had you unknown or no savings account, instead of between 100 and 500 pounds on your savings account your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had all loans at this bank paid back on time, rather than existing loans paid back on time until now",
+"Your application has been declined. if you had no current account, rather than less than 200 pounds on your current account your loan would be accepted",
+"Your application has been declined. your loan would be accepted if you had requested your loan for less or equal to 7.5 months, rather than 12 months and had you asked for less or equal to 451.0 pounds, instead of 836 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When considering using: marital status and gender.) had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) and if you had requested your loan for between 7.5 and 11.5 months, rather than 12 months",
+"Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) if you had been male (divorced or separated), rather than being female (divorced or separated or married) and if you had been more than 34.5 years old, rather than 23 years old and had you requested your loan for less or equal to 11.5 months, instead of 12 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When avoiding using: marital status and gender and age.) had you asked for less or equal to 663.0 or between 838.5 and 883.0 or between 954.5 and 1266.5 or more than 1285.5 pounds, instead of 836 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for less or equal to 7.5 or between 9.5 and 11.5 or more than 22.5 months, rather than 12 months your loan would be accepted. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had asked for less or equal to 663.0 or between 838.5 and 883.0 or between 954.5 and 1266.5 or more than 1285.5 pounds, rather than 836 pounds your loan would be accepted",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had asked for less or equal to 663.0 or between 838.5 and 883.0 or between 954.5 and 1266.5 or more than 1285.5 pounds, rather than 836 pounds your loan would be accepted",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Lurleen. If you want to reapply as Ruth, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"03": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Ruth. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Ruth, at the time of application: you have overdraft on your current account.",
+"Dear Ruth, at the time of application: you have been female (divorced or separated or married).",
+"Dear Ruth, at the time of application: you have requested your loan for 15 months and  you have asked for 3959 pounds and  you have overdraft on your current account and  you have less than 100 pounds on your savings account and  you have not had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 3 percent and  you have been skilled employee and  you have been employed between 1 and 4 years and  you have  been a foreign worker and  you have owned a house and  you have been 29 years old and  you have been female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (divorced or separated), instead of being female (divorced or separated or married) and if you had been more than 34.5 years old, rather than 29 years old and assuming that you had requested your loan for less or equal to 11.5 months, rather than 15 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married) and assuming that you had been less or equal to 27.5 years old, rather than 29 years old and if you had requested your loan for between 7.5 and 11.5 months, rather than 15 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you no current account, instead of overdraft on your current account and if you had between 500 and a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account and assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had not been a foreign worker and had you between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account and had you requested your loan for more than 22.5 months, instead of 15 months and had you asked for more than 5488.0 pounds, instead of 3959 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you asked for less or equal to 883.0 or between 954.5 and 1181.5 or between 1285.5 and 1917.5 or between 2110.5 and 2578.0 pounds, instead of 3959 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 11.5 or between 22.5 and 43.5 months, instead of 15 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change if you had less than 200 pounds on your current account or no current account, rather than overdraft on your current account.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change assuming that you had received an installment rate of less or equal to 1.5 percent, rather than 3 percent.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. assuming that you had asked for less or equal to 883.0 or between 954.5 and 1181.5 or between 1285.5 and 1917.5 or between 2110.5 and 2578.0 pounds, rather than 3959 pounds your loan would be accepted",
+" assuming that you had requested your loan for less or equal to 11.5 or between 22.5 and 43.5 months, rather than 15 months your loan would be accepted",
+" had you less than 200 pounds on your current account or no current account, instead of overdraft on your current account your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had been less or equal to 24.5 years old, rather than 29 years old",
+"Your application has been declined. if you had received an installment rate of less or equal to 1.5 percent, rather than 3 percent your loan would be accepted",
+"Your application has been declined. your loan would be accepted if you had between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. had you between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) your loan would be accepted. (When considering using: marital status and gender.)",
+"Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married) and assuming that you had been less or equal to 27.5 years old, rather than 29 years old and if you had requested your loan for between 7.5 and 11.5 months, rather than 15 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. your loan would be accepted. (When avoiding using: marital status and gender and age.) had you asked for less or equal to 883.0 or between 954.5 and 1181.5 or between 1285.5 and 1917.5 or between 2110.5 and 2578.0 pounds, instead of 3959 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When considering: loan duration and avoiding: age.) had you requested your loan for less or equal to 11.5 or between 22.5 and 43.5 months, instead of 15 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had asked for less or equal to 883.0 or between 954.5 and 1181.5 or between 1285.5 and 1917.5 or between 2110.5 and 2578.0 pounds, rather than 3959 pounds your loan would be accepted",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had asked for less or equal to 883.0 or between 954.5 and 1181.5 or between 1285.5 and 1917.5 or between 2110.5 and 2578.0 pounds, rather than 3959 pounds your loan would be accepted",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Ruth. If you want to reapply as Joe, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"04": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Joe. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Joe, at the time of application: you have overdraft on your current account.",
+"Dear Joe, at the time of application: you have been male (single).",
+"Dear Joe, at the time of application: you have requested your loan for 9 months and  you have asked for 654 pounds and  you have overdraft on your current account and  you have less than 100 pounds on your savings account and  you have not had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 4 percent and  you have been unskilled -- resident and  you have been employed between 1 and 4 years and  you have  been a foreign worker and  you have owned a house and  you have been 28 years old and  you have been male (single).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been female (divorced or separated or married), rather than being male (single) and had you been between 24.5 and 27.5 years old, instead of 28 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (divorced or separated), instead of being male (single) and if you had been more than 34.5 years old, rather than 28 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been female (divorced or separated or married), rather than being male (single) and assuming that you had been less or equal to 27.5 years old, rather than 28 years old and assuming that you had requested your loan for between 9.5 and 11.5 months, rather than 9 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had no current account, rather than overdraft on your current account and had you been male (married or widowed), instead of being male (single) and if you had been between 30.5 and 42.0 years old, rather than 28 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account and assuming that you had been female (divorced or separated or married), rather than being male (single) and had you requested your loan for more than 22.5 months, instead of 9 months and had you asked for more than 7947.5 pounds, instead of 654 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, instead of 9 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you asked for between 1375.5 and 10931.5 pounds, instead of 654 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 months, instead of 9 months and if you had asked for less or equal to 451.0 pounds, rather than 654 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change assuming that you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and assuming that you had asked for less or equal to 632.0 pounds, rather than 654 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. assuming that you had requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, rather than 9 months your loan would be accepted",
+" assuming that you had been less or equal to 27.5 or more than 34.5 years old, rather than 28 years old your loan would be accepted",
+" had you asked for between 1375.5 and 10931.5 pounds, instead of 654 pounds your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had requested your loan for less or equal to 7.5 months, rather than 9 months and had you asked for less or equal to 451.0 pounds, instead of 654 pounds",
+"Your application has been declined. your loan would be accepted if you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and if you had asked for less or equal to 632.0 pounds, rather than 654 pounds",
+" your loan would be accepted assuming that you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and if you had asked for between 838.5 and 883.0 pounds, rather than 654 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had been female (divorced or separated or married), rather than being male (single) and if you had been between 24.5 and 27.5 years old, rather than 28 years old your loan would be accepted. (When considering using: marital status and gender.)",
+"Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) if you had been male (divorced or separated), rather than being male (single) and had you been more than 34.5 years old, instead of 28 years old",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted. (When avoiding using: marital status and gender and age.) had you requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, instead of 9 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, rather than 9 months your loan would be accepted. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, rather than 9 months your loan would be accepted",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had requested your loan for less or equal to 7.5 or between 11.5 and 22.5 or more than 43.5 months, rather than 9 months your loan would be accepted",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Joe. If you want to reapply as Kirk, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"05": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Kirk. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been accepted.",
+"Dear Kirk, at the time of application: you have less than 200 pounds on your current account.",
+"Dear Kirk, at the time of application: you have been male (married or widowed).",
+"Dear Kirk, at the time of application: you have requested your loan for 9 months and  you have asked for 1391 pounds and  you have less than 200 pounds on your current account and  you have less than 100 pounds on your savings account and  you have  had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 2 percent and  you have been skilled employee and  you have been employed between 1 and 4 years and  you have  been a foreign worker and  you have owned a house and  you have been 27 years old and  you have been male (married or widowed).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been female (divorced or separated or married), rather than being male (married or widowed) and had you been less or equal to 24.5 years old, instead of 27 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (divorced or separated), instead of being male (married or widowed) and if you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and assuming that you had asked for between 1934.5 and 8176.0 pounds, rather than 1391 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had not had other loans and assuming that you had been male (divorced or separated), rather than being male (married or widowed) and if you had requested your loan for between 22.5 and 43.5 months, rather than 9 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account and if you had been female (divorced or separated or married), rather than being male (married or widowed) and assuming that you had requested your loan for more than 22.5 months, rather than 9 months and assuming that you had asked for between 5488.0 and 7947.5 pounds, rather than 1391 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you no current account, instead of less than 200 pounds on your current account and had you not had other loans and had you between 500 and a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account and had you been female (divorced or separated or married), instead of being male (married or widowed).",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you requested your loan for more than 22.5 months, instead of 9 months.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change if you had been self-employed or highly qualified employee, rather than being skilled employee.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change assuming that you had asked for more than 10931.5 pounds, rather than 1391 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change assuming that you had no current account, rather than less than 200 pounds on your current account.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been accepted. assuming that you had requested your loan for more than 22.5 months, rather than 9 months your loan would be declined",
+" assuming that you had been self-employed or highly qualified employee, rather than being skilled employee your loan would be declined",
+" had you asked for more than 10931.5 pounds, instead of 1391 pounds your loan would be declined",
+"Your application has been accepted. your loan would be declined assuming that you had all loans at this bank paid back on time, rather than existing loans paid back on time until now",
+"Your application has been accepted. if you had no current account, rather than less than 200 pounds on your current account your loan would be declined",
+"Your application has been accepted. your loan would be declined if you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and had you asked for between 632.0 and 838.5 pounds, instead of 1391 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be declined. (When considering using: marital status and gender.) had you been female (divorced or separated or married), instead of being male (married or widowed) and if you had been less or equal to 24.5 years old, rather than 27 years old",
+"Your application has been accepted. your loan would be declined. (When considering using: marital status and gender.) if you had been male (divorced or separated), rather than being male (married or widowed) and if you had requested your loan for between 11.5 and 22.5 months, rather than 9 months and had you asked for between 1934.5 and 8176.0 pounds, instead of 1391 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be declined. (When avoiding using: marital status and gender and age.) had you requested your loan for more than 22.5 months, instead of 9 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for more than 22.5 months, rather than 9 months your loan would be declined. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had requested your loan for more than 22.5 months, rather than 9 months your loan would be declined",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had requested your loan for more than 22.5 months, rather than 9 months your loan would be declined",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Kirk. If you want to reapply as Mona, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"06": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Mona. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been accepted.",
+"Dear Mona, at the time of application: you have overdraft on your current account.",
+"Dear Mona, at the time of application: you have been female (divorced or separated or married).",
+"Dear Mona, at the time of application: you have requested your loan for 25 months and  you have asked for 8000 pounds and  you have overdraft on your current account and  you have less than 100 pounds on your savings account and  you have  had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 3 percent and  you have been self-employed or highly qualified employee and  you have been employed for less than 1 year and  you have not been a foreign worker and  you have owned a house and  you have been 41 years old and  you have been female (divorced or separated or married).",
+"I believe that this decision is unfair. The reason I am saying this is because the outcome of your application would have changed assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you  been a foreign worker and had you between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, instead of less than 100 pounds on your savings account and if you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had  been a foreign worker and assuming that you had between 100 and 500 pounds on your savings account or unknown or no savings account or between 500 and a 1000 pounds on your savings account or at least a 1000 pounds on your savings account, rather than less than 100 pounds on your savings account and assuming that you had asked for between 5488.0 and 7947.5 pounds, rather than 8000 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had less than 200 pounds on your current account, rather than overdraft on your current account and had you been male (divorced or separated), instead of being female (divorced or separated or married) and if you had requested your loan for between 11.5 and 22.5 months, rather than 25 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had not had other loans and assuming that you had been male (married or widowed), rather than being female (divorced or separated or married) and had you asked for less or equal to 2313.0 pounds, instead of 8000 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you asked for less or equal to 2313.0 or more than 8015.5 pounds, instead of 8000 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you requested your loan for more than 43.5 months, instead of 25 months.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 11.5 months, instead of 25 months and had you asked for more than 10931.5 pounds, instead of 8000 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change if you had requested your loan for between 11.5 and 22.5 months, rather than 25 months and assuming that you had asked for between 663.0 and 838.5 pounds, rather than 8000 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been accepted. assuming that you had asked for less or equal to 2313.0 or more than 8015.5 pounds, rather than 8000 pounds your loan would be declined",
+" assuming that you had been between 22.5 and 29.5 years old, rather than 41 years old your loan would be declined",
+" had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) your loan would be declined",
+"Your application has been accepted. your loan would be declined assuming that you had requested your loan for more than 43.5 months, rather than 25 months",
+"Your application has been accepted. if you had requested your loan for less or equal to 11.5 months, rather than 25 months and if you had asked for more than 10931.5 pounds, rather than 8000 pounds your loan would be declined",
+"Your application has been accepted. your loan would be declined had you requested your loan for between 11.5 and 22.5 months, instead of 25 months and assuming that you had asked for between 663.0 and 838.5 pounds, rather than 8000 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be declined. (When considering using: marital status and gender.) had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married)",
+"Your application has been accepted. your loan would be declined. (When considering using: marital status and gender.) assuming that you had less than 200 pounds on your current account, rather than overdraft on your current account and assuming that you had been male (divorced or separated), rather than being female (divorced or separated or married) and if you had requested your loan for between 11.5 and 22.5 months, rather than 25 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been accepted. your loan would be declined. (When avoiding using: marital status and gender and age.) had you asked for less or equal to 2313.0 or more than 8015.5 pounds, instead of 8000 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be declined. (When considering: loan duration and avoiding: age.) had you requested your loan for more than 43.5 months, instead of 25 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had asked for less or equal to 2313.0 or more than 8015.5 pounds, rather than 8000 pounds your loan would be declined",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had asked for less or equal to 2313.0 or more than 8015.5 pounds, rather than 8000 pounds your loan would be declined",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Mona. If you want to reapply as Selma, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"07": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Selma. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been declined.",
+"Dear Selma, at the time of application: you have less than 200 pounds on your current account.",
+"Dear Selma, at the time of application: you have been female (divorced or separated or married).",
+"Dear Selma, at the time of application: you have requested your loan for 8 months and  you have asked for 415 pounds and  you have less than 200 pounds on your current account and  you have between 100 and 500 pounds on your savings account and  you have not had other loans and  you have existing loans not at this bank and  you have received an installment rate of 5 percent and  you have been unskilled -- resident and  you have been employed between 4 and 7 years and  you have not been a foreign worker and  you have owned a house and  you have been 24 years old and  you have been female (divorced or separated or married).",
+"I believe that this decision is unfair. The reason I am saying this is because the outcome of your application would have changed assuming that you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (divorced or separated), instead of being female (divorced or separated or married) and had you been more than 34.5 years old, instead of 24 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had  been a foreign worker and assuming that you had existing loans paid back on time until now, rather than existing loans not at this bank and assuming that you had requested your loan for more than 22.5 months, rather than 8 months and assuming that you had asked for more than 7947.5 pounds, rather than 415 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had no current account, rather than less than 200 pounds on your current account and had you all loans at this bank paid back on time or existing loans paid back on time until now or no loans taken or all loans paid back on time, instead of existing loans not at this bank and if you had been male (married or widowed), rather than being female (divorced or separated or married) and assuming that you had been between 30.5 and 42.0 years old, rather than 24 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had no current account, rather than less than 200 pounds on your current account and had you between 500 and a 1000 pounds on your savings account, instead of between 100 and 500 pounds on your savings account and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) and had you received an installment rate of less or equal to 3.5 percent, instead of 5 percent.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, instead of 8 months.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for less or equal to 7.5 months, instead of 8 months and if you had asked for between 451.0 and 10931.5 pounds, rather than 415 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change assuming that you had requested your loan for between 11.5 and 22.5 months, rather than 8 months and assuming that you had asked for between 632.0 and 663.0 pounds, rather than 415 pounds.",
+"In order to have your loan application accepted instead of declined please consider the following options. The outcome of your application would change had you requested your loan for between 11.5 and 22.5 months, instead of 8 months and if you had asked for between 838.5 and 883.0 pounds, rather than 415 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, rather than 8 months your loan would be accepted",
+" had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) your loan would be accepted",
+"Your application has been declined. your loan would be accepted assuming that you had been between 24.5 and 27.5 years old, rather than 24 years old",
+"Your application has been declined. if you had all loans at this bank paid back on time, rather than existing loans not at this bank your loan would be accepted",
+"Your application has been declined. your loan would be accepted if you had requested your loan for less or equal to 7.5 months, rather than 8 months and had you asked for between 451.0 and 10931.5 pounds, instead of 415 pounds",
+" your loan would be accepted had you requested your loan for between 11.5 and 22.5 months, instead of 8 months and if you had asked for between 632.0 and 663.0 pounds, rather than 415 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been declined. your loan would be accepted. (When considering using: marital status and gender.) if you had been male (divorced or separated) or male (married or widowed) or male (single), rather than being female (divorced or separated or married)",
+" your loan would be accepted. (When considering using: marital status and gender.) if you had been male (divorced or separated), rather than being female (divorced or separated or married) and assuming that you had been more than 34.5 years old, rather than 24 years old",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  had you requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, instead of 8 months your loan would be accepted. (When avoiding using: marital status and gender and age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  had you requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, instead of 8 months your loan would be accepted. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted had you requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, instead of 8 months",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  your loan would be accepted had you requested your loan for less or equal to 7.5 or between 9.5 and 22.5 months, instead of 8 months",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Selma. If you want to reapply as Montgomery, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"08": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Montgomery. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been accepted.",
+"Dear Montgomery, at the time of application: you have no current account.",
+"Dear Montgomery, at the time of application: you have been male (single).",
+"Dear Montgomery, at the time of application: you have requested your loan for 11 months and  you have asked for 1200 pounds and  you have no current account and  you have between 500 and a 1000 pounds on your savings account and  you have not had other loans and  you have no loans taken or all loans paid back on time and  you have received an installment rate of 3 percent and  you have been skilled employee and  you have been employed between 1 and 4 years and  you have not been a foreign worker and  you have rented a house and  you have been 30 years old and  you have been male (single).",
+"I believe that this decision is unfair. The reason I am saying this is because the outcome of your application would have changed assuming that you had been female (divorced or separated or married), rather than being male (single).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you been male (married or widowed), instead of being male (single) and had you been more than 42.0 years old, instead of 30 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and assuming that you had been female (divorced or separated or married), rather than being male (single) and assuming that you had been less or equal to 24.5 years old, rather than 30 years old and assuming that you had requested your loan for between 7.5 and 9.5 months, rather than 11 months.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and had you  been a foreign worker and if you had existing loans paid back on time until now, rather than no loans taken or all loans paid back on time and assuming that you had requested your loan for more than 22.5 months, rather than 11 months and assuming that you had asked for more than 5488.0 pounds, rather than 1200 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and had you owned a house, instead of renting a house and had you less than 100 pounds on your savings account, instead of between 500 and a 1000 pounds on your savings account and had you been male (married or widowed), instead of being male (single) and had you requested your loan for between 22.5 and 43.5 months, instead of 11 months.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change assuming that you had  had other loans.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and had you asked for between 1375.5 and 10931.5 pounds, instead of 1200 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and assuming that you had asked for more than 10931.5 pounds, rather than 1200 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined",
+" had you been female (divorced or separated or married), instead of being male (single) your loan would be declined",
+"Your application has been accepted. your loan would be declined assuming that you had  had other loans",
+"Your application has been accepted. if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and if you had asked for between 1375.5 and 10931.5 pounds, rather than 1200 pounds your loan would be declined",
+"Your application has been accepted. your loan would be declined had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and assuming that you had asked for more than 10931.5 pounds, rather than 1200 pounds",
+" your loan would be declined had you been between 22.5 and 23.5 years old, instead of 30 years old and if you had received an installment rate of more than 3.5 percent, rather than 3 percent",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been accepted. your loan would be declined. (When considering using: marital status and gender.) if you had been female (divorced or separated or married), rather than being male (single)",
+" your loan would be declined. (When considering using: marital status and gender.) if you had been male (married or widowed), rather than being male (single) and assuming that you had been more than 42.0 years old, rather than 30 years old",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account your loan would be declined. (When avoiding using: marital status and gender and age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and if you had requested your loan for more than 22.5 months, rather than 11 months your loan would be declined. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Montgomery. If you want to reapply as Marge, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+],
+"09": [
+"Hello. Welcome to Robo Bank. If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"If you would like to apply for a loan please provide your name or application number. Alternatively please scan your application card.",
+"I am sorry but we do not have you on our record. Please reapply for a loan. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"I am sorry but I do not know a person with identification number: 42. Available personas (identification numbers) are: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09'].",
+"Thank you for your application, Marge. Please bear with me a moment while I process you application. Your loan application has been processed. Would you like to know the outcome?",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Your application has been accepted.",
+"Dear Marge, at the time of application: you have no current account.",
+"Dear Marge, at the time of application: you have been female (divorced or separated or married).",
+"Dear Marge, at the time of application: you have requested your loan for 22 months and  you have asked for 1283 pounds and  you have no current account and  you have unknown or no savings account and  you have not had other loans and  you have existing loans paid back on time until now and  you have received an installment rate of 4 percent and  you have been skilled employee and  you have been employed between 4 and 7 years and  you have not been a foreign worker and  you have rented a house and  you have been 25 years old and  you have been female (divorced or separated or married).",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had been male (married or widowed), rather than being female (divorced or separated or married) and had you been more than 42.0 years old, instead of 25 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and if you had  been a foreign worker and assuming that you had requested your loan for more than 22.5 months, rather than 22 months and assuming that you had asked for between 5488.0 and 7947.5 pounds, rather than 1283 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had  had other loans and if you had been employed between 1 and 4 years or employed for less than 1 year or employed for more than 7 years, rather than being employed between 4 and 7 years and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) and if you had been between 34.5 and 41.5 years old, rather than 25 years old.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and assuming that you had  been a foreign worker and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) and had you requested your loan for more than 22.5 months, instead of 22 months and had you asked for more than 5488.0 pounds, instead of 1283 pounds.",
+"I believe that this decision is indirectly unfair. The reason I am saying this is because some protected features when combined with other details of your application cause the outcome of your application to change, that is had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and had you owned a house, instead of renting a house and if you had less than 100 pounds on your savings account, rather than unknown or no savings account and assuming that you had been male (married or widowed), rather than being female (divorced or separated or married) and assuming that you had requested your loan for between 22.5 and 43.5 months, rather than 22 months.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change if you had asked for between 3346.0 and 3472.0 pounds, rather than 1283 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and assuming that you had asked for between 883.0 and 954.5 pounds, rather than 1283 pounds.",
+"In order to have your loan application declined instead of accepted please consider the following options. The outcome of your application would change had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and had you asked for between 954.5 and 1012.5 pounds, instead of 1283 pounds.",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account your loan would be declined",
+"Your application has been accepted. your loan would be declined assuming that you had been between 22.5 and 23.5 years old, rather than 25 years old",
+"Your application has been accepted. if you had asked for between 3346.0 and 3472.0 pounds, rather than 1283 pounds your loan would be declined",
+"Your application has been accepted. your loan would be declined if you had delay in paying back loans in the past, rather than existing loans paid back on time until now",
+"Your application has been accepted. had you overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, instead of no current account and had you asked for between 883.0 and 954.5 pounds, instead of 1283 pounds your loan would be declined",
+"Your application has been accepted. your loan would be declined assuming that you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account and assuming that you had asked for between 954.5 and 1012.5 pounds, rather than 1283 pounds",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you. Your application has been accepted. your loan would be declined. (When considering using: marital status and gender.) if you had been male (married or widowed), rather than being female (divorced or separated or married) and had you been more than 42.0 years old, instead of 25 years old",
+" your loan would be declined. (When considering using: marital status and gender.) had you  had other loans and had you been employed between 1 and 4 years or employed for less than 1 year or employed for more than 7 years, instead of being employed between 4 and 7 years and had you been male (divorced or separated) or male (married or widowed) or male (single), instead of being female (divorced or separated or married) and assuming that you had been between 34.5 and 41.5 years old, rather than 25 years old",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined. (When avoiding using: marital status and gender and age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  assuming that you had overdraft on your current account, rather than no current account and assuming that you had requested your loan for more than 22.5 months, rather than 22 months your loan would be declined. (When considering: loan duration and avoiding: age.)",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined",
+"I do not have any ongoing enquiry. Please give me a moment to open one for you.  if you had overdraft on your current account or less than 200 pounds on your current account or at least 200 pounds on your current account, rather than no current account your loan would be declined",
+"Now that you have applied for a loan you can ask why. Try asking one of the following questions: 'Why has my loan application been denied?' or 'Is the decision fair?' or 'What can I do to get my loan application accepted?' or 'Disregarding my age what can I do to get my loan application?' 'What can I do with my installment rate to get my loan application accepted?'.",
+"Sorry but I do not know what to say.",
+"You have already applied for your loan. Would you like to know the outcome? Alternatively say 'goodbye' to finish this application process.",
+"You have already applied for your loan. Would you like to know the outcome?",
+"You have already applied for a loan as a different person: Marge. If you want to reapply as Stu, please say 'goodbye' to finish this application first?",
+"Thank you for your application. Goodbye.",
+"Goodbye. You have not applied yet for a loan. Do you want to apply?",
+"I am sorry but I have not said anything yet."
+]
+},
+"intentioner": [
+{
+"text": "hello",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "hey",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "hi",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "hi, how are you",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "hi, how are you doing",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "how are you doing",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "bye",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "goodbye",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "thank you for your help",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "that is all",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "can you help me",
+"parse": {
+"intent": {
+"name": "help"
+},
+"entities": []
+},
+"intent": "help",
+"args": {}
+},
+{
+"text": "what can I do",
+"parse": {
+"intent": {
+"name": "help"
+},
+"entities": []
+},
+"intent": "help",
+"args": {}
+},
+{
+"text": "what can I ask you",
+"parse": {
+"intent": {
+"name": "help"
+},
+"entities": []
+},
+"intent": "help",
+"args": {}
+},
+{
+"text": "I am lost",
+"parse": {
+"intent": {
+"name": "help"
+},
+"entities": []
+},
+"intent": "help",
+"args": {}
+},
+{
+"text": "I do not know what to say",
+"parse": {
+"intent": {
+"name": "help"
+},
+"entities": []
+},
+"intent": "help",
+"args": {}
+},
+{
+"text": "Sorry I did not hear it",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "I could not hear it",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "I did not understand",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "could you repeat",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "repeat",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "repeat please",
+"parse": {
+"intent": {
+"name": "repeat"
+},
+"entities": []
+},
+"intent": "repeat",
+"args": {}
+},
+{
+"text": "is my application accepted",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "is my application declined",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "will I get my loan",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "what is the outcome of my application",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "outcome",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "is it accepted",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "is it declined",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "what personal details do you have on me",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": []
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "what are my personal details",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": []
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "describe me",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": []
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "who am I",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": []
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "what does my application card say",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": []
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "what is my gender",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 11,
+"end": 17
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "tell me about my gender",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 17,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "what is my sex",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "sex",
+"start": 11,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "Am I male",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "male",
+"start": 5,
+"end": 9
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "Am I female",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "female",
+"start": 5,
+"end": 11
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "Am I married",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "married",
+"start": 5,
+"end": 12
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Am I divorced",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "divorced",
+"start": 5,
+"end": 13
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Am I separated",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "separated",
+"start": 5,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A8"
+]
+}
+},
+{
+"text": "Am I not married",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "not married",
+"start": 5,
+"end": 16
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Am I unmarried",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "unmarried",
+"start": 5,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Am I single",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "single",
+"start": 5,
+"end": 11
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "My application number is 0",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "0",
+"start": 25,
+"end": 26
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "00"
+}
+},
+{
+"text": "My name is Stu",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Stu",
+"start": 11,
+"end": 14
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "00"
+}
+},
+{
+"text": "It is Stu",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Stu",
+"start": 6,
+"end": 9
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "00"
+}
+},
+{
+"text": "It is 0",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "0",
+"start": 6,
+"end": 7
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "00"
+}
+},
+{
+"text": "it is 1",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "1",
+"start": 6,
+"end": 7
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "it is Jonathan",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Jonathan",
+"start": 6,
+"end": 14
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "My application number is 1",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "1",
+"start": 25,
+"end": 26
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "My name is Jonathan",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Jonathan",
+"start": 11,
+"end": 19
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "My application number is 2",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "2",
+"start": 25,
+"end": 26
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "02"
+}
+},
+{
+"text": "My name is Lurleen",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Lurleen",
+"start": 11,
+"end": 18
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "02"
+}
+},
+{
+"text": "It is  Lurleen",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": " Lurleen",
+"start": 6,
+"end": 14
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": " Lurleen"
+}
+},
+{
+"text": "It is 2",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "2",
+"start": 6,
+"end": 7
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "02"
+}
+},
+{
+"text": "What is my application outcome",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "I would like to apply for a loan",
+"parse": {
+"intent": {
+"name": "greet"
+},
+"entities": []
+},
+"intent": "hello",
+"args": {}
+},
+{
+"text": "What is the duration of my loan",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my loan",
+"start": 12,
+"end": 31
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "What is my loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 11,
+"end": 24
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "How much money have I applied for",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "How much money",
+"start": 0,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "What is the loan amount",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan amount",
+"start": 12,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A5"
+]
+}
+},
+{
+"text": "What is the status of my current account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "current account",
+"start": 25,
+"end": 40
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A1"
+]
+}
+},
+{
+"text": "How much money do I have on my current account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "current account",
+"start": 31,
+"end": 46
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A1"
+]
+}
+},
+{
+"text": "What is the status of my current account and my marital status",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "marital status",
+"start": 48,
+"end": 62
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 25,
+"end": 40
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9",
+"A1"
+]
+}
+},
+{
+"text": "Is the decision fair",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "How fair is the decision",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "fairness",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "action",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "What can I do to change the decision",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "What can I do to get my loan accepted",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "What can I do to get my loan declined",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "What actions can I take to change the outcome",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "My application number is 1",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "1",
+"start": 25,
+"end": 26
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "What is my gender",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 11,
+"end": 17
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "How old am I",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "How old",
+"start": 0,
+"end": 7
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A13"
+]
+}
+},
+{
+"text": "What is my age",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "age",
+"start": 11,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A13"
+]
+}
+},
+{
+"text": "What is my housing type",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "housing type",
+"start": 11,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A15"
+]
+}
+},
+{
+"text": "what is my housing type and age",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "age",
+"start": 28,
+"end": 31
+},
+{
+"entity": "feature",
+"value": "housing type",
+"start": 11,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A13",
+"A15"
+]
+}
+},
+{
+"text": "Do I rent",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "rent",
+"start": 5,
+"end": 9
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Do I own a house",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "own",
+"start": 5,
+"end": 8
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "Do I live in a council house",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "council",
+"start": 15,
+"end": 22
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "foreign worker",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "foreign worker",
+"start": 0,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A20"
+]
+}
+},
+{
+"text": "Am I a foreign worker",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "foreign worker",
+"start": 7,
+"end": 21
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A20"
+]
+}
+},
+{
+"text": "duration of employment",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of employment",
+"start": 0,
+"end": 22
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "What is the duration of my present employment",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "present employment",
+"start": 27,
+"end": 45
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "How long have I been employed",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "employed",
+"start": 21,
+"end": 29
+}
+]
+},
+"intent": "myself",
+"args": {}
+},
+{
+"text": "job type",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "job type",
+"start": 0,
+"end": 8
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A17"
+]
+}
+},
+{
+"text": "What is my job type",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "job type",
+"start": 11,
+"end": 19
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A17"
+]
+}
+},
+{
+"text": "installment rate",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "installment rate",
+"start": 0,
+"end": 16
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A8"
+]
+}
+},
+{
+"text": "What is my installment rate",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "installment rate",
+"start": 11,
+"end": 27
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A8"
+]
+}
+},
+{
+"text": "credit history",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "credit history",
+"start": 0,
+"end": 14
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A3"
+]
+}
+},
+{
+"text": "What is my credit history",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "credit history",
+"start": 11,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A3"
+]
+}
+},
+{
+"text": "other loans",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 0,
+"end": 11
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "Do I have any other loans",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 14,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 0,
+"end": 13
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "What is the loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 12,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "loan amount",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan amount",
+"start": 0,
+"end": 11
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A5"
+]
+}
+},
+{
+"text": "what is the loan amount",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan amount",
+"start": 12,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A5"
+]
+}
+},
+{
+"text": "current account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "current account",
+"start": 0,
+"end": 15
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A1"
+]
+}
+},
+{
+"text": "What is the status of my current account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "current account",
+"start": 25,
+"end": 40
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A1"
+]
+}
+},
+{
+"text": "savings account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "savings account",
+"start": 0,
+"end": 15
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A6"
+]
+}
+},
+{
+"text": "What is the status of my savings account",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "savings account",
+"start": 25,
+"end": 40
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A6"
+]
+}
+},
+{
+"text": "why",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why is my loan denied",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why is my loan accepted",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "reset why",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_reset",
+"value": "reset",
+"start": 0,
+"end": 5
+}
+]
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "restart why",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_reset",
+"value": "restart",
+"start": 0,
+"end": 7
+}
+]
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why given the status of my current account and my age",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 4,
+"end": 9
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 27,
+"end": 42
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 50,
+"end": 53
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1",
+"A13"
+]
+}
+},
+{
+"text": "why despite my age and my marital status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "marital status",
+"start": 26,
+"end": 40
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 15,
+"end": 18
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 4,
+"end": 11
+}
+]
+},
+"intent": "why",
+"args": {
+"features_drop": [
+"A9",
+"A13"
+]
+}
+},
+{
+"text": "why given my current account and my job type and despite my age and my marital status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 4,
+"end": 9
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 49,
+"end": 56
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 13,
+"end": 28
+},
+{
+"entity": "feature",
+"value": " job type",
+"start": 35,
+"end": 44
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 60,
+"end": 63
+},
+{
+"entity": "feature",
+"value": "marital status",
+"start": 71,
+"end": 85
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1",
+"A17"
+],
+"features_drop": [
+"A13",
+"A9"
+]
+}
+},
+{
+"text": "why the decision is like that",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why so",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why is it like that",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": []
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "what is the duration of my loan",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my loan",
+"start": 12,
+"end": 31
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "Do I have any other loans",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 14,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "What are other loans that I have",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 9,
+"end": 20
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "Any other loans that I have",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 4,
+"end": 15
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "What are other loans that I have",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "other loans",
+"start": 9,
+"end": 20
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A14"
+]
+}
+},
+{
+"text": "What is my credit history",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "credit history",
+"start": 11,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A3"
+]
+}
+},
+{
+"text": "What is my loan history",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan history",
+"start": 11,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A3"
+]
+}
+},
+{
+"text": "What is my job type",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "job type",
+"start": 11,
+"end": 19
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A17"
+]
+}
+},
+{
+"text": "What type of job do I have",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "type of job",
+"start": 5,
+"end": 16
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A17"
+]
+}
+},
+{
+"text": "type of job",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "type of job",
+"start": 0,
+"end": 11
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A17"
+]
+}
+},
+{
+"text": "duration of my employment",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my employment",
+"start": 0,
+"end": 25
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "my employment duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "employment duration",
+"start": 3,
+"end": 22
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "What is my employment duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "employment duration",
+"start": 11,
+"end": 30
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "What is the duration of my employment",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my employment",
+"start": 12,
+"end": 37
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A7"
+]
+}
+},
+{
+"text": "What is my loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 11,
+"end": 24
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 0,
+"end": 13
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "my loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 3,
+"end": 16
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "the duration of my loan",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my loan",
+"start": 4,
+"end": 23
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "What is the duration of my loan",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "duration of my loan",
+"start": 12,
+"end": 31
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "What is my loan duration",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "loan duration",
+"start": 11,
+"end": 24
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A2"
+]
+}
+},
+{
+"text": "why reset",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_reset",
+"value": "reset",
+"start": 4,
+"end": 9
+}
+]
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why restart",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_reset",
+"value": "restart",
+"start": 4,
+"end": 11
+}
+]
+},
+"intent": "why",
+"args": {}
+},
+{
+"text": "why is my loan declined despite my current account status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 24,
+"end": 31
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 35,
+"end": 50
+}
+]
+},
+"intent": "why",
+"args": {
+"features_drop": [
+"A1"
+]
+}
+},
+{
+"text": "why is my loan accepted despite my current account status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 24,
+"end": 31
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 35,
+"end": 50
+}
+]
+},
+"intent": "why",
+"args": {
+"features_drop": [
+"A1"
+]
+}
+},
+{
+"text": "why is my loan declined given my current account status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 24,
+"end": 29
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 33,
+"end": 48
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1"
+]
+}
+},
+{
+"text": "why is my loan accepted given my current account status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 24,
+"end": 29
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 33,
+"end": 48
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1"
+]
+}
+},
+{
+"text": "why is my application accepted given my current account and my job type and despite my age and my marital status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 31,
+"end": 36
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 40,
+"end": 55
+},
+{
+"entity": "feature",
+"value": "job type",
+"start": 63,
+"end": 71
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 76,
+"end": 83
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 87,
+"end": 90
+},
+{
+"entity": "feature",
+"value": "marital status",
+"start": 98,
+"end": 112
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1",
+"A17"
+],
+"features_drop": [
+"A13",
+"A9"
+]
+}
+},
+{
+"text": "why is my application declined given my current account and my job type and despite my age and my marital status",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 31,
+"end": 36
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 40,
+"end": 55
+},
+{
+"entity": "feature",
+"value": "job type",
+"start": 63,
+"end": 71
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 76,
+"end": 83
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 87,
+"end": 90
+},
+{
+"entity": "feature",
+"value": "marital status",
+"start": 98,
+"end": 112
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1",
+"A17"
+],
+"features_drop": [
+"A13",
+"A9"
+]
+}
+},
+{
+"text": "why is my application accepted despite my marital status and  given my current account",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 31,
+"end": 38
+},
+{
+"entity": "feature",
+"value": "marital status",
+"start": 42,
+"end": 56
+},
+{
+"entity": "why_given",
+"value": "given",
+"start": 62,
+"end": 67
+},
+{
+"entity": "feature",
+"value": "current account",
+"start": 71,
+"end": 86
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A1"
+],
+"features_drop": [
+"A9"
+]
+}
+},
+{
+"text": "tell me my gender",
+"parse": {
+"intent": {
+"name": "myself"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 11,
+"end": 17
+}
+]
+},
+"intent": "myself",
+"args": {
+"features": [
+"A9"
+]
+}
+},
+{
+"text": "Why is my loan declined given my gender",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 33,
+"end": 39
+},
+{
+"entity": "why_given",
+"value": "given",
+"start": 24,
+"end": 29
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A9"
+]
+}
+},
+{
+"text": "why is my loan accepted despite my gender",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "feature",
+"value": "gender",
+"start": 35,
+"end": 41
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 24,
+"end": 31
+}
+]
+},
+"intent": "why",
+"args": {
+"features_drop": [
+"A9"
+]
+}
+},
+{
+"text": "I am Stu",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Stu",
+"start": 5,
+"end": 8
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "00"
+}
+},
+{
+"text": "I am Jonathan",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Jonathan",
+"start": 5,
+"end": 13
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "01"
+}
+},
+{
+"text": "I'm seven",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "seven",
+"start": 4,
+"end": 9
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "07"
+}
+},
+{
+"text": "Is it fair?",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "Is the decision fair?",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "is the outcome fair?",
+"parse": {
+"intent": {
+"name": "fairness"
+},
+"entities": []
+},
+"intent": "fairness",
+"args": {}
+},
+{
+"text": "what can I do?",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "what actions can I take?",
+"parse": {
+"intent": {
+"name": "action"
+},
+"entities": []
+},
+"intent": "action",
+"args": {}
+},
+{
+"text": "is my application accepted?",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "is my application declined",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "What is the outcome of my application?",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "outcome",
+"parse": {
+"intent": {
+"name": "outcome"
+},
+"entities": []
+},
+"intent": "outcome",
+"args": {}
+},
+{
+"text": "Thank you and bye",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "bye bye",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "good bye",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": " bye for now",
+"parse": {
+"intent": {
+"name": "farewell"
+},
+"entities": []
+},
+"intent": "bye",
+"args": {}
+},
+{
+"text": "Why given my foreign worker status and my age and my current account status and despite my marital status?",
+"parse": {
+"intent": {
+"name": "why"
+},
+"entities": [
+{
+"entity": "why_given",
+"value": "given",
+"start": 4,
+"end": 9
+},
+{
+"entity": "feature",
+"value": "foreign worker status",
+"start": 13,
+"end": 34
+},
+{
+"entity": "feature",
+"value": "age",
+"start": 42,
+"end": 45
+},
+{
+"entity": "feature",
+"value": "current account status",
+"start": 53,
+"end": 75
+},
+{
+"entity": "why_despite",
+"value": "despite",
+"start": 80,
+"end": 87
+},
+{
+"entity": "feature",
+"value": "marital status",
+"start": 91,
+"end": 105
+}
+]
+},
+"intent": "why",
+"args": {
+"features_require": [
+"A20",
+"A13",
+"A1"
+],
+"features_drop": [
+"A9"
+]
+}
+},
+{
+"text": "my application number is four",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "four",
+"start": 25,
+"end": 29
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "04"
+}
+},
+{
+"text": "I am Marge",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Marge",
+"start": 5,
+"end": 10
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "09"
+}
+},
+{
+"text": "I'm 04",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "04",
+"start": 4,
+"end": 6
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "04"
+}
+},
+{
+"text": "I am Bart",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "Bart",
+"start": 5,
+"end": 9
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "Bart"
+}
+},
+{
+"text": "persona 7",
+"parse": {
+"intent": {
+"name": "apply"
+},
+"entities": [
+{
+"entity": "persona",
+"value": "7",
+"start": 8,
+"end": 9
+}
+]
+},
+"intent": "apply",
+"args": {
+"persona": "07"
+}
+},
+{
+"text": "gibberish",
+"parse": {
+"intent": {
+"name": "nonsense"
+},
+"entities": []
+},
+"intent": "unknown",
+"args": {}
+}
+]
+}

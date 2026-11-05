@@ -1,0 +1,225 @@
+{
+ "description": "The ten loan applicants of the Glass-Box demo. Values are feature codes of the simplified German Credit data set (see german_credit_features.json). Personas with a source were copied from the UCI data set; the others are synthetic.",
+ "personas": [
+  {
+   "id": "00",
+   "name": "Stu",
+   "values": {
+    "A2": 36,
+    "A5": 2225,
+    "A1": "2",
+    "A6": "1",
+    "A14": "1",
+    "A3": "3",
+    "A8": 4,
+    "A17": "3",
+    "A7": "5",
+    "A20": "1",
+    "A15": "3",
+    "A13": 57,
+    "A9": "3"
+   },
+   "source": {
+    "dataset": "UCI Statlog (German Credit Data), german.data",
+    "row": 54,
+    "row_note": "0-based row index (line number - 1)"
+   }
+  },
+  {
+   "id": "01",
+   "name": "Jonathan",
+   "values": {
+    "A2": 21,
+    "A5": 2319,
+    "A1": "3",
+    "A6": "1",
+    "A14": "2",
+    "A3": "4",
+    "A8": 2,
+    "A17": "3",
+    "A7": "2",
+    "A20": "2",
+    "A15": "1",
+    "A13": 33,
+    "A9": "1"
+   },
+   "source": null
+  },
+  {
+   "id": "02",
+   "name": "Lurleen",
+   "values": {
+    "A2": 12,
+    "A5": 836,
+    "A1": "2",
+    "A6": "2",
+    "A14": "1",
+    "A3": "2",
+    "A8": 4,
+    "A17": "2",
+    "A7": "2",
+    "A20": "1",
+    "A15": "2",
+    "A13": 23,
+    "A9": "2"
+   },
+   "source": {
+    "dataset": "UCI Statlog (German Credit Data), german.data",
+    "row": 783,
+    "row_note": "0-based row index (line number - 1)"
+   }
+  },
+  {
+   "id": "03",
+   "name": "Ruth",
+   "values": {
+    "A2": 15,
+    "A5": 3959,
+    "A1": "1",
+    "A6": "1",
+    "A14": "2",
+    "A3": "2",
+    "A8": 3,
+    "A17": "3",
+    "A7": "3",
+    "A20": "1",
+    "A15": "2",
+    "A13": 29,
+    "A9": "2"
+   },
+   "source": {
+    "dataset": "UCI Statlog (German Credit Data), german.data",
+    "row": 858,
+    "row_note": "0-based row index (line number - 1)"
+   }
+  },
+  {
+   "id": "04",
+   "name": "Joe",
+   "values": {
+    "A2": 9,
+    "A5": 654,
+    "A1": "1",
+    "A6": "1",
+    "A14": "2",
+    "A3": "2",
+    "A8": 4,
+    "A17": "2",
+    "A7": "3",
+    "A20": "1",
+    "A15": "2",
+    "A13": 28,
+    "A9": "3"
+   },
+   "source": {
+    "dataset": "UCI Statlog (German Credit Data), german.data",
+    "row": 472,
+    "row_note": "0-based row index (line number - 1)"
+   }
+  },
+  {
+   "id": "05",
+   "name": "Kirk",
+   "values": {
+    "A2": 9,
+    "A5": 1391,
+    "A1": "2",
+    "A6": "1",
+    "A14": "1",
+    "A3": "2",
+    "A8": 2,
+    "A17": "3",
+    "A7": "3",
+    "A20": "1",
+    "A15": "2",
+    "A13": 27,
+    "A9": "4"
+   },
+   "source": {
+    "dataset": "UCI Statlog (German Credit Data), german.data",
+    "row": 60,
+    "row_note": "0-based row index (line number - 1)"
+   }
+  },
+  {
+   "id": "06",
+   "name": "Mona",
+   "values": {
+    "A2": 25,
+    "A5": 8000,
+    "A1": "1",
+    "A6": "1",
+    "A14": "1",
+    "A3": "2",
+    "A8": 3,
+    "A17": "4",
+    "A7": "2",
+    "A20": "2",
+    "A15": "2",
+    "A13": 41,
+    "A9": "2"
+   },
+   "source": null
+  },
+  {
+   "id": "07",
+   "name": "Selma",
+   "values": {
+    "A2": 8,
+    "A5": 415,
+    "A1": "2",
+    "A6": "2",
+    "A14": "2",
+    "A3": "4",
+    "A8": 5,
+    "A17": "2",
+    "A7": "4",
+    "A20": "2",
+    "A15": "2",
+    "A13": 24,
+    "A9": "2"
+   },
+   "source": null
+  },
+  {
+   "id": "08",
+   "name": "Montgomery",
+   "values": {
+    "A2": 11,
+    "A5": 1200,
+    "A1": "4",
+    "A6": "3",
+    "A14": "2",
+    "A3": "0",
+    "A8": 3,
+    "A17": "3",
+    "A7": "3",
+    "A20": "2",
+    "A15": "1",
+    "A13": 30,
+    "A9": "3"
+   },
+   "source": null
+  },
+  {
+   "id": "09",
+   "name": "Marge",
+   "values": {
+    "A2": 22,
+    "A5": 1283,
+    "A1": "4",
+    "A6": "5",
+    "A14": "2",
+    "A3": "2",
+    "A8": 4,
+    "A17": "3",
+    "A7": "4",
+    "A20": "2",
+    "A15": "1",
+    "A13": 25,
+    "A9": "2"
+   },
+   "source": null
+  }
+ ]
+}

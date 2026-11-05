@@ -1,0 +1,42 @@
+# Everything on the Raspberry Pi: run both processes on the Pi
+#   uv run glassbox -c config/raspberry-pi-standalone.toml device &
+#   uv run glassbox -c config/raspberry-pi-standalone.toml serve
+# (the device server owns the LEDs; the application talks to it locally)
+
+[app]
+host = "0.0.0.0"
+port = 5000
+
+[device]
+host = "127.0.0.1"
+port = 5001
+
+[device.leds]                   # used by "device": drives the LEDs
+backend = "neopixel"
+ring = { led_dma = 11, brightness = 165 }
+square = { led_dma = 11, brightness = 165 }
+
+[device.speech]
+backend = "aiy"
+
+[nlu]
+backend = "spacy"
+thinking_delay = 2.0
+
+[hardware.leds]                 # used by "serve": the local device server
+backend = "remote"
+url = "http://127.0.0.1:5001"
+
+[hardware.speech]
+backend = "remote"
+url = "http://127.0.0.1:5001"
+
+# "device" reads the sections below; "serve" ignores them
+[hardware.voice]
+enabled = true
+app_url = "http://127.0.0.1:5000"
+
+[hardware.qr]
+enabled = true
+app_url = "http://127.0.0.1:5000"
+device = "/dev/video0"

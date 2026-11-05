@@ -1,0 +1,1636 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "intent": "greet",
+        "text": "hello"
+      },
+      {
+        "intent": "greet",
+        "text": "hey"
+      },
+      {
+        "intent": "greet",
+        "text": "hi"
+      },
+      {
+        "intent": "greet",
+        "text": "hi, how are you"
+      },
+      {
+        "intent": "greet",
+        "text": "hi, how are you doing"
+      },
+      {
+        "intent": "greet",
+        "text": "how are you doing"
+      },
+      {
+        "intent": "farewell",
+        "text": "bye"
+      },
+      {
+        "intent": "farewell",
+        "text": "goodbye"
+      },
+      {
+        "intent": "farewell",
+        "text": "thank you for your help"
+      },
+      {
+        "intent": "farewell",
+        "text": "that is all"
+      },
+      {
+        "intent": "help",
+        "text": "can you help me"
+      },
+      {
+        "intent": "help",
+        "text": "what can I do"
+      },
+      {
+        "intent": "help",
+        "text": "what can I ask you"
+      },
+      {
+        "intent": "help",
+        "text": "I am lost"
+      },
+      {
+        "intent": "help",
+        "text": "I do not know what to say"
+      },
+      {
+        "intent": "repeat",
+        "text": "Sorry I did not hear it"
+      },
+      {
+        "intent": "repeat",
+        "text": "I could not hear it"
+      },
+      {
+        "intent": "repeat",
+        "text": "I did not understand"
+      },
+      {
+        "intent": "repeat",
+        "text": "could you repeat"
+      },
+      {
+        "intent": "repeat",
+        "text": "repeat"
+      },
+      {
+        "intent": "repeat",
+        "text": "repeat please"
+      },
+      {
+        "intent": "outcome",
+        "text": "is my application accepted"
+      },
+      {
+        "intent": "outcome",
+        "text": "is my application declined"
+      },
+      {
+        "intent": "outcome",
+        "text": "will I get my loan"
+      },
+      {
+        "intent": "outcome",
+        "text": "what is the outcome of my application"
+      },
+      {
+        "intent": "outcome",
+        "text": "outcome"
+      },
+      {
+        "intent": "outcome",
+        "text": "is it accepted"
+      },
+      {
+        "intent": "outcome",
+        "text": "is it declined"
+      },
+      {
+        "intent": "myself",
+        "text": "what personal details do you have on me"
+      },
+      {
+        "intent": "myself",
+        "text": "what are my personal details"
+      },
+      {
+        "intent": "myself",
+        "text": "describe me"
+      },
+      {
+        "intent": "myself",
+        "text": "who am I"
+      },
+      {
+        "intent": "myself",
+        "text": "what does my application card say"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 17,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "what is my gender"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 17,
+            "end": 23,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "tell me about my gender"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 14,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "what is my sex"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 9,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I male"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 11,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I female"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 12,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I married"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 13,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I divorced"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 14,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I separated"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 16,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I not married"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 14,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I unmarried"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 11,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I single"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 25,
+            "end": 26,
+            "value": "00",
+            "entity": "persona"
+          }
+        ],
+        "text": "My application number is 0"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 11,
+            "end": 14,
+            "value": "00",
+            "entity": "persona"
+          }
+        ],
+        "text": "My name is Stu"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 9,
+            "value": "00",
+            "entity": "persona"
+          }
+        ],
+        "text": "It is Stu"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 7,
+            "value": "00",
+            "entity": "persona"
+          }
+        ],
+        "text": "It is 0"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 7,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "it is 1"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 14,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "it is Jonathan"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 25,
+            "end": 26,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "My application number is 1"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 11,
+            "end": 19,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "My name is Jonathan"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 25,
+            "end": 26,
+            "value": "02",
+            "entity": "persona"
+          }
+        ],
+        "text": "My application number is 2"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 11,
+            "end": 18,
+            "value": "02",
+            "entity": "persona"
+          }
+        ],
+        "text": "My name is Lurleen"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 14,
+            "value": "02",
+            "entity": "persona"
+          }
+        ],
+        "text": "It is  Lurleen"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 6,
+            "end": 7,
+            "value": "02",
+            "entity": "persona"
+          }
+        ],
+        "text": "It is 2"
+      },
+      {
+        "intent": "outcome",
+        "text": "What is my application outcome"
+      },
+      {
+        "intent": "greet",
+        "text": "I would like to apply for a loan"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 31,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the duration of my loan"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 24,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 14,
+            "value": "A5",
+            "entity": "feature"
+          }
+        ],
+        "text": "How much money have I applied for"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 23,
+            "value": "A5",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the loan amount"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 25,
+            "end": 40,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the status of my current account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 31,
+            "end": 46,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "How much money do I have on my current account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 48,
+            "end": 62,
+            "value": "A9",
+            "entity": "feature"
+          },
+          {
+            "start": 25,
+            "end": 40,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the status of my current account and my marital status"
+      },
+      {
+        "intent": "fairness",
+        "text": "Is the decision fair"
+      },
+      {
+        "intent": "fairness",
+        "text": "How fair is the decision"
+      },
+      {
+        "intent": "fairness",
+        "text": "fairness"
+      },
+      {
+        "intent": "action",
+        "text": "action"
+      },
+      {
+        "intent": "action",
+        "text": "What can I do to change the decision"
+      },
+      {
+        "intent": "action",
+        "text": "What can I do to get my loan accepted"
+      },
+      {
+        "intent": "action",
+        "text": "What can I do to get my loan declined"
+      },
+      {
+        "intent": "action",
+        "text": "What actions can I take to change the outcome"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 25,
+            "end": 26,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "My application number is 1"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 17,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my gender"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 7,
+            "value": "A13",
+            "entity": "feature"
+          }
+        ],
+        "text": "How old am I"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 14,
+            "value": "A13",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my age"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 23,
+            "value": "A15",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my housing type"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 28,
+            "end": 31,
+            "value": "A13",
+            "entity": "feature"
+          },
+          {
+            "start": 11,
+            "end": 23,
+            "value": "A15",
+            "entity": "feature"
+          }
+        ],
+        "text": "what is my housing type and age"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 9,
+            "value": "A15",
+            "entity": "feature"
+          }
+        ],
+        "text": "Do I rent"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 8,
+            "value": "A15",
+            "entity": "feature"
+          }
+        ],
+        "text": "Do I own a house"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 15,
+            "end": 22,
+            "value": "A15",
+            "entity": "feature"
+          }
+        ],
+        "text": "Do I live in a council house"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 14,
+            "value": "A20",
+            "entity": "feature"
+          }
+        ],
+        "text": "foreign worker"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 7,
+            "end": 21,
+            "value": "A20",
+            "entity": "feature"
+          }
+        ],
+        "text": "Am I a foreign worker"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 22,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "duration of employment"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 27,
+            "end": 45,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the duration of my present employment"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 21,
+            "end": 29,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "How long have I been employed"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 8,
+            "value": "A17",
+            "entity": "feature"
+          }
+        ],
+        "text": "job type"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 19,
+            "value": "A17",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my job type"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 16,
+            "value": "A8",
+            "entity": "feature"
+          }
+        ],
+        "text": "installment rate"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 27,
+            "value": "A8",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my installment rate"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 14,
+            "value": "A3",
+            "entity": "feature"
+          }
+        ],
+        "text": "credit history"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 25,
+            "value": "A3",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my credit history"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 11,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "other loans"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 14,
+            "end": 25,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "Do I have any other loans"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 13,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 25,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 11,
+            "value": "A5",
+            "entity": "feature"
+          }
+        ],
+        "text": "loan amount"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 23,
+            "value": "A5",
+            "entity": "feature"
+          }
+        ],
+        "text": "what is the loan amount"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 15,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "current account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 25,
+            "end": 40,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the status of my current account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 15,
+            "value": "A6",
+            "entity": "feature"
+          }
+        ],
+        "text": "savings account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 25,
+            "end": 40,
+            "value": "A6",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the status of my savings account"
+      },
+      {
+        "intent": "why",
+        "text": "why"
+      },
+      {
+        "intent": "why",
+        "text": "why is my loan denied"
+      },
+      {
+        "intent": "why",
+        "text": "why is my loan accepted"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 0,
+            "end": 5,
+            "value": "true",
+            "entity": "why_reset"
+          }
+        ],
+        "text": "reset why"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 0,
+            "end": 7,
+            "value": "true",
+            "entity": "why_reset"
+          }
+        ],
+        "text": "restart why"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 4,
+            "end": 9,
+            "value": "true",
+            "entity": "why_given"
+          },
+          {
+            "start": 27,
+            "end": 42,
+            "value": "A1",
+            "entity": "feature"
+          },
+          {
+            "start": 50,
+            "end": 53,
+            "value": "A13",
+            "entity": "feature"
+          }
+        ],
+        "text": "why given the status of my current account and my age"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 26,
+            "end": 40,
+            "value": "A9",
+            "entity": "feature"
+          },
+          {
+            "start": 15,
+            "end": 18,
+            "value": "A13",
+            "entity": "feature"
+          },
+          {
+            "start": 4,
+            "end": 11,
+            "value": "true",
+            "entity": "why_despite"
+          }
+        ],
+        "text": "why despite my age and my marital status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 4,
+            "end": 9,
+            "value": "true",
+            "entity": "why_given"
+          },
+          {
+            "start": 49,
+            "end": 56,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 13,
+            "end": 28,
+            "value": "A1",
+            "entity": "feature"
+          },
+          {
+            "start": 35,
+            "end": 44,
+            "value": "A17",
+            "entity": "feature"
+          },
+          {
+            "start": 60,
+            "end": 63,
+            "value": "A13",
+            "entity": "feature"
+          },
+          {
+            "start": 71,
+            "end": 85,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "why given my current account and my job type and despite my age and my marital status"
+      },
+      {
+        "intent": "why",
+        "text": "why the decision is like that"
+      },
+      {
+        "intent": "why",
+        "text": "why so"
+      },
+      {
+        "intent": "why",
+        "text": "why is it like that"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 31,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "what is the duration of my loan"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 14,
+            "end": 25,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "Do I have any other loans"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 9,
+            "end": 20,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "What are other loans that I have"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 4,
+            "end": 15,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "Any other loans that I have"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 9,
+            "end": 20,
+            "value": "A14",
+            "entity": "feature"
+          }
+        ],
+        "text": "What are other loans that I have"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 25,
+            "value": "A3",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my credit history"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 23,
+            "value": "A3",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my loan history"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 19,
+            "value": "A17",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my job type"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 5,
+            "end": 16,
+            "value": "A17",
+            "entity": "feature"
+          }
+        ],
+        "text": "What type of job do I have"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 11,
+            "value": "A17",
+            "entity": "feature"
+          }
+        ],
+        "text": "type of job"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 25,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "duration of my employment"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 3,
+            "end": 22,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "my employment duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 30,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my employment duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 37,
+            "value": "A7",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the duration of my employment"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 24,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 0,
+            "end": 13,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 3,
+            "end": 16,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "my loan duration"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 4,
+            "end": 23,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "the duration of my loan"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 12,
+            "end": 31,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is the duration of my loan"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 24,
+            "value": "A2",
+            "entity": "feature"
+          }
+        ],
+        "text": "What is my loan duration"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 4,
+            "end": 9,
+            "value": "true",
+            "entity": "why_reset"
+          }
+        ],
+        "text": "why reset"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 4,
+            "end": 11,
+            "value": "true",
+            "entity": "why_reset"
+          }
+        ],
+        "text": "why restart"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 24,
+            "end": 31,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 35,
+            "end": 50,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my loan declined despite my current account status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 24,
+            "end": 31,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 35,
+            "end": 50,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my loan accepted despite my current account status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 24,
+            "end": 29,
+            "value": "true",
+            "entity": "why_given"
+          },
+          {
+            "start": 33,
+            "end": 48,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my loan declined given my current account status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 24,
+            "end": 29,
+            "value": "true",
+            "entity": "why_given"
+          },
+          {
+            "start": 33,
+            "end": 48,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my loan accepted given my current account status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 31,
+            "end": 36,
+            "value": "given",
+            "entity": "why_given"
+          },
+          {
+            "start": 40,
+            "end": 55,
+            "value": "A1",
+            "entity": "feature"
+          },
+          {
+            "start": 63,
+            "end": 71,
+            "value": "A17",
+            "entity": "feature"
+          },
+          {
+            "start": 76,
+            "end": 83,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 87,
+            "end": 90,
+            "value": "A13",
+            "entity": "feature"
+          },
+          {
+            "start": 98,
+            "end": 112,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my application accepted given my current account and my job type and despite my age and my marital status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 31,
+            "end": 36,
+            "value": "true",
+            "entity": "why_given"
+          },
+          {
+            "start": 40,
+            "end": 55,
+            "value": "A1",
+            "entity": "feature"
+          },
+          {
+            "start": 63,
+            "end": 71,
+            "value": "A17",
+            "entity": "feature"
+          },
+          {
+            "start": 76,
+            "end": 83,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 87,
+            "end": 90,
+            "value": "A13",
+            "entity": "feature"
+          },
+          {
+            "start": 98,
+            "end": 112,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my application declined given my current account and my job type and despite my age and my marital status"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 31,
+            "end": 38,
+            "value": "true",
+            "entity": "why_despite"
+          },
+          {
+            "start": 42,
+            "end": 56,
+            "value": "A9",
+            "entity": "feature"
+          },
+          {
+            "start": 62,
+            "end": 67,
+            "value": "given",
+            "entity": "why_given"
+          },
+          {
+            "start": 71,
+            "end": 86,
+            "value": "A1",
+            "entity": "feature"
+          }
+        ],
+        "text": "why is my application accepted despite my marital status and  given my current account"
+      },
+      {
+        "intent": "myself",
+        "entities": [
+          {
+            "start": 11,
+            "end": 17,
+            "value": "A9",
+            "entity": "feature"
+          }
+        ],
+        "text": "tell me my gender"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 33,
+            "end": 39,
+            "value": "A9",
+            "entity": "feature"
+          },
+          {
+            "start": 24,
+            "end": 29,
+            "value": "true",
+            "entity": "why_given"
+          }
+        ],
+        "text": "Why is my loan declined given my gender"
+      },
+      {
+        "intent": "why",
+        "entities": [
+          {
+            "start": 35,
+            "end": 41,
+            "value": "A9",
+            "entity": "feature"
+          },
+          {
+            "start": 24,
+            "end": 31,
+            "value": "true",
+            "entity": "why_despite"
+          }
+        ],
+        "text": "why is my loan accepted despite my gender"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 5,
+            "end": 8,
+            "value": "00",
+            "entity": "persona"
+          }
+        ],
+        "text": "I am Stu"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 5,
+            "end": 13,
+            "value": "01",
+            "entity": "persona"
+          }
+        ],
+        "text": "I am Jonathan"
+      },
+      {
+        "intent": "apply",
+        "entities": [
+          {
+            "start": 4,
+            "end": 9,
+            "value": "07",
+            "entity": "persona"
+          }
+        ],
+        "text": "I'm seven"
+      },
+      {
+        "intent": "fairness",
+        "text": "Is it fair?"
+      },
+      {
+        "intent": "fairness",
+        "text": "Is the decision fair?"
+      },
+      {
+        "intent": "fairness",
+        "text": "is the outcome fair?"
+      },
+      {
+        "intent": "action",
+        "text": "what can I do?"
+      },
+      {
+        "intent": "action",
+        "text": "what actions can I take?"
+      },
+      {
+        "intent": "outcome",
+        "text": "is my application accepted?"
+      },
+      {
+        "intent": "outcome",
+        "text": "is my application declined"
+      },
+      {
+        "intent": "outcome",
+        "text": "What is the outcome of my application?"
+      },
+      {
+        "intent": "outcome",
+        "text": "outcome"
+      },
+      {
+        "intent": "farewell",
+        "text": "Thank you and bye"
+      },
+      {
+        "intent": "farewell",
+        "text": "bye bye"
+      },
+      {
+        "intent": "farewell",
+        "text": "good bye"
+      },
+      {
+        "intent": "farewell",
+        "text": " bye for now"
+      }
+    ],
+    "regex_features": [],
+    "entity_synonyms": []
+  }
+}

@@ -1,0 +1,36 @@
+# MacOS
+.DS_Store
+__MACOSX/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+*.data
+*.csv
+data/
+!tests/data/
+
+# Local configuration
+*.local.toml
+
+# Google AIY / Cloud Speech  Credentials
+assistant.json
+client_secret*.json
+cloud_speech.json
+credentials*.json

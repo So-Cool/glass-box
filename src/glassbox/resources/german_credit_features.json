@@ -1,0 +1,167 @@
+{
+ "feature_id": [
+  "A2",
+  "A5",
+  "A1",
+  "A6",
+  "A14",
+  "A3",
+  "A8",
+  "A17",
+  "A7",
+  "A20",
+  "A15",
+  "A13",
+  "A9"
+ ],
+ "class_id": "class",
+ "feature_map": {
+  "A2": {
+   "name": "loan_duration_in_months",
+   "map": "numerical",
+   "dtype": "integer"
+  },
+  "A5": {
+   "name": "loan_amount",
+   "map": "numerical",
+   "dtype": "integer"
+  },
+  "A1": {
+   "name": "status_of_existing_current_account",
+   "map": {
+    "1": "overdraft on your current account",
+    "2": "less than 200 pounds on your current account",
+    "3": "at least 200 pounds on your current account",
+    "4": "no current account"
+   }
+  },
+  "A6": {
+   "name": "status_of_savings_account",
+   "map": {
+    "1": "less than 100 pounds on your savings account",
+    "2": "between 100 and 500 pounds on your savings account",
+    "3": "between 500 and a 1000 pounds on your savings account",
+    "4": "at least a 1000 pounds on your savings account",
+    "5": "unknown or no savings account"
+   }
+  },
+  "A14": {
+   "name": "other_loans",
+   "map": {
+    "1": "yes",
+    "2": "no"
+   }
+  },
+  "A3": {
+   "name": "credit_history",
+   "map": {
+    "0": "no loans taken or all loans paid back on time",
+    "1": "all loans at this bank paid back on time",
+    "2": "existing loans paid back on time until now",
+    "3": "delay in paying back loans in the past",
+    "4": "existing loans not at this bank"
+   }
+  },
+  "A8": {
+   "name": "installment_rate",
+   "map": "numerical",
+   "dtype": "integer"
+  },
+  "A17": {
+   "name": "job_type",
+   "map": {
+    "1": "unemployed or unskilled -- non-resident",
+    "2": "unskilled -- resident",
+    "3": "skilled employee",
+    "4": "self-employed or highly qualified employee"
+   }
+  },
+  "A7": {
+   "name": "duration_of_present_employment",
+   "map": {
+    "1": "unemployed",
+    "2": "employed for less than 1 year",
+    "3": "employed between 1 and 4 years",
+    "4": "employed between 4 and 7 years",
+    "5": "employed for more than 7 years"
+   }
+  },
+  "A20": {
+   "name": "is_foreign_worker",
+   "map": {
+    "1": "yes",
+    "2": "no"
+   }
+  },
+  "A15": {
+   "name": "housing_type",
+   "map": {
+    "1": "rent",
+    "2": "own",
+    "3": "council"
+   }
+  },
+  "A13": {
+   "name": "age",
+   "map": "numerical",
+   "dtype": "integer"
+  },
+  "A9": {
+   "name": "marital_status_and_gender",
+   "map": {
+    "1": "male (divorced or separated)",
+    "2": "female (divorced or separated or married)",
+    "3": "male (single)",
+    "4": "male (married or widowed)",
+    "5": "female (single)"
+   }
+  },
+  "class": {
+   "name": "credit_score",
+   "map": {
+    "1": "good",
+    "2": "bad"
+   }
+  }
+ },
+ "columns": [
+  "A2",
+  "A5",
+  "A8",
+  "A13",
+  "A1_1",
+  "A1_2",
+  "A1_3",
+  "A1_4",
+  "A6_1",
+  "A6_2",
+  "A6_3",
+  "A6_4",
+  "A6_5",
+  "A14_1",
+  "A14_2",
+  "A3_0",
+  "A3_1",
+  "A3_2",
+  "A3_3",
+  "A3_4",
+  "A17_1",
+  "A17_2",
+  "A17_3",
+  "A17_4",
+  "A7_1",
+  "A7_2",
+  "A7_3",
+  "A7_4",
+  "A7_5",
+  "A20_1",
+  "A20_2",
+  "A15_1",
+  "A15_2",
+  "A15_3",
+  "A9_1",
+  "A9_2",
+  "A9_3",
+  "A9_4"
+ ]
+}

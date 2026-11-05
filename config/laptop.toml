@@ -1,0 +1,34 @@
+# Glass-Box on a laptop: chat only, no hardware.
+#   uv run glassbox -c config/laptop.toml serve    -> http://127.0.0.1:5000
+
+[app]
+host = "127.0.0.1"
+port = 5000
+poll_interval = 2.0          # seconds between polls for voice/QR messages
+
+[model]
+# tree = "path/to/tree.json"   # default: the original Glass-Box tree
+
+[dialogue]
+implementation = "fixed"     # "original" replicates the 2018 system
+
+[dialogue.fixes]
+# Override individual dialogue fixes (see glassbox.dialogue.fixes), e.g.,
+# myself_all_features = false
+
+[dialogue.explainer_fixes]
+# Override individual explainer fixes (see ctreex.fixes), e.g.,
+# deterministic_order = true
+
+[nlu]
+backend = "spacy"            # or "rasa-legacy" (Docker, docker/rasa-legacy)
+thinking_delay = 0.0         # pause while the "thinking" LEDs are shown
+
+[nlu.rasa_legacy]
+url = "http://localhost:5005"
+
+[hardware.leds]
+backend = "mock"             # log LED patterns instead of driving LEDs
+
+[hardware.speech]
+backend = "disabled"

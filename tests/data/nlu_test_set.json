@@ -1,0 +1,516 @@
+{
+ "rasa_nlu_data": {
+  "common_examples": [
+   {
+    "text": "hi, good to meet you",
+    "intent": "greet",
+    "entities": []
+   },
+   {
+    "text": "hello, is anybody there",
+    "intent": "greet",
+    "entities": []
+   },
+   {
+    "text": "ok, thank you, goodbye",
+    "intent": "farewell",
+    "entities": []
+   },
+   {
+    "text": "nothing else, bye",
+    "intent": "farewell",
+    "entities": []
+   },
+   {
+    "text": "I am not sure what to ask",
+    "intent": "help",
+    "entities": []
+   },
+   {
+    "text": "can you tell me what to do",
+    "intent": "help",
+    "entities": []
+   },
+   {
+    "text": "sorry, could you repeat that",
+    "intent": "repeat",
+    "entities": []
+   },
+   {
+    "text": "I missed that",
+    "intent": "repeat",
+    "entities": []
+   },
+   {
+    "text": "have I been accepted",
+    "intent": "outcome",
+    "entities": []
+   },
+   {
+    "text": "so what is the verdict",
+    "intent": "outcome",
+    "entities": []
+   },
+   {
+    "text": "did my application go through",
+    "intent": "outcome",
+    "entities": []
+   },
+   {
+    "text": "was the decision unbiased",
+    "intent": "fairness",
+    "entities": []
+   },
+   {
+    "text": "is that a fair outcome",
+    "intent": "fairness",
+    "entities": []
+   },
+   {
+    "text": "hello, it is Marge",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 13,
+      "end": 18,
+      "value": "09",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "hello, it is Ruth",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 13,
+      "end": 17,
+      "value": "03",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "Lurleen applying",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 0,
+      "end": 7,
+      "value": "02",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "Marge applying",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 0,
+      "end": 5,
+      "value": "09",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "the applicant is Lurleen",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 17,
+      "end": 24,
+      "value": "02",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "the applicant is Marge",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 17,
+      "end": 22,
+      "value": "09",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "the applicant is Kirk",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 17,
+      "end": 21,
+      "value": "05",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "number one",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 7,
+      "end": 10,
+      "value": "01",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "number 03",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 7,
+      "end": 9,
+      "value": "03",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "number 06",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 7,
+      "end": 9,
+      "value": "06",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "my application is 07",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 18,
+      "end": 20,
+      "value": "07",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "my application is two",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 18,
+      "end": 21,
+      "value": "02",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "my application is one",
+    "intent": "apply",
+    "entities": [
+     {
+      "start": 18,
+      "end": 21,
+      "value": "01",
+      "entity": "persona"
+     }
+    ]
+   },
+   {
+    "text": "what have you got on my job",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 24,
+      "end": 27,
+      "value": "A17",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what have you got on my loan duration",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 24,
+      "end": 37,
+      "value": "A2",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what have you got on my profession",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 24,
+      "end": 34,
+      "value": "A17",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "remind me of my being too young",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 16,
+      "end": 31,
+      "value": "A13",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "remind me of my other credits",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 16,
+      "end": 29,
+      "value": "A14",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "remind me of my credit record",
+    "intent": "myself",
+    "entities": [
+     {
+      "start": 16,
+      "end": 29,
+      "value": "A3",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what does my application say about me",
+    "intent": "myself",
+    "entities": []
+   },
+   {
+    "text": "how come I was declined",
+    "intent": "why",
+    "entities": []
+   },
+   {
+    "text": "what is the reason for the decision",
+    "intent": "why",
+    "entities": []
+   },
+   {
+    "text": "explain it in view of my loan duration",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 11,
+      "end": 21,
+      "value": "true",
+      "entity": "why_given"
+     },
+     {
+      "start": 25,
+      "end": 38,
+      "value": "A2",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "explain it given my savings balance",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 11,
+      "end": 16,
+      "value": "true",
+      "entity": "why_given"
+     },
+     {
+      "start": 20,
+      "end": 35,
+      "value": "A6",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "explain it given my profession",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 11,
+      "end": 16,
+      "value": "true",
+      "entity": "why_given"
+     },
+     {
+      "start": 20,
+      "end": 30,
+      "value": "A17",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what is the reason, leaving aside my repayment rate",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 20,
+      "end": 33,
+      "value": "true",
+      "entity": "why_despite"
+     },
+     {
+      "start": 37,
+      "end": 51,
+      "value": "A8",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what is the reason, leaving aside my job",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 20,
+      "end": 33,
+      "value": "true",
+      "entity": "why_despite"
+     },
+     {
+      "start": 37,
+      "end": 40,
+      "value": "A17",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what is the reason, despite my checking account",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 20,
+      "end": 27,
+      "value": "true",
+      "entity": "why_despite"
+     },
+     {
+      "start": 31,
+      "end": 47,
+      "value": "A1",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "please reset the explanation",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 7,
+      "end": 12,
+      "value": "true",
+      "entity": "why_reset"
+     }
+    ]
+   },
+   {
+    "text": "please restart the explanation",
+    "intent": "why",
+    "entities": [
+     {
+      "start": 7,
+      "end": 14,
+      "value": "true",
+      "entity": "why_reset"
+     }
+    ]
+   },
+   {
+    "text": "what could I do differently",
+    "intent": "action",
+    "entities": []
+   },
+   {
+    "text": "how do I get the loan approved next time",
+    "intent": "action",
+    "entities": []
+   },
+   {
+    "text": "what else can I do, leaving aside my other loans",
+    "intent": "action",
+    "entities": [
+     {
+      "start": 20,
+      "end": 33,
+      "value": "true",
+      "entity": "why_despite"
+     },
+     {
+      "start": 37,
+      "end": 48,
+      "value": "A14",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "what else can I do, despite my loan duration",
+    "intent": "action",
+    "entities": [
+     {
+      "start": 20,
+      "end": 27,
+      "value": "true",
+      "entity": "why_despite"
+     },
+     {
+      "start": 31,
+      "end": 44,
+      "value": "A2",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "can I change my other credits to get the loan",
+    "intent": "action",
+    "entities": [
+     {
+      "start": 16,
+      "end": 29,
+      "value": "A14",
+      "entity": "feature"
+     }
+    ]
+   },
+   {
+    "text": "can I change my current account balance to get the loan",
+    "intent": "action",
+    "entities": [
+     {
+      "start": 16,
+      "end": 39,
+      "value": "A1",
+      "entity": "feature"
+     }
+    ]
+   }
+  ]
+ }
+}
