@@ -10,11 +10,7 @@ poll_interval = 2.0          # seconds between polls for voice/QR messages
 # tree = "path/to/tree.json"   # default: the original Glass-Box tree
 
 [dialogue]
-implementation = "fixed"     # "original" replicates the 2018 system
-
-[dialogue.fixes]
-# Override individual dialogue fixes (see glassbox.dialogue.fixes), e.g.,
-# myself_all_features = false
+implementation = "fixed"     # "original": the 2018 explainer (CtreeX legacy)
 
 [dialogue.explainer_fixes]
 # Override individual explainer fixes (see ctreex.fixes), e.g.,

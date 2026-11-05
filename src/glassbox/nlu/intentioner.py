@@ -2,11 +2,10 @@
 import json
 import re
 
-from glassbox.dialogue.fixes import resolve_dialogue_fixes
 from glassbox.dialogue.templates import APPLICANT_NAMES, NUMBERS
 from glassbox.resources import resource_path
 
-__all__ = ['Intentioner', 'decode_feature_original', 'decode_feature_fixed',
+__all__ = ['Intentioner', 'decode_feature',
            'decode_persona', 'feature_synonyms']
 
 INTENT_MAP = {"greet": "hello", "apply": "apply", "myself": "myself",
@@ -27,41 +26,6 @@ def decode_persona(persona):
         if name.lower() == persona.lower():
             return i
     return persona
-
-
-def decode_feature_original(feature_name):
-    """The original (substring) keyword rules."""
-    feature_id = None
-    if "current" in feature_name:
-        feature_id = "A1"
-    elif "duration" in feature_name and "loan" in feature_name:
-        feature_id = "A2"
-    elif "history" in feature_name:
-        feature_id = "A3"
-    elif "loan" in feature_name and "amount" in feature_name:
-        feature_id = "A5"
-    elif "saving" in feature_name:
-        feature_id = "A6"
-    elif "employment" in feature_name:
-        feature_id = "A7"
-    elif "rate" in feature_name or "installment" in feature_name:
-        feature_id = "A8"
-    elif ("marital" in feature_name or "male" in feature_name
-          or "gender" in feature_name or "female" in feature_name
-          or "sex" in feature_name):
-        feature_id = "A9"
-    elif "age" in feature_name or "old" in feature_name:
-        feature_id = "A13"
-    elif "other" in feature_name or "loan" in feature_name:
-        feature_id = "A14"
-    elif "hous" in feature_name:
-        feature_id = "A15"
-    elif (("job" in feature_name or "employ" in feature_name)
-          and "type" in feature_name):
-        feature_id = "A17"
-    elif "foreign" in feature_name or "worker" in feature_name:
-        feature_id = "A20"
-    return feature_id
 
 
 _SYNONYMS = None
@@ -111,10 +75,10 @@ _KEYWORDS = [
 ]
 
 
-def decode_feature_fixed(feature_name):
+def decode_feature(feature_name):
     """
-    Feature recognition with the annotated mentions of the training data and
-    word-boundary keywords (the ``feature_keywords`` fix).
+    Recognises a feature mentioned in a sentence: the mentions annotated in
+    the NLU training data, then word-boundary keywords.
     """
     text = feature_name.lower().strip()
     synonyms = feature_synonyms()
@@ -134,20 +98,20 @@ class Intentioner(object):
     ----------
     nlu : glassbox.nlu.NLUBackend, optional
         Needed by :meth:`sentence_to_intent`.
-    implementation : {'original', 'fixed'}
-    fixes : dict, optional
-        Overrides of the dialogue switches (``feature_keywords`` and
-        ``why_reset`` are used here).
+
+    Compared with the original implementation, features are recognised with
+    the mentions annotated in the training data and word-boundary keywords
+    (the original substring rules missed, e.g., "married", "rent" and
+    "employed" and mapped "separated" to the instalment rate), the
+    ``why_reset`` entity ("restart why") restarts the explanations and "what
+    can I do" requests carry restrictions like "why" requests.
     """
 
-    def __init__(self, nlu=None, implementation='fixed', fixes=None):
+    def __init__(self, nlu=None):
         self.nlu = nlu
-        self.fixes = resolve_dialogue_fixes(implementation, fixes)
 
     def decode_feature(self, feature_name):
-        if self.fixes.feature_keywords:
-            return decode_feature_fixed(feature_name)
-        return decode_feature_original(feature_name)
+        return decode_feature(feature_name)
 
     def sentence_to_intent(self, sentence):
         """Parses a sentence with the NLU backend and maps it."""
@@ -183,7 +147,7 @@ class Intentioner(object):
                 args["features"] = features
         elif intent == "why":
             args = self._why_arguments(entities, entities_names)
-        elif intent == "action" and self.fixes.action_restrictions:
+        elif intent == "action":
             args = self._why_arguments(entities, entities_names)
             args.pop("restart", None)
             if not args:  # "what can I do with my X" -> change X
@@ -237,6 +201,6 @@ class Intentioner(object):
             args["features_require"] = features_require
         if features_drop:
             args["features_drop"] = features_drop
-        if self.fixes.why_reset and "why_reset" in entities_names:
+        if "why_reset" in entities_names:
             args["restart"] = True
         return args

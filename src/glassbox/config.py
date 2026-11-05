@@ -14,7 +14,7 @@ __all__ = ['DEFAULTS', 'load_config', 'merge']
 DEFAULTS = {
     'app': {'host': '127.0.0.1', 'port': 5000, 'poll_interval': 2.0},
     'model': {'tree': None},
-    'dialogue': {'implementation': 'fixed', 'fixes': {},
+    'dialogue': {'implementation': 'fixed',
                  'explainer_fixes': {}},
     'nlu': {'backend': 'spacy', 'thinking_delay': 0.0,
             'spacy': {'model_dir': None, 'spacy_model': None},
@@ -61,6 +61,11 @@ def load_config(path=None, overrides=None):
             config = merge(config, tomllib.load(f))
     if overrides:
         config = merge(config, overrides)
+    if 'fixes' in config['dialogue']:
+        raise ValueError('The dialogue fixes are no longer switchable -- '
+                         'remove [dialogue.fixes] from the configuration '
+                         '(the explainer fixes are in '
+                         '[dialogue.explainer_fixes]).')
     if config['dialogue']['implementation'] not in ('original', 'fixed'):
         raise ValueError("dialogue.implementation has to be 'original' or "
                          "'fixed'.")

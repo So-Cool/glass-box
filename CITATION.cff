@@ -1,16 +1,24 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as follows:"
-type: conference-paper
+type: software
 title: "Glass-Box: Explaining AI decisions with counterfactual statements through conversation with a voice-enabled virtual assistant"
 authors:
   - family-names: Sokol
     given-names: Kacper
-  - family-names: Flach
-    given-names: Peter
-conference:
-  name: "Proceedings of the 27th International Joint Conference on Artificial Intelligence: Demos"
-publisher:
-  name: IJCAI Organization
-year: 2018
-pages: 5868–5870
-doi: "10.24963/ijcai.2018/865"
+preferred-citation:
+  type: conference-paper
+  title: "Glass-Box: Explaining AI decisions with counterfactual statements through conversation with a voice-enabled virtual assistant"
+  authors:
+    - family-names: Sokol
+      given-names: Kacper
+    - family-names: Flach
+      given-names: Peter
+  collection-title: "Proceedings of the 27th International Joint Conference on Artificial Intelligence: Demos"
+  conference:
+    name: "IJCAI-18"
+  publisher:
+    name: "IJCAI Organization"
+  year: 2018
+  start: 5868
+  end: 5870
+  doi: "10.24963/ijcai.2018/865"

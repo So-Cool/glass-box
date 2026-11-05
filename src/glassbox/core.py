@@ -52,11 +52,9 @@ class GlassBox(object):
             fixes=dialogue.get('explainer_fixes') or None)
         self.dialogue = DialogueManager(
             self.model, implementation=dialogue['implementation'],
-            fixes=dialogue.get('fixes') or None, on_event=self.leds.show)
+            on_event=self.leds.show)
         self._nlu = nlu
-        self.intentioner = Intentioner(
-            nlu, implementation=dialogue['implementation'],
-            fixes=dialogue.get('fixes') or None)
+        self.intentioner = Intentioner(nlu)
         self.messages = collections.deque()
         self.voice_disabled = False
         self.lock = threading.RLock()

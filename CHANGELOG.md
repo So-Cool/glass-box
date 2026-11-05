@@ -13,9 +13,10 @@
   mapping (`test_nlu.py`, 169 intent mappings).
   The dialogue logic was verified against the original code turn by turn
   (390 dialogue turns);
-  since the corrections listed under *Always applied* are not switchable,
-  the dialogue references (780 turns: chat and speech) are the original logic
-  with these corrections.
+  since the corrections listed under *Non-critical fixes* are always applied,
+  the dialogue references (780 turns: chat and speech) and the intent mapping
+  references (15 of 169 mappings changed) are the original logic with these
+  corrections.
 * The `spacy` backend -- now default -- reimplements the original Rasa NLU
   pipeline;
   it is trained on the 162 original and 241 new (added in 2026) examples.
@@ -46,10 +47,12 @@
 
 ### Bug fixes and behaviour changes
 
-The configuration file can switch between the original and new behaviour of
-the code.
-`implementation = "original"` reproduces the original implementation;
-`implementation = "fixed"` (default) enables the fixes described below,
+The fixes of the dialogue and the intent mapping are always applied.
+The configuration file can switch between the original and the fixed
+explainer:
+`implementation = "original"` uses the original explainer (the `legacy`
+implementation of CtreeX);
+`implementation = "fixed"` (default) enables the CtreeX fixes described below,
 each of which can also be switched individually.
 For example:
 
@@ -57,9 +60,6 @@ For example:
 [dialogue]
 implementation = "original"
 # implementation = "fixed"    # default
-
-[dialogue.fixes]              # individual dialogue fixes
-why_reset = false
 
 [dialogue.explainer_fixes]    # individual CtreeX fixes
 complete_categorical_features = false
@@ -98,18 +98,23 @@ In Python, this is set with `DialogueManager(implementation='original')` and
   Glass-Box says that there are no more
   (and the next request starts from the beginning)
   instead of silently starting over, both in the chat and when speaking.
+* **Feature recognition.**
+  The original substring rules missed 11 of the 94 feature mentions of the
+  NLU training data ("married", "rent", "employed", ...) and mapped
+  "separated" to the instalment rate ("sepa**rate**d");
+  features are now recognised with the annotated mentions and word-boundary
+  keywords.
+* **Restarting explanations.**
+  The NLU's `why_reset` entity ("restart why") was ignored so restarting was
+  only possible with the `cmd:` syntax;
+  it now restarts the explanations.
+* **Restricted suggestions.**
+  "What can I do" ignored restrictions, although the help message suggested
+  "Disregarding my age what can I do ...?";
+  it now accepts the restrictions of "why" (*despite* / *given* features,
+  "what can I do with my X").
 
-#### Switchable fixes (`implementation='fixed'`, the default)
-
-##### Dialogue and intents (`DialogueFixes`, `[dialogue.fixes]`)
-
-| Switch | Original | Fixed |
-|--------|----------|-------|
-| `feature_keywords`    | substring rules missed 11 of the 94 feature mentions of the NLU training data ("married", "rent", "employed", ...) and mapped "separated" to the instalment rate ("sepa**rate**d") | annotated mentions + word-boundary keywords |
-| `why_reset`           | the NLU's `why_reset` entity was ignored ("restart why" only via `cmd:`) | restarts the enquiry |
-| `action_restrictions` | "what can I do" ignored restrictions, although the help message suggested "Disregarding my age what can I do ...?" | "what can I do" accepts the restrictions of "why" (*despite* / *given* features, "what can I do with my X") |
-
-##### Explainer (CtreeX, `[dialogue.explainer_fixes]`)
+#### Switchable fixes: explainer (CtreeX, `[dialogue.explainer_fixes]`)
 
 The explainer is [CtreeX][ctreex] version 0.0.3:
 the original implementation is its `legacy` implementation;

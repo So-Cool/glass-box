@@ -130,3 +130,10 @@ def test_example_configs_load():
     files = glob.glob(os.path.join(root, '*.toml'))
     for f in files:
         load_config(f)
+
+
+def test_dialogue_fixes_are_not_configurable(tmp_path):
+    path = tmp_path / 'c.toml'
+    path.write_text('[dialogue.fixes]\nwhy_reset = false\n')
+    with pytest.raises(ValueError):
+        load_config(str(path))

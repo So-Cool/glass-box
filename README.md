@@ -252,7 +252,7 @@ The following options can be configured:
 |---------------------|------|
 | `[app]`             | `host`, `port`, `poll_interval` (seconds between polls for voice and QR messages) |
 | `[model]`           | `tree` points to a tree as JSON or a (modern) scikit-learn pickle; default: the original tree |
-| `[dialogue]`        | `implementation` (`original` / `fixed`); `[dialogue.fixes]`, `[dialogue.explainer_fixes]` for individual switches |
+| `[dialogue]`        | `implementation` (`original` / `fixed` explainer); `[dialogue.explainer_fixes]` for individual CtreeX fixes |
 | `[nlu]`             | `backend` (`spacy` / `rasa-legacy`), `thinking_delay` (seconds the "thinking" LEDs are shown); `[nlu.spacy]` has `model_dir`, `spacy_model`; `[nlu.rasa_legacy]` has `url`, `project`, `model` |
 | `[hardware.leds]`   | `backend` (`neopixel` / `remote` / `mock` / `disabled`), `url` (remote), `ring` / `square` (neopixel options, e.g., `led_dma`, `brightness`) |
 | `[hardware.speech]` | `backend` (`aiy` / `remote` / `mock` / `disabled`), `url`, `lang`, `volume` |

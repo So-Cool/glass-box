@@ -5,14 +5,17 @@ The dialogue manager: a state machine answering the applicant's requests.
  :class:`glassbox.nlu.Intentioner` or the ``cmd:`` syntax):
 
 ``hello``, ``bye``, ``apply`` (``persona``), ``outcome``, ``help``,
-``fairness``, ``action``, ``why`` (``features_require``, ``features_drop``,
-``restart``), ``myself`` (``features``), ``repeat``.
+``fairness``, ``action`` (``features_require``, ``features_drop``), ``why``
+(``features_require``, ``features_drop``, ``restart``), ``myself``
+(``features``), ``repeat``.
 
-With ``implementation='original'`` (and the explainer's ``deterministic_order``
-fix) the answers are those of the original implementation, except that the
-wording is corrected, ranges of whole-number features are described with whole
-numbers and the applicant is told when all the explanations have been given
-(these changes are always used).
+The dialogue logic is that of the original implementation with corrections
+(always used): corrected wording, ranges of whole-number features described
+with whole numbers, the applicant told when all the explanations have been
+given, and the restrictions of "what can I do" requests honoured (the original
+ignored them). ``implementation`` only selects the explainer: with
+``'original'`` (and the explainer's ``deterministic_order`` fix) the
+explanations are those of the original implementation.
 
 The answers depend on the output channel only for "tell me about myself"
 without naming any feature:
@@ -26,7 +29,6 @@ import logging
 import random
 import re
 
-from glassbox.dialogue.fixes import resolve_dialogue_fixes
 from glassbox.dialogue.templates import (APPLICANT_NAMES, FEATURE_ACTIONABLE,
                                          FEATURE_UNFAIR, OUTCOME_MAP,
                                          Templates)
@@ -63,10 +65,8 @@ class DialogueManager(object):
         The model (default: the original Glass-Box tree, with the explainer
         configured by ``implementation`` and ``explainer_fixes``).
     implementation : {'original', 'fixed'}
-        Default behaviour of all the dialogue switches (see
-        :mod:`glassbox.dialogue.fixes`).
-    fixes : dict, optional
-        Overrides of individual dialogue switches.
+        The explainer used when ``model`` is not given: the original (CtreeX
+        ``legacy``) or the fixed one.
     explainer_fixes : dict, optional
         Overrides of the counterfactual explainer switches (see
         :class:`ctreex.Fixes`); used when ``model`` is not given.
@@ -77,11 +77,12 @@ class DialogueManager(object):
         the global ``random`` module).
     """
 
-    def __init__(self, model=None, implementation='fixed', fixes=None,
+    def __init__(self, model=None, implementation='fixed',
                  explainer_fixes=None, on_event=None, rng=None):
+        if implementation not in ('original', 'fixed'):
+            raise ValueError("implementation has to be 'original' or "
+                             "'fixed'.")
         self.implementation = implementation
-        self.fix_overrides = dict(fixes or {})
-        resolve_dialogue_fixes(implementation, self.fix_overrides)  # validate
         if model is None:
             model = GlassBoxModel(implementation=implementation,
                                   fixes=explainer_fixes)
@@ -110,10 +111,6 @@ class DialogueManager(object):
         self.action_require = []
         self._exhausted = {'why': False, 'fairness': False, 'action': False}
 
-    def fixes(self):
-        """The dialogue switches."""
-        return resolve_dialogue_fixes(self.implementation, self.fix_overrides)
-
     def _event(self, name, **params):
         if self.on_event is not None:
             try:
@@ -121,7 +118,7 @@ class DialogueManager(object):
             except Exception:  # hardware feedback must never break dialogue
                 logger.exception('Event handler failed for %s.', name)
 
-    def _say(self, text, fixes):
+    def _say(self, text):
         if text:
             text = _tidy(text)
         self.last_said = text
@@ -150,7 +147,7 @@ class DialogueManager(object):
         return "COULD NOT GENERATE A STATEMENT FOR **{}**".format(
             feature_name)
 
-    def get_counterfactual(self, cf_dictionary, templates, fixes):
+    def get_counterfactual(self, cf_dictionary, templates):
         """Phrases a counterfactual (``{feature: {'is', 'wannabe'}}``)."""
         t = templates
         translated = self.model.describe(cf_dictionary)
@@ -212,7 +209,7 @@ class DialogueManager(object):
         return "**unknown**"
 
     # ------------------------------------------------------------- helpers
-    def _next(self, name, build, fixes):
+    def _next(self, name, build):
         """
         Pops the next item of the ``name`` queue, rebuilding it when empty.
 
@@ -257,7 +254,7 @@ class DialogueManager(object):
             for point in self.contrastive_per_leaf_transformed[dist].values():
                 if not all(f in FEATURE_ACTIONABLE for f in point):
                     continue
-                # restrictions (action_restrictions fix; empty otherwise)
+                # restrictions of the request (empty when none were given)
                 if any(f not in point for f in self.action_require):
                     continue
                 if any(f in point for f in self.action_drop):
@@ -317,42 +314,41 @@ class DialogueManager(object):
         args = {} if args is None else args
         if channel not in CHANNELS:
             raise ValueError('channel has to be one of {}.'.format(CHANNELS))
-        fixes = self.fixes()
         t = Templates()
         handler = getattr(self, '_intent_' + intent, None) \
             if intent in INTENTS else None
         if handler is None:
-            return self._intent_unknown(args, fixes, t)
+            return self._intent_unknown(args, t)
         if intent == 'myself':
-            return handler(args, fixes, t, channel=channel)
-        return handler(args, fixes, t)
+            return handler(args, t, channel=channel)
+        return handler(args, t)
 
-    def _intent_hello(self, args, fixes, t):
+    def _intent_hello(self, args, t):
         if self.conversation_started and not self.applied:
             self._event('hello_again')
-            return self._say(t.GREET + " " + t.HOW_TO_APPLY, fixes)
+            return self._say(t.GREET + " " + t.HOW_TO_APPLY)
         if self.conversation_started and self.applied:
-            return self._say(t.ALREADY_APPLIED_HELLO, fixes)
+            return self._say(t.ALREADY_APPLIED_HELLO)
         self.conversation_started = True
-        return self._say(t.GREET + " " + t.HOW_TO_APPLY, fixes)
+        return self._say(t.GREET + " " + t.HOW_TO_APPLY)
 
-    def _intent_bye(self, args, fixes, t):
+    def _intent_bye(self, args, t):
         if self.conversation_started:
             self._event('goodbye')
             self.reset()
             return t.BYE
         return t.BYE_NOT_APPLIED
 
-    def _intent_apply(self, args, fixes, t):
+    def _intent_apply(self, args, t):
         if self.conversation_started and not self.applied:
             self._event('processing')
             persona = args.get("persona", None)
             if persona is None:
                 return self._say(t.NOT_ON_RECORD.format(
-                    list(APPLICANT_NAMES.keys())), fixes)
+                    list(APPLICANT_NAMES.keys())))
             if persona not in APPLICANT_NAMES:
                 return self._say(t.UNKNOWN_PERSON.format(
-                    persona, list(APPLICANT_NAMES.keys())), fixes)
+                    persona, list(APPLICANT_NAMES.keys())))
             name = APPLICANT_NAMES[persona]
             self.persona = persona
             response = t.APPLICATION_RECEIVED.format(name=name)
@@ -360,18 +356,18 @@ class DialogueManager(object):
             self.applied = True
             self._explain()
             self._event('processed')
-            return self._say(response, fixes)
+            return self._say(response)
         if self.conversation_started and self.applied:
             persona = args.get("persona", None)
             if persona is None or persona == self.persona:
-                return self._say(t.ALREADY_APPLIED, fixes)
+                return self._say(t.ALREADY_APPLIED)
             if persona in APPLICANT_NAMES:
                 return self._say(t.DIFFERENT_PERSON.format(
                     APPLICANT_NAMES[self.persona], APPLICANT_NAMES[persona]),
-                    fixes)
+                    )
             return self._say(t.DIFFERENT_UNKNOWN_PERSON.format(
-                APPLICANT_NAMES[self.persona], persona), fixes)
-        return self._say(t.SAY_HELLO, fixes)
+                APPLICANT_NAMES[self.persona], persona))
+        return self._say(t.SAY_HELLO)
 
     def _explain(self):
         """Computes the counterfactuals of the applicant."""
@@ -387,77 +383,76 @@ class DialogueManager(object):
                 found.ranked
             self.contrastive_per_feature[found.distance] = found.per_feature
 
-    def _intent_outcome(self, args, fixes, t):
+    def _intent_outcome(self, args, t):
         if self.conversation_started and self.applied:
             self._event('outcome', outcome=self.outcome)
             return self._say(t.APPLICATION_OUTCOME.format(
-                outcome=OUTCOME_MAP[self.outcome]), fixes)
+                outcome=OUTCOME_MAP[self.outcome]))
         if self.conversation_started:
-            return self._say(t.HOW_TO_APPLY, fixes)
-        return self._say(t.SAY_HELLO, fixes)
+            return self._say(t.HOW_TO_APPLY)
+        return self._say(t.SAY_HELLO)
 
-    def _intent_help(self, args, fixes, t):
+    def _intent_help(self, args, t):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if self.conversation_started:
-            return self._say(t.HELP_APPLIED, fixes)
-        return self._say(t.SAY_HELLO, fixes)
+            return self._say(t.HELP_APPLIED)
+        return self._say(t.SAY_HELLO)
 
-    def _intent_fairness(self, args, fixes, t):
+    def _intent_fairness(self, args, t):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if not self.conversation_started:
-            return self._say(t.SAY_HELLO, fixes)
-        item, _ = self._next('fairness', self._build_unfairness, fixes)
+            return self._say(t.SAY_HELLO)
+        item, _ = self._next('fairness', self._build_unfairness)
         if item == 'exhausted':
-            return self._say(t.NO_MORE['fairness'], fixes)
+            return self._say(t.NO_MORE['fairness'])
         if item is None:
-            return self._say(t.FAIR, fixes)
+            return self._say(t.FAIR)
         unfair_dist, unfair_first = item
-        cf = self.get_counterfactual(unfair_first, t, fixes)
+        cf = self.get_counterfactual(unfair_first, t)
         template = t.FAIRNESS_INDIRECT if unfair_dist > 1 else t.FAIRNESS
         self._event('fairness', outcome=self.outcome,
                     indirect=unfair_dist > 1)
         return self._say(template.format(fairness="unfair",
-                                         counterfactual=cf), fixes)
+                                         counterfactual=cf))
 
-    def _intent_action(self, args, fixes, t):
+    def _intent_action(self, args, t):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if not self.conversation_started:
-            return self._say(t.SAY_HELLO, fixes)
-        if fixes.action_restrictions:
-            require = args.get("features_require", [])
-            drop = args.get("features_drop", [])
-            if (set(require) != set(self.action_require)
-                    or set(drop) != set(self.action_drop)):
-                # new restrictions: start a new list of suggestions
-                self.action_require, self.action_drop = require, drop
-                self.actionability = []
-                self._exhausted['action'] = False
-        item, _ = self._next('action', self._build_actionability, fixes)
+            return self._say(t.SAY_HELLO)
+        # restrictions (features_require / features_drop)
+        require = args.get("features_require", [])
+        drop = args.get("features_drop", [])
+        if (set(require) != set(self.action_require)
+                or set(drop) != set(self.action_drop)):
+            # new restrictions: start a new list of suggestions
+            self.action_require, self.action_drop = require, drop
+            self.actionability = []
+            self._exhausted['action'] = False
+        item, _ = self._next('action', self._build_actionability)
         if item == 'exhausted':
-            return self._say(t.NO_MORE['action'], fixes)
+            return self._say(t.NO_MORE['action'])
         if item is None:
             return self._say(t.NO_ACTION.format(OUTCOME_MAP[self.outcome]),
-                             fixes)
+                             )
         self._event('action')
         _, action_first = item
-        cf = self.get_counterfactual(action_first, t, fixes)
+        cf = self.get_counterfactual(action_first, t)
         answer = t.ACTIONABILITY.format(
             current_outcome=OUTCOME_MAP[self.outcome],
             wannabe_outcome=OUTCOME_MAP[self.outcome_complement(self.outcome)],
             counterfactual=cf)
-        if fixes.action_restrictions:
-            answer += self._restrictions_note(
-                self.action_require, self.action_drop, action_first, t)
-        return self._say(answer, fixes)
+        answer += self._restrictions_note(
+            self.action_require, self.action_drop, action_first, t)
+        return self._say(answer)
 
-    def _intent_why(self, args, fixes, t):
+    def _intent_why(self, args, t):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if not self.conversation_started:
-            return self._say(t.SAY_HELLO, fixes)
+            return self._say(t.SAY_HELLO)
         restart = args.get("restart", False)
         features_drop = args.get("features_drop", [])
         features_require = args.get("features_require", [])
@@ -473,7 +468,7 @@ class DialogueManager(object):
                     and self._exhausted['why']):
                 self._exhausted['why'] = False
                 self._event('why')
-                return self._say(t.NO_MORE['why'], fixes)
+                return self._say(t.NO_MORE['why'])
             self.features_drop = features_drop
             self.features_require = features_require
             self.why = self._build_why()
@@ -496,7 +491,7 @@ class DialogueManager(object):
                 outcome=OUTCOME_MAP[self.outcome])])
             outro = t.COUNTERFACTUAL_OUTCOME.format(
                 outcome=OUTCOME_MAP[self.outcome_complement(self.outcome)])
-            cf = self.get_counterfactual(why_first, t, fixes)
+            cf = self.get_counterfactual(why_first, t)
 
             sentence = template.format(intro=intro,
                                        counterfactual_statement=cf,
@@ -505,13 +500,13 @@ class DialogueManager(object):
             answer = note + sentence + '.' + self._restrictions_note(
                 self.features_require, self.features_drop, why_first, t)
         self._event('why')
-        return self._say(answer, fixes)
+        return self._say(answer)
 
-    def _intent_myself(self, args, fixes, t, channel='chat'):
+    def _intent_myself(self, args, t, channel='chat'):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if not self.conversation_started:
-            return self._say(t.SAY_HELLO, fixes)
+            return self._say(t.SAY_HELLO)
         # without features: all of them in chat, the current account status
         # (A1) when speaking -- spoken answers are kept short
         default = [] if channel == 'chat' else ["A1"]
@@ -530,16 +525,16 @@ class DialogueManager(object):
                     feature_name, feature_value, t) + " and "
         self._event('myself')
         return self._say(t.ABOUT.format(name=APPLICANT_NAMES[self.persona])
-                         + about[:-5] + ".", fixes)
+                         + about[:-5] + ".")
 
-    def _intent_repeat(self, args, fixes, t):
+    def _intent_repeat(self, args, t):
         if self.conversation_started:
             return self.last_said
         return t.NOTHING_SAID
 
-    def _intent_unknown(self, args, fixes, t):
+    def _intent_unknown(self, args, t):
         if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY, fixes)
+            return self._say(t.HOW_TO_APPLY)
         if self.conversation_started:
-            return self._say(t.DUNNO, fixes)
-        return self._say(t.SAY_HELLO, fixes)
+            return self._say(t.DUNNO)
+        return self._say(t.SAY_HELLO)

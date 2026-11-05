@@ -1523,7 +1523,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A9"
+]
+}
 },
 {
 "text": "Am I divorced",
@@ -1541,7 +1545,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A9"
+]
+}
 },
 {
 "text": "Am I separated",
@@ -1561,7 +1569,7 @@
 "intent": "myself",
 "args": {
 "features": [
-"A8"
+"A9"
 ]
 }
 },
@@ -1581,7 +1589,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A9"
+]
+}
 },
 {
 "text": "Am I unmarried",
@@ -1599,7 +1611,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A9"
+]
+}
 },
 {
 "text": "Am I single",
@@ -1617,7 +1633,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A9"
+]
+}
 },
 {
 "text": "My application number is 0",
@@ -1941,7 +1961,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A5"
+]
+}
 },
 {
 "text": "What is the loan amount",
@@ -2279,7 +2303,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A15"
+]
+}
 },
 {
 "text": "Do I own a house",
@@ -2297,7 +2325,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A15"
+]
+}
 },
 {
 "text": "Do I live in a council house",
@@ -2315,7 +2347,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A15"
+]
+}
 },
 {
 "text": "foreign worker",
@@ -2421,7 +2457,11 @@
 ]
 },
 "intent": "myself",
-"args": {}
+"args": {
+"features": [
+"A7"
+]
+}
 },
 {
 "text": "job type",
@@ -2824,7 +2864,9 @@
 ]
 },
 "intent": "why",
-"args": {}
+"args": {
+"restart": true
+}
 },
 {
 "text": "restart why",
@@ -2842,7 +2884,9 @@
 ]
 },
 "intent": "why",
-"args": {}
+"args": {
+"restart": true
+}
 },
 {
 "text": "why given the status of my current account and my age",
@@ -3460,7 +3504,9 @@
 ]
 },
 "intent": "why",
-"args": {}
+"args": {
+"restart": true
+}
 },
 {
 "text": "why restart",
@@ -3478,7 +3524,9 @@
 ]
 },
 "intent": "why",
-"args": {}
+"args": {
+"restart": true
+}
 },
 {
 "text": "why is my loan declined despite my current account status",
@@ -4199,5 +4247,5 @@
 "args": {}
 }
 ],
-"description": "Answers of the dialogue in original mode (CtreeX legacy explainer with deterministic_order) to a 39-turn script for every persona and both channels. The 2018 logic was verified turn by turn against the original code; the texts include the corrections that are always used (wording, whole-number ranges, 'no more explanations')."
+"description": "Answers of the dialogue in original mode (CtreeX legacy explainer with deterministic_order) to a 39-turn script for every persona and both channels. The 2018 logic was verified turn by turn against the original code; the texts include the corrections that are always used (wording, whole-number ranges, 'no more explanations'). The intent mappings ('intentioner') are those of the original code with the corrections that are always used: feature recognition, 'restart why' and the restrictions of 'what can I do' (15 of 169 differ from the original code)."
 }

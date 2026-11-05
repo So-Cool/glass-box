@@ -12,8 +12,7 @@ import random
 
 import pytest
 
-from glassbox.dialogue import (DialogueFixes, DialogueManager,
-                               resolve_dialogue_fixes)
+from glassbox.dialogue import DialogueManager
 from glassbox.dialogue.templates import FEATURE_TALK, Templates
 from glassbox.model import GlassBoxModel
 
@@ -59,15 +58,9 @@ def test_fixed_dialogue_runs(pid, model, dialogue_reference):
         assert not any('process you application' in a for a in answers)
 
 
-def test_fixes():
-    assert resolve_dialogue_fixes('fixed') == DialogueFixes.fixed()
-    assert resolve_dialogue_fixes('original') == DialogueFixes.original()
-    custom = resolve_dialogue_fixes('original', {'why_reset': True})
-    assert custom.why_reset and not custom.feature_keywords
+def test_implementation():
     with pytest.raises(ValueError):
-        resolve_dialogue_fixes('fixed', {'no_such_fix': True})
-    with pytest.raises(ValueError):
-        resolve_dialogue_fixes('fixed', {'wording': False})  # not a switch
+        DialogueManager(implementation='newest')
 
 
 def test_corrected_wording():
@@ -78,9 +71,8 @@ def test_corrected_wording():
     assert 'instalment' in FEATURE_TALK['installment_rate']['name']
 
 
-def _applied(model, implementation='fixed', fixes=None, pid='03'):
-    manager = DialogueManager(model, implementation=implementation,
-                              fixes=fixes)
+def _applied(model, implementation='fixed', pid='03'):
+    manager = DialogueManager(model, implementation=implementation)
     manager.process_intent('hello')
     manager.process_intent('apply', {'persona': pid})
     return manager
@@ -156,7 +148,7 @@ def test_action_restrictions(model):
                                      {'features_require': ['A2']})
     assert 'months' in answer and 'When considering using: loan duration' \
         in answer
-    # the original ignored the restrictions
+    # also with the original explainer (the original dialogue ignored them)
     original = _applied(model, implementation='original')
-    assert 'asked for' in original.process_intent('action',
-                                                  {'features_drop': ['A5']})
+    assert 'asked for' not in original.process_intent(
+        'action', {'features_drop': ['A5']})

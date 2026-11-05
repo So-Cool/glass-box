@@ -2,14 +2,15 @@ import pytest
 
 from glassbox_testing import load_json
 from glassbox.nlu.command import parse_command
-from glassbox.nlu.intentioner import (Intentioner, decode_feature_fixed,
-                                      decode_feature_original,
+from glassbox.nlu.intentioner import (Intentioner, decode_feature,
                                       decode_persona)
 from glassbox.resources import load_json as load_resource
 
 
-def test_original_intentioner(dialogue_reference):
-    intentioner = Intentioner(implementation='original')
+def test_intentioner(dialogue_reference):
+    """The original intent mapping with the corrections that are always used
+    (15 of the 169 mappings differ from the original code)."""
+    intentioner = Intentioner()
     for case in dialogue_reference['intentioner']:
         intent, args = intentioner.parse_to_intent(case['parse'])
         assert [intent, args] == [case['intent'], case['args']], case['text']
@@ -25,21 +26,19 @@ def _feature_mentions():
 
 def test_feature_keywords():
     mentions = _feature_mentions()
-    assert all(decode_feature_fixed(s) == v for s, v in mentions)
-    wrong = [s for s, v in mentions if decode_feature_original(s) != v]
-    assert len(wrong) == 11 and 'separated' in wrong
-    assert decode_feature_fixed('my employment type') == 'A17'
-    assert decode_feature_fixed('current employment') == 'A7'
+    assert all(decode_feature(s) == v for s, v in mentions)
+    # the original substring rules got these wrong
+    assert decode_feature('separated') == 'A9'
+    assert decode_feature('married') == 'A9'
+    assert decode_feature('my employment type') == 'A17'
+    assert decode_feature('current employment') == 'A7'
 
 
 def test_why_reset():
     parse = {'intent': {'name': 'why'},
              'entities': [{'entity': 'why_reset', 'value': 'reset',
                            'start': 0, 'end': 5}]}
-    assert Intentioner(implementation='fixed').parse_to_intent(parse) == \
-        ('why', {'restart': True})
-    assert Intentioner(implementation='original').parse_to_intent(parse) == \
-        ('why', {})
+    assert Intentioner().parse_to_intent(parse) == ('why', {'restart': True})
 
 
 def test_decode_persona():
@@ -99,10 +98,8 @@ def test_action_restrictions_parsing():
         {'entity': 'why_despite', 'value': 'disregarding', 'start': 0,
          'end': 12},
         {'entity': 'feature', 'value': 'age', 'start': 16, 'end': 19}]}
-    assert Intentioner(implementation='fixed').parse_to_intent(parse) == \
+    assert Intentioner().parse_to_intent(parse) == \
         ('action', {'features_drop': ['A13']})
-    assert Intentioner(implementation='original').parse_to_intent(parse) == \
-        ('action', {})
     with_feature = {'intent': {'name': 'action'}, 'entities': [
         {'entity': 'feature', 'value': 'installment rate', 'start': 20,
          'end': 36}]}
@@ -118,7 +115,7 @@ def test_extra_training_data_mentions():
         for en in e['entities']:
             if en['entity'] == 'feature':
                 span = e['text'][en['start']:en['end']]
-                assert decode_feature_fixed(span) == en['value'], span
+                assert decode_feature(span) == en['value'], span
 
 
 def test_data_generation_reproduces_the_data(tmp_path):
