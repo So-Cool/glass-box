@@ -43,6 +43,8 @@ the code is provided in the [changelog](./CHANGELOG.md#001).
 
 ## Installation with uv
 
+The Python version and the dependencies are managed with [uv]:
+
 ```sh
 git clone https://github.com/So-Cool/glass-box.git
 cd glass-box

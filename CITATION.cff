@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as follows:"
 type: software
+version: 0.0.2
 title: "Glass-Box: Explaining AI decisions with counterfactual statements through conversation with a voice-enabled virtual assistant"
 authors:
   - family-names: Sokol
