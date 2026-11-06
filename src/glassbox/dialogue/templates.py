@@ -4,73 +4,15 @@ Answer templates of the dialogue.
 The templates of the original implementation with corrected grammar and
 typography (missing verbs, articles and punctuation, typos);
 the original wording is not kept.
+How every feature is put into words (``phrasing``), the persona names and the
+actionable and protected features are part of the data
+(``resources/german_credit_features.json`` and ``resources/personas.json``).
 """
 
-APPLICANT_NAMES = {
-    "00": "Stu", "01": "Jonathan", "02": "Lurleen", "03": "Ruth",
-    "04": "Joe", "05": "Kirk", "06": "Mona", "07": "Selma",
-    "08": "Montgomery", "09": "Marge"}
 NUMBERS = {"zero": "00", "one": "01", "two": "02", "three": "03",
            "four": "04", "five": "05", "six": "06", "seven": "07",
            "eight": "08", "nine": "09"}
 OUTCOME_MAP = {"good": "accepted", "bad": "declined"}
-FEATURE_ACTIONABLE = ["A17", "A8", "A14", "A6", "A1", "A5", "A2"]
-FEATURE_UNFAIR = ["A20", "A9"]
-
-FEATURE_TALK = {
-    "loan_duration_in_months": {
-        "part1": "requested your loan for {value} {value_type}",
-        "part2": "{value} {value_type}",
-        "property": {"singular": "month", "plural": "months"},
-        "name": "loan duration"},
-    "loan_amount": {
-        "part1": "asked for {value} {value_type}",
-        "part2": "{value} {value_type}",
-        "property": {"singular": "pound", "plural": "pounds"},
-        "name": "loan amount"},
-    "installment_rate": {
-        "part1": "received an instalment rate of {value} {value_type}",
-        "part2": "{value} {value_type}",
-        "property": {"singular": "percent", "plural": "percent"},
-        "name": "instalment rate"},
-    "age": {
-        "part1": "been {value} {value_type}",
-        "part2": "{value} {value_type}",
-        "property": {"singular": "year old", "plural": "years old"},
-        "name": "age"},
-    "is_foreign_worker": {
-        "part1": "{value} been a foreign worker",
-        "value": {"yes": "", "no": "not"},
-        "name": "migrant status"},
-    "other_loans": {
-        "part1": "{value} had other loans",
-        "value": {"yes": "", "no": "not"},
-        "name": "other loans"},
-    "housing_type": {
-        "part1": "{value} {a} house",
-        "part2": "{value} {a} house",
-        "value_hypothetical1": {"own": "owned", "rent": "rented",
-                                "council": "lived in a council"},
-        "value_hypothetical2": {"own": "owning", "rent": "renting",
-                                "council": "living in a council"},
-        "name": "housing type"},
-    "job_type": {"part1": "been {value}", "part2": "being {value}",
-                 "map": None, "name": "job type"},
-    "marital_status_and_gender": {
-        "part1": "been {value}", "part2": "being {value}", "map": None,
-        "name": "marital status and gender"},
-    "duration_of_present_employment": {
-        "part1": "been {value}", "part2": "being {value}", "map": None,
-        "name": "current employment duration"},
-    "status_of_savings_account": {"part1": "had {value}",
-                                  "part2": "having {value}", "map": None,
-                                  "name": "savings account status"},
-    "credit_history": {"part1": "had {value}", "part2": "having {value}",
-                       "map": None, "name": "credit history"},
-    "status_of_existing_current_account": {
-        "part1": "had {value}", "part2": "having {value}", "map": None,
-        "name": "current account status"}
-}
 
 
 class Templates(object):
@@ -158,6 +100,8 @@ class Templates(object):
     NO_COUNTERFACTUALS = ("I am sorry. I am afraid that I cannot generate any "
                           "counterfactuals for you at the moment. Please try "
                           "again later.")
+    QR_BUSY = ("You are applying as {} at the moment. Please say 'goodbye' "
+               "to finish this application before scanning another card.")
     NOTHING_SAID = "I am sorry but I have not said anything yet."
     NO_MORE = {
         'why': ("I have no more explanations of this decision. Ask me again "
@@ -166,5 +110,3 @@ class Templates(object):
                      "again to hear them from the beginning."),
         'action': ("I have no more suggestions for you. Ask me again to hear "
                    "them from the beginning.")}
-
-    feature_talk = FEATURE_TALK

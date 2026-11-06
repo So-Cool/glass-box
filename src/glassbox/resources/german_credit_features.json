@@ -163,5 +163,123 @@
   "A9_2",
   "A9_3",
   "A9_4"
- ]
+ ],
+ "actionable": [
+  "A17",
+  "A8",
+  "A14",
+  "A6",
+  "A1",
+  "A5",
+  "A2"
+ ],
+ "protected": [
+  "A20",
+  "A9"
+ ],
+ "phrasing": {
+  "A2": {
+   "part1": "requested your loan for {value} {value_type}",
+   "part2": "{value} {value_type}",
+   "property": {
+    "singular": "month",
+    "plural": "months"
+   },
+   "name": "loan duration"
+  },
+  "A5": {
+   "part1": "asked for {value} {value_type}",
+   "part2": "{value} {value_type}",
+   "property": {
+    "singular": "pound",
+    "plural": "pounds"
+   },
+   "name": "loan amount"
+  },
+  "A1": {
+   "part1": "had {value}",
+   "part2": "having {value}",
+   "map": null,
+   "name": "current account status"
+  },
+  "A6": {
+   "part1": "had {value}",
+   "part2": "having {value}",
+   "map": null,
+   "name": "savings account status"
+  },
+  "A14": {
+   "part1": "{value} had other loans",
+   "value": {
+    "yes": "",
+    "no": "not"
+   },
+   "name": "other loans"
+  },
+  "A3": {
+   "part1": "had {value}",
+   "part2": "having {value}",
+   "map": null,
+   "name": "credit history"
+  },
+  "A8": {
+   "part1": "received an instalment rate of {value} {value_type}",
+   "part2": "{value} {value_type}",
+   "property": {
+    "singular": "percent",
+    "plural": "percent"
+   },
+   "name": "instalment rate"
+  },
+  "A17": {
+   "part1": "been {value}",
+   "part2": "being {value}",
+   "map": null,
+   "name": "job type"
+  },
+  "A7": {
+   "part1": "been {value}",
+   "part2": "being {value}",
+   "map": null,
+   "name": "current employment duration"
+  },
+  "A20": {
+   "part1": "{value} been a foreign worker",
+   "value": {
+    "yes": "",
+    "no": "not"
+   },
+   "name": "migrant status"
+  },
+  "A15": {
+   "part1": "{value} {a} house",
+   "part2": "{value} {a} house",
+   "value_hypothetical1": {
+    "own": "owned",
+    "rent": "rented",
+    "council": "lived in a council"
+   },
+   "value_hypothetical2": {
+    "own": "owning",
+    "rent": "renting",
+    "council": "living in a council"
+   },
+   "name": "housing type"
+  },
+  "A13": {
+   "part1": "been {value} {value_type}",
+   "part2": "{value} {value_type}",
+   "property": {
+    "singular": "year old",
+    "plural": "years old"
+   },
+   "name": "age"
+  },
+  "A9": {
+   "part1": "been {value}",
+   "part2": "being {value}",
+   "map": null,
+   "name": "marital status and gender"
+  }
+ }
 }

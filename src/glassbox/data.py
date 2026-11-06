@@ -8,6 +8,7 @@ retraining, the experiment notebooks and the data checks -- is delegated to
 (``pip install "glassbox[data]"``).
 """
 import dataclasses
+import functools
 import hashlib
 
 from glassbox.resources import load_json
@@ -15,15 +16,14 @@ from glassbox.resources import load_json
 __all__ = ['Persona', 'load_personas', 'load_feature_metadata',
            'load_german_credit', 'processed_data_checksum',
            'verify_german_credit', 'PROCESSED_DATA_SHA256', 'FEATURE_SUBSET',
-           'personas_matching_data']
+           'personas_matching_data', 'persona_names']
 
 #: SHA-256 of the canonical CSV export (see :func:`processed_data_checksum`)
 #: of the pre-processed data used to train the Glass-Box model.
 PROCESSED_DATA_SHA256 = \
     '77f23ca45c8a1154ffab954d88766f55d098810208e42466613dc780f49d6f9a'
 #: Features of the Glass-Box model (in the order of the original data subset).
-FEATURE_SUBSET = ["A2", "A5", "A1", "A6", "A14", "A3", "A8", "A17", "A7",
-                  "A20", "A15", "A13", "A9"]
+FEATURE_SUBSET = list(load_json('german_credit_features.json')['feature_id'])
 GERMAN_CREDIT_MODULE = 'mlaas.data.german_credit_simplified'
 
 
@@ -40,6 +40,16 @@ def load_personas():
     """The ten demo personas (``id -> Persona``)."""
     return {p['id']: Persona(**p)
             for p in load_json('personas.json')['personas']}
+
+
+@functools.lru_cache(maxsize=None)
+def _persona_names():
+    return tuple((i, p.name) for i, p in load_personas().items())
+
+
+def persona_names():
+    """``persona id -> name`` of the demo personas."""
+    return dict(_persona_names())
 
 
 def load_feature_metadata():

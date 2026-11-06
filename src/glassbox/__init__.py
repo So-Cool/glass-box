@@ -12,4 +12,9 @@ Main entry points:
 * :class:`glassbox.dialogue.DialogueManager` -- the dialogue state machine;
 * ``glassbox`` -- command line tool (see ``glassbox --help``).
 """
-__version__ = '0.0.1'
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version('glassbox')  # the version in pyproject.toml
+except PackageNotFoundError:  # pragma: no cover (not installed)
+    __version__ = 'unknown'

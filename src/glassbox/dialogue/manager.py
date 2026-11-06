@@ -13,9 +13,11 @@ The dialogue logic is that of the original implementation with corrections
 (always used): corrected wording, ranges of whole-number features described
 with whole numbers, the applicant told when all the explanations have been
 given, and the restrictions of "what can I do" requests honoured (the original
-ignored them). ``implementation`` only selects the explainer: with
-``'original'`` (and the explainer's ``deterministic_order`` fix) the
-explanations are those of the original implementation.
+ignored them). The explainer is selected by the model
+(``GlassBoxModel(implementation='legacy')`` gives the 2018 explanations, with
+the explainer's ``deterministic_order`` fix as in the tests).
+Sentence templates are chosen at random by the dialogue's own random number
+generator (see ``seed``).
 
 The answers depend on the output channel only for "tell me about myself"
 without naming any feature:
@@ -29,9 +31,7 @@ import logging
 import random
 import re
 
-from glassbox.dialogue.templates import (APPLICANT_NAMES, FEATURE_ACTIONABLE,
-                                         FEATURE_UNFAIR, OUTCOME_MAP,
-                                         Templates)
+from glassbox.dialogue.templates import OUTCOME_MAP, Templates
 from glassbox.model import GlassBoxModel
 
 __all__ = ['DialogueManager']
@@ -62,33 +62,23 @@ class DialogueManager(object):
     Parameters
     ----------
     model : GlassBoxModel, optional
-        The model (default: the original Glass-Box tree, with the explainer
-        configured by ``implementation`` and ``explainer_fixes``).
-    implementation : {'original', 'fixed'}
-        The explainer used when ``model`` is not given: the original (CtreeX
-        ``legacy``) or the fixed one.
-    explainer_fixes : dict, optional
-        Overrides of the counterfactual explainer switches (see
-        :class:`ctreex.Fixes`); used when ``model`` is not given.
+        The model and its explainer (default: the original Glass-Box tree
+        with the fixed explainer; ``GlassBoxModel(implementation='legacy')``
+        gives the 2018 explainer).
     on_event : callable, optional
         Called with ``(event, params)`` for hardware feedback.
+    seed : int, optional
+        Seed of the random choice of sentence templates; the same seed gives
+        the same answers to the same requests.
     rng : random.Random, optional
-        Source of randomness for the choice of sentence templates (default:
-        the global ``random`` module).
+        The random number generator to use instead (``seed`` is then
+        ignored).
     """
 
-    def __init__(self, model=None, implementation='fixed',
-                 explainer_fixes=None, on_event=None, rng=None):
-        if implementation not in ('original', 'fixed'):
-            raise ValueError("implementation has to be 'original' or "
-                             "'fixed'.")
-        self.implementation = implementation
-        if model is None:
-            model = GlassBoxModel(implementation=implementation,
-                                  fixes=explainer_fixes)
-        self.model = model
+    def __init__(self, model=None, on_event=None, seed=None, rng=None):
+        self.model = GlassBoxModel() if model is None else model
         self.on_event = on_event
-        self.rng = random if rng is None else rng
+        self.rng = random.Random(seed) if rng is None else rng
         self.reset()
 
     # ----------------------------------------------------------------- state
@@ -128,9 +118,9 @@ class DialogueManager(object):
     def _range_text(self, ranges):
         return ' or '.join(ranges)
 
-    def get_statement(self, feature_name, feature_value, templates):
-        """Describes the applicant's value of a feature."""
-        text_map = templates.feature_talk[feature_name]
+    def get_statement(self, feature, feature_value):
+        """Describes the applicant's value of a feature (by id)."""
+        text_map = self.model.phrasing[feature]
         if "property" in text_map:  # numerical
             count = "singular" if feature_value == 1 else "plural"
             return text_map["part1"].format(
@@ -144,8 +134,7 @@ class DialogueManager(object):
                 value=text_map["value_hypothetical1"][feature_value], a=a)
         if "map" in text_map:  # categorical with a simple map
             return text_map["part1"].format(value=feature_value)
-        return "COULD NOT GENERATE A STATEMENT FOR **{}**".format(
-            feature_name)
+        return "COULD NOT GENERATE A STATEMENT FOR **{}**".format(feature)
 
     def get_counterfactual(self, cf_dictionary, templates):
         """Phrases a counterfactual (``{feature: {'is', 'wannabe'}}``)."""
@@ -158,7 +147,7 @@ class DialogueManager(object):
                  t.COUNTERFACTUAL_TEMPLATE_3]
         sentences = []
         for feature, cf in translated.items():
-            talk = t.feature_talk[feature]
+            talk = self.model.phrasing[feature]
             if "property" in talk:  # numerical
                 choice = self.rng.choice(comp)
                 current = cf["is"][0]
@@ -239,7 +228,7 @@ class DialogueManager(object):
         for dist in sorted(self.contrastive_per_feature.keys()):
             current_keys = self.contrastive_per_feature[dist].keys()
             to_copy = []
-            for i in FEATURE_UNFAIR:
+            for i in self.model.protected:
                 if i in current_keys:
                     to_copy += self.contrastive_per_feature[dist][i]
             to_copy = list(set(to_copy))
@@ -252,7 +241,7 @@ class DialogueManager(object):
         # all the features of a counterfactual have to be actionable
         for dist in sorted(self.contrastive_per_leaf_transformed.keys()):
             for point in self.contrastive_per_leaf_transformed[dist].values():
-                if not all(f in FEATURE_ACTIONABLE for f in point):
+                if not all(f in self.model.actionable for f in point):
                     continue
                 # restrictions of the request (empty when none were given)
                 if any(f not in point for f in self.action_require):
@@ -264,11 +253,10 @@ class DialogueManager(object):
 
     def _restrictions_note(self, require, drop, point, t):
         """The "(When considering ... and avoiding ...)" note."""
-        name = self.model.feature_name
-        regard = " and ".join(t.feature_talk[name(i)]["name"]
+        phrasing = self.model.phrasing
+        regard = " and ".join(phrasing[i]["name"]
                               for i in require if i in point)
-        disregard = " and ".join(t.feature_talk[name(i)]["name"]
-                                 for i in drop)
+        disregard = " and ".join(phrasing[i]["name"] for i in drop)
         if regard and disregard:
             return " (When considering: {} and avoiding: {}.)".format(
                 regard, disregard)
@@ -323,6 +311,17 @@ class DialogueManager(object):
             return handler(args, t, channel=channel)
         return handler(args, t)
 
+    def _not_ready(self, t):
+        """
+        The answer to a request that needs an application when there is none
+        (``None`` once the applicant has applied).
+        """
+        if not self.conversation_started:
+            return self._say(t.SAY_HELLO)
+        if not self.applied:
+            return self._say(t.HOW_TO_APPLY)
+        return None
+
     def _intent_hello(self, args, t):
         if self.conversation_started and not self.applied:
             self._event('hello_again')
@@ -336,8 +335,8 @@ class DialogueManager(object):
         if self.conversation_started:
             self._event('goodbye')
             self.reset()
-            return t.BYE
-        return t.BYE_NOT_APPLIED
+            return self._say(t.BYE)
+        return self._say(t.BYE_NOT_APPLIED)
 
     def _intent_apply(self, args, t):
         if self.conversation_started and not self.applied:
@@ -345,11 +344,11 @@ class DialogueManager(object):
             persona = args.get("persona", None)
             if persona is None:
                 return self._say(t.NOT_ON_RECORD.format(
-                    list(APPLICANT_NAMES.keys())))
-            if persona not in APPLICANT_NAMES:
+                    list(self.model.persona_names.keys())))
+            if persona not in self.model.persona_names:
                 return self._say(t.UNKNOWN_PERSON.format(
-                    persona, list(APPLICANT_NAMES.keys())))
-            name = APPLICANT_NAMES[persona]
+                    persona, list(self.model.persona_names.keys())))
+            name = self.model.persona_names[persona]
             self.persona = persona
             response = t.APPLICATION_RECEIVED.format(name=name)
             response += " " + t.APPLICATION_PROCESSED
@@ -361,12 +360,12 @@ class DialogueManager(object):
             persona = args.get("persona", None)
             if persona is None or persona == self.persona:
                 return self._say(t.ALREADY_APPLIED)
-            if persona in APPLICANT_NAMES:
+            names = self.model.persona_names
+            if persona in names:
                 return self._say(t.DIFFERENT_PERSON.format(
-                    APPLICANT_NAMES[self.persona], APPLICANT_NAMES[persona]),
-                    )
+                    names[self.persona], names[persona]))
             return self._say(t.DIFFERENT_UNKNOWN_PERSON.format(
-                APPLICANT_NAMES[self.persona], persona))
+                self.model.persona_names[self.persona], persona))
         return self._say(t.SAY_HELLO)
 
     def _explain(self):
@@ -384,26 +383,20 @@ class DialogueManager(object):
             self.contrastive_per_feature[found.distance] = found.per_feature
 
     def _intent_outcome(self, args, t):
-        if self.conversation_started and self.applied:
-            self._event('outcome', outcome=self.outcome)
-            return self._say(t.APPLICATION_OUTCOME.format(
-                outcome=OUTCOME_MAP[self.outcome]))
-        if self.conversation_started:
-            return self._say(t.HOW_TO_APPLY)
-        return self._say(t.SAY_HELLO)
+        not_ready = self._not_ready(t)
+        if not_ready:
+            return not_ready
+        self._event('outcome', outcome=self.outcome)
+        return self._say(t.APPLICATION_OUTCOME.format(
+            outcome=OUTCOME_MAP[self.outcome]))
 
     def _intent_help(self, args, t):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if self.conversation_started:
-            return self._say(t.HELP_APPLIED)
-        return self._say(t.SAY_HELLO)
+        return self._not_ready(t) or self._say(t.HELP_APPLIED)
 
     def _intent_fairness(self, args, t):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if not self.conversation_started:
-            return self._say(t.SAY_HELLO)
+        not_ready = self._not_ready(t)
+        if not_ready:
+            return not_ready
         item, _ = self._next('fairness', self._build_unfairness)
         if item == 'exhausted':
             return self._say(t.NO_MORE['fairness'])
@@ -418,10 +411,9 @@ class DialogueManager(object):
                                          counterfactual=cf))
 
     def _intent_action(self, args, t):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if not self.conversation_started:
-            return self._say(t.SAY_HELLO)
+        not_ready = self._not_ready(t)
+        if not_ready:
+            return not_ready
         # restrictions (features_require / features_drop)
         require = args.get("features_require", [])
         drop = args.get("features_drop", [])
@@ -435,8 +427,7 @@ class DialogueManager(object):
         if item == 'exhausted':
             return self._say(t.NO_MORE['action'])
         if item is None:
-            return self._say(t.NO_ACTION.format(OUTCOME_MAP[self.outcome]),
-                             )
+            return self._say(t.NO_ACTION.format(OUTCOME_MAP[self.outcome]))
         self._event('action')
         _, action_first = item
         cf = self.get_counterfactual(action_first, t)
@@ -449,10 +440,9 @@ class DialogueManager(object):
         return self._say(answer)
 
     def _intent_why(self, args, t):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if not self.conversation_started:
-            return self._say(t.SAY_HELLO)
+        not_ready = self._not_ready(t)
+        if not_ready:
+            return not_ready
         restart = args.get("restart", False)
         features_drop = args.get("features_drop", [])
         features_require = args.get("features_require", [])
@@ -503,29 +493,24 @@ class DialogueManager(object):
         return self._say(answer)
 
     def _intent_myself(self, args, t, channel='chat'):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if not self.conversation_started:
-            return self._say(t.SAY_HELLO)
+        not_ready = self._not_ready(t)
+        if not_ready:
+            return not_ready
         # without features: all of them in chat, the current account status
         # (A1) when speaking -- spoken answers are kept short
         default = [] if channel == 'chat' else ["A1"]
         features_of_interest = args.get("features", default)
-        if features_of_interest:
-            features_of_interest = [self.model.feature_name(i)
-                                    for i in features_of_interest]
-        else:
-            features_of_interest = [self.model.feature_name(i)
-                                    for i in self.model.feature_id]
+        if not features_of_interest:
+            features_of_interest = self.model.feature_id
         values = self.model.personas[self.persona].values
         about = ""
-        for feature_name, feature_value in self.model.translate_values(values):
-            if feature_name in features_of_interest:
+        for feature, feature_value in self.model.translate_values(values):
+            if feature in features_of_interest:
                 about += " you have " + self.get_statement(
-                    feature_name, feature_value, t) + " and "
+                    feature, feature_value) + " and "
         self._event('myself')
-        return self._say(t.ABOUT.format(name=APPLICANT_NAMES[self.persona])
-                         + about[:-5] + ".")
+        name = self.model.persona_names[self.persona]
+        return self._say(t.ABOUT.format(name=name) + about[:-5] + ".")
 
     def _intent_repeat(self, args, t):
         if self.conversation_started:
@@ -533,8 +518,4 @@ class DialogueManager(object):
         return t.NOTHING_SAID
 
     def _intent_unknown(self, args, t):
-        if self.conversation_started and not self.applied:
-            return self._say(t.HOW_TO_APPLY)
-        if self.conversation_started:
-            return self._say(t.DUNNO)
-        return self._say(t.SAY_HELLO)
+        return self._not_ready(t) or self._say(t.DUNNO)

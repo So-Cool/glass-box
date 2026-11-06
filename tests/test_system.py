@@ -42,7 +42,7 @@ def test_original_tree_reproduces_its_training_accuracy(model):
 def test_integer_ranges(model):
     cf = {'A5': {'is': [3959],
                  'wannabe': [[None, '883.0'], ['954.5', '1181.5']]}}
-    assert model.describe(cf)['loan_amount']['wannabe'] == [
+    assert model.describe(cf)['A5']['wannabe'] == [
         'at most 883', 'between 955 and 1181']
 
 
@@ -65,8 +65,29 @@ def test_qr(box):
     reply = box.handle_qr('04')
     assert 'Joe' in reply and box.speaker.said == [reply]
     assert box.pop_messages()[0] == 'QR scanner: Hello!'
-    assert box.handle_qr('05') is None  # already applying
+    busy = box.handle_qr('05')  # already applying as Joe
+    assert 'applying as Joe' in busy and box.speaker.said[-1] == busy
+    assert box.pop_messages()[-1] == busy
+    assert box.dialogue.persona == '04'
     assert persona_from_zbar('QR-Code:04\n') == '04'
+
+
+def test_thinking_pause_does_not_block(box):
+    import threading
+    import time
+
+    class VisibleLEDs(MockLEDs):
+        visible = True
+    box.leds = VisibleLEDs()
+    box.config = dict(box.config, nlu=dict(box.config['nlu'],
+                                           thinking_delay=1.0))
+    thread = threading.Thread(target=box.handle_message, args=('hi', ))
+    thread.start()
+    time.sleep(0.2)  # the message is being "thought about"
+    start = time.time()
+    box.handle_qr('04')  # waits for the dialogue only, not for the pause
+    assert time.time() - start < 0.5
+    thread.join()
 
 
 def test_led_events():
@@ -110,30 +131,42 @@ def test_device_server():
 
 def test_config(tmp_path):
     path = tmp_path / 'c.toml'
-    path.write_text('[dialogue]\nimplementation = "original"\n'
+    path.write_text('[explainer]\nimplementation = "legacy"\n'
+                    '[explainer.fixes]\ndeterministic_order = true\n'
+                    '[dialogue]\nseed = 3\n'
                     '[hardware.leds]\nbackend = "disabled"\n')
     config = load_config(str(path))
-    assert config['dialogue']['implementation'] == 'original'
+    assert config['explainer'] == {'implementation': 'legacy',
+                                   'fixes': {'deterministic_order': True}}
+    assert config['dialogue']['seed'] == 3
     assert config['hardware']['speech']['backend'] == 'disabled'
     assert merge({'a': {'b': 1, 'c': 2}}, {'a': {'b': 3}}) == \
         {'a': {'b': 3, 'c': 2}}
-    path.write_text('[dialogue]\nimplementation = "newest"\n')
-    with pytest.raises(ValueError):
-        load_config(str(path))
+    box = GlassBox(config, nlu=object())
+    assert box.model.explainer.implementation == 'legacy'
+    for wrong in ('[explainer]\nimplementation = "original"\n',
+                  '[dialogue]\nseed = "abc"\n'):
+        path.write_text(wrong)
+        with pytest.raises(ValueError):
+            load_config(str(path))
 
 
 def test_example_configs_load():
     import glob
     import os
-    root = os.path.join(os.path.dirname(__file__), '..', '..', '..',
-                        'config')
+    root = os.path.join(os.path.dirname(__file__), '..', 'config')
     files = glob.glob(os.path.join(root, '*.toml'))
+    assert len(files) == 4
     for f in files:
         load_config(f)
 
 
-def test_dialogue_fixes_are_not_configurable(tmp_path):
+@pytest.mark.parametrize('removed', [
+    '[dialogue.fixes]\nwhy_reset = false\n',
+    '[dialogue]\nimplementation = "original"\n',
+    '[dialogue.explainer_fixes]\ndeterministic_order = true\n'])
+def test_removed_configuration_keys(tmp_path, removed):
     path = tmp_path / 'c.toml'
-    path.write_text('[dialogue.fixes]\nwhy_reset = false\n')
+    path.write_text(removed)
     with pytest.raises(ValueError):
         load_config(str(path))

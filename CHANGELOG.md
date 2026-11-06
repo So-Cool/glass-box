@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.0.2
+
+### Breaking changes (configuration)
+
+The explainer has its own configuration section;
+the name of the 2018 explainer follows CtreeX (`legacy`):
+
+| 0.0.1 | 0.0.2 |
+|-------|-------|
+| `[dialogue] implementation = "original"`                   | `[explainer] implementation = "legacy"` |
+| `[dialogue.explainer_fixes]`                               | `[explainer.fixes]` |
+| `glassbox chat / serve --implementation original`          | `glassbox chat / serve --explainer legacy` |
+| `GlassBoxModel(implementation='original')`                 | `GlassBoxModel(implementation='legacy')` |
+| `DialogueManager(implementation=..., explainer_fixes=...)` | `DialogueManager(model=GlassBoxModel(implementation=..., fixes=...))` |
+
+The old keys are rejected with a message naming the new ones.
+
+### Changes
+
+* **Reproducible answers.**
+  The dialogue chooses sentence templates with its own random number
+  generator instead of Python's global one;
+  `[dialogue] seed` (or `DialogueManager(seed=...)`) makes the answers
+  reproducible.
+* **Single sources of the data.**
+  The persona names come from `personas.json` only;
+  the actionable and protected features and how every feature is put into words
+  (`phrasing`, keyed by feature id) moved from the code to
+  `german_credit_features.json`;
+  the list of features is read from that file;
+  the package version is read from the package metadata.
+  `GlassBoxModel` exposes `actionable`, `protected`, `phrasing` and
+  `persona_names`;
+  `GlassBoxModel.describe` and `translate_values` are keyed by feature id.
+* **Simpler dialogue code.**
+  A single check replaces the "has the applicant applied" checks repeated in
+  every request handler;
+  "goodbye" answers are remembered like all the others.
+* **Cached NLU model.**
+  When the shipped NLU model cannot be loaded (another scikit-learn version),
+  the retrained model is cached (`~/.cache/glassbox`, `$XDG_CACHE_HOME` or
+  `$GLASSBOX_CACHE`) instead of being retrained on every start;
+  the cache records the checksum of its training data and is not used once the
+  data change.
+* **No blocking during the "thinking" pause.**
+  Understanding a sentence and the "thinking" pause of the LEDs no longer
+  hold the lock of the dialogue, so QR scans and voice input are not delayed.
+* **QR scans during an application.**
+  QR scans during an application are answered (spoken and shown in the
+  chat) with a request to finish the current application first;
+  they were ignored silently.
+* **Fixed tests.**
+  The test of the example configuration files checked no file (wrong path);
+  it now checks all four.
+
 ## 0.0.1
 
 ### Compatibility

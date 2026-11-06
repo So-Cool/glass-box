@@ -16,6 +16,7 @@ import time
 
 from glassbox.config import load_config
 from glassbox.dialogue import DialogueManager
+from glassbox.dialogue.templates import Templates
 from glassbox.hardware import create_leds, create_speaker
 from glassbox.model import GlassBoxModel
 from glassbox.nlu import Intentioner, get_backend
@@ -43,16 +44,16 @@ class GlassBox(object):
 
     def __init__(self, config=None, nlu=None):
         self.config = load_config() if config is None else config
-        dialogue = self.config['dialogue']
+        explainer = self.config['explainer']
         self.leds = create_leds(self.config['hardware']['leds'])
         self.speaker = create_speaker(self.config['hardware']['speech'])
         self.model = GlassBoxModel(
             tree=self.config['model'].get('tree'),
-            implementation=dialogue['implementation'],
-            fixes=dialogue.get('explainer_fixes') or None)
+            implementation=explainer['implementation'],
+            fixes=explainer.get('fixes') or None)
         self.dialogue = DialogueManager(
-            self.model, implementation=dialogue['implementation'],
-            on_event=self.leds.show)
+            self.model, on_event=self.leds.show,
+            seed=self.config['dialogue'].get('seed'))
         self._nlu = nlu
         self.intentioner = Intentioner(nlu)
         self.messages = collections.deque()
@@ -74,7 +75,12 @@ class GlassBox(object):
         return self._nlu
 
     def ask(self, sentence, channel='chat'):
-        """Answers a natural language request."""
+        """
+        Answers a natural language request.
+
+        Only the dialogue is locked: understanding the sentence and the
+        "thinking" pause do not block other requests (e.g., a QR scan).
+        """
         start = time.time()
         self.leds.show('thinking')
         try:
@@ -86,32 +92,34 @@ class GlassBox(object):
                 time.sleep(delay)  # let the "thinking" LEDs be seen
             self.leds.show('idle')
         logger.debug('%r -> %s %s', sentence, intent, args)
-        return self.dialogue.process_intent(intent, args, channel=channel)
+        with self.lock:
+            return self.dialogue.process_intent(intent, args, channel=channel)
 
     # ------------------------------------------------------------- messages
     def handle_message(self, message, channel='chat'):
         """Answers a chat (or voice) message."""
         message = message.strip()
-        with self.lock:
-            if message in ('quit', 'exit'):
-                return "Sorry but I will not quit."
-            if message == 'disable':
+        if message in ('quit', 'exit'):
+            return "Sorry but I will not quit."
+        if message == 'disable':
+            with self.lock:
                 self.voice_disabled = not self.voice_disabled
                 return ("Voice answers disabled." if self.voice_disabled
                         else "Voice answers enabled.")
-            if is_command(message):
-                self.leds.show('command')
-                try:
-                    intent, args = parse_command(message)
-                except ValueError as e:
-                    return 'Invalid command: {}'.format(e)
+        if is_command(message):
+            self.leds.show('command')
+            try:
+                intent, args = parse_command(message)
+            except ValueError as e:
+                return 'Invalid command: {}'.format(e)
+            with self.lock:
                 return self.dialogue.process_intent(intent, args,
                                                     channel=channel)
-            try:
-                return self.ask(message, channel=channel)
-            except Exception:
-                logger.exception('Failed to answer %r.', message)
-                return CRASH
+        try:
+            return self.ask(message, channel=channel)
+        except Exception:
+            logger.exception('Failed to answer %r.', message)
+            return CRASH
 
     def handle_voice(self, text):
         """Answers voice input; returns the text to speak ('' if muted)."""
@@ -121,10 +129,26 @@ class GlassBox(object):
         return '' if self.voice_disabled else response
 
     def handle_qr(self, persona):
-        """Starts an application for a scanned persona card."""
+        """
+        Starts an application for a scanned persona card.
+
+        During an application, the applicant is asked to finish it first.
+
+        Returns
+        -------
+        str
+            The (spoken) answer.
+        """
         with self.lock:
             if self.dialogue.persona is not None:
-                return None
+                self.messages.append('QR scanner: My personal identification '
+                                     'number is: {}.'.format(persona))
+                reply = Templates.QR_BUSY.format(
+                    self.dialogue.model.persona_names[self.dialogue.persona])
+                self.messages.append(reply)
+                if not self.voice_disabled:
+                    self.speaker.say(reply)
+                return reply
             for text, (intent, args) in (
                     ('QR scanner: Hello!', ('hello', {})),
                     ('QR scanner: My personal identification number is: '

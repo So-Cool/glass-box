@@ -13,12 +13,9 @@ from ctreex import Feature, FeatureSpec, TreeCounterfactualExplainer
 from glassbox.data import load_feature_metadata, load_personas
 from glassbox.resources import resource_path
 
-__all__ = ['GlassBoxModel', 'DEFAULT_TREE', 'EXPLAINER_IMPLEMENTATION',
-           'train_tree']
+__all__ = ['GlassBoxModel', 'DEFAULT_TREE', 'train_tree']
 
 DEFAULT_TREE = resource_path('glassbox_german_credit_tree.json')
-#: glassbox implementation -> ctreex implementation
-EXPLAINER_IMPLEMENTATION = {'original': 'legacy', 'fixed': 'fixed'}
 
 
 def _feature_spec(metadata):
@@ -44,10 +41,9 @@ class GlassBoxModel(object):
     tree : str or object, optional
         A tree accepted by :func:`ctreex.load_tree` (default: the original
         Glass-Box tree).
-    implementation : {'original', 'fixed'}
-        ``'original'`` uses the legacy implementation of
-        :class:`ctreex.TreeCounterfactualExplainer` (the 2018 explainer);
-        ``'fixed'`` enables the explainer's fixes.
+    implementation : {'legacy', 'fixed'}
+        The implementation of :class:`ctreex.TreeCounterfactualExplainer`:
+        ``'legacy'`` is the 2018 explainer, ``'fixed'`` enables its fixes.
     fixes : ctreex.Fixes or dict, optional
         Per-fix overrides for the explainer (see :mod:`ctreex.fixes`).
     """
@@ -61,9 +57,17 @@ class GlassBoxModel(object):
         self.personas = load_personas()
         self.explainer = TreeCounterfactualExplainer(
             DEFAULT_TREE if tree is None else tree, self.spec,
-            implementation=EXPLAINER_IMPLEMENTATION[implementation],
+            implementation=implementation,
             fixes=fixes,
             class_names=self.feature_map[self.class_id]['map'])
+        #: features an applicant can change ("what can I do")
+        self.actionable = list(self.metadata['actionable'])
+        #: protected features (fairness)
+        self.protected = list(self.metadata['protected'])
+        #: how every feature is put into words (keyed by feature id)
+        self.phrasing = self.metadata['phrasing']
+        #: persona id -> name
+        self.persona_names = {i: p.name for i, p in self.personas.items()}
 
     def feature_name(self, feature_id):
         """The (snake_case) name of a feature, e.g. ``loan_amount``."""
@@ -86,19 +90,19 @@ class GlassBoxModel(object):
 
     def translate_values(self, values):
         """
-        ``(feature name, human-readable value)`` pairs of an applicant in
-        the order of ``values``.
+        ``(feature id, human-readable value)`` pairs of an applicant in the
+        order of ``values``.
         """
         out = []
         for feature, value in values.items():
             m = self.feature_map[feature]['map']
-            out.append((self.feature_name(feature),
+            out.append((feature,
                         value if m == 'numerical' else m[str(value)]))
         return out
 
     def describe(self, counterfactual):
         """
-        Human-readable counterfactual (``feature name -> {'is', 'wannabe'}``).
+        Human-readable counterfactual (``feature id -> {'is', 'wannabe'}``).
 
         Ranges of whole-number features are described with whole numbers
         (e.g., ``(954.5, 1181.5]`` -> ``between 955 and 1181``; see
@@ -109,8 +113,10 @@ class GlassBoxModel(object):
         counterfactual : dict
             ``{feature id: {'is': [...], 'wannabe': [...]}}``.
         """
-        return self.explainer.describe({0: counterfactual},
-                                       integer_ranges=True)[0]
+        described = self.explainer.describe({0: counterfactual},
+                                            integer_ranges=True)[0]
+        # CtreeX keys the description by display name (in the same order)
+        return dict(zip(counterfactual, described.values()))
 
 
 def train_tree(data_holder, random_state=None, **params):

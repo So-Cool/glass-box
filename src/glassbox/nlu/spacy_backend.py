@@ -19,6 +19,7 @@ This module implements steps 1, 2, 4 and 5 with spaCy 3, sklearn-crfsuite and
 scikit-learn. Being retrained with newer libraries it is not bit-identical to
 the 2018 model; use the ``rasa-legacy`` backend for that.
 """
+import hashlib
 import json
 import logging
 import os
@@ -29,7 +30,8 @@ import numpy as np
 from glassbox.nlu.base import NLUBackend
 from glassbox.resources import resource_path
 
-__all__ = ['SpacyNLU', 'DEFAULT_SPACY_MODEL', 'DEFAULT_MODEL_DIR']
+__all__ = ['SpacyNLU', 'DEFAULT_SPACY_MODEL', 'DEFAULT_MODEL_DIR', 'cache_dir',
+           'training_data_checksum']
 
 logger = logging.getLogger(__name__)
 
@@ -130,6 +132,29 @@ def _spans(doc, tags, text):
     return out
 
 
+def cache_dir():
+    """
+    Where a retrained NLU model is cached: ``$GLASSBOX_CACHE/nlu-model``,
+    else ``$XDG_CACHE_HOME/glassbox/nlu-model``, else
+    ``~/.cache/glassbox/nlu-model``.
+    """
+    base = os.environ.get('GLASSBOX_CACHE')
+    if not base:
+        base = os.path.join(os.environ.get('XDG_CACHE_HOME')
+                            or os.path.join('~', '.cache'), 'glassbox')
+    return os.path.join(os.path.expanduser(base), 'nlu-model')
+
+
+def _checksum(examples):
+    payload = json.dumps(examples, sort_keys=True)
+    return hashlib.sha256(payload.encode('utf-8')).hexdigest()
+
+
+def training_data_checksum():
+    """SHA-256 of the (default) training data."""
+    return _checksum(load_training_data())
+
+
 def load_training_data(paths=(TRAINING_DATA, EXTRA_TRAINING_DATA)):
     """
     Rasa NLU ``common_examples`` of the given files.
@@ -165,12 +190,15 @@ class SpacyNLU(NLUBackend):
     Use :meth:`train` to build a model and :meth:`load` to read a saved one.
     """
 
-    def __init__(self, nlp, crf, classifier, labels, spacy_model):
+    def __init__(self, nlp, crf, classifier, labels, spacy_model,
+                 training_data_sha256=None):
         self.nlp = nlp
         self.crf = crf
         self.classifier = classifier
         self.labels = list(labels)
         self.spacy_model = spacy_model
+        #: checksum of the training data (``None`` when unknown)
+        self.training_data_sha256 = training_data_sha256
 
     # ------------------------------------------------------------- training
     @classmethod
@@ -212,7 +240,8 @@ class SpacyNLU(NLUBackend):
                                random_state=random_state),
             scoring='f1_weighted')
         search.fit(X, y)
-        return cls(nlp, crf, search.best_estimator_, labels, spacy_model)
+        return cls(nlp, crf, search.best_estimator_, labels, spacy_model,
+                   training_data_sha256=_checksum(examples))
 
     # ------------------------------------------------------------ persisting
     def save(self, directory=DEFAULT_MODEL_DIR):
@@ -224,6 +253,7 @@ class SpacyNLU(NLUBackend):
         joblib.dump(self.classifier, os.path.join(directory,
                                                   'intent.joblib'))
         meta = {'spacy_model': self.spacy_model, 'labels': self.labels,
+                'training_data_sha256': self.training_data_sha256,
                 'versions': {'spacy': spacy.__version__,
                              'scikit-learn': sklearn.__version__}}
         with open(os.path.join(directory, 'metadata.json'), 'w') as f:
@@ -231,36 +261,63 @@ class SpacyNLU(NLUBackend):
         return directory
 
     @classmethod
-    def load(cls, model_dir=None, spacy_model=None, retrain_if_needed=True):
+    def _load_directory(cls, model_dir, spacy_model=None, data_checksum=None):
+        """Loads a saved model (raises if it cannot be used)."""
+        with open(os.path.join(model_dir, 'metadata.json')) as f:
+            meta = json.load(f)
+        import sklearn
+        if meta['versions']['scikit-learn'] != sklearn.__version__:
+            raise ValueError('The model was saved with scikit-learn {}.'
+                             .format(meta['versions']['scikit-learn']))
+        if spacy_model not in (None, meta['spacy_model']):
+            raise ValueError('The model uses a different spaCy model.')
+        if (data_checksum is not None
+                and meta.get('training_data_sha256') != data_checksum):
+            raise ValueError('The model was trained on other data.')
+        crf = joblib.load(os.path.join(model_dir, 'crf.joblib'))
+        classifier = joblib.load(os.path.join(model_dir, 'intent.joblib'))
+        nlp = _load_spacy(meta['spacy_model'])
+        return cls(nlp, crf, classifier, meta['labels'], meta['spacy_model'],
+                   training_data_sha256=meta.get('training_data_sha256'))
+
+    @classmethod
+    def load(cls, model_dir=None, spacy_model=None, retrain_if_needed=True,
+             cache=True):
         """
         Loads a saved model (default: the model shipped with the package).
 
-        If the model cannot be loaded (e.g., it was saved by an incompatible
-        scikit-learn version) and ``retrain_if_needed`` is set, a new model is
-        trained from the shipped training data (this takes a few seconds).
+        The shipped model can only be loaded by the scikit-learn version that
+        saved it. Otherwise a model retrained on the shipped training data
+        and cached in :func:`cache_dir` is used; if there is none (or it is
+        out of date) and ``retrain_if_needed`` is set, a new model is trained
+        (a few seconds) and saved to the cache (when ``cache`` is set).
         """
-        model_dir = DEFAULT_MODEL_DIR if model_dir is None else model_dir
-        try:
-            with open(os.path.join(model_dir, 'metadata.json')) as f:
-                meta = json.load(f)
-            import sklearn
-            if meta['versions']['scikit-learn'] != sklearn.__version__:
-                raise ValueError('The model was saved with scikit-learn {}.'
-                                 .format(meta['versions']['scikit-learn']))
-            if spacy_model not in (None, meta['spacy_model']):
-                raise ValueError('The model uses a different spaCy model.')
-            crf = joblib.load(os.path.join(model_dir, 'crf.joblib'))
-            classifier = joblib.load(os.path.join(model_dir,
-                                                  'intent.joblib'))
-            nlp = _load_spacy(meta['spacy_model'])
-            return cls(nlp, crf, classifier, meta['labels'],
-                       meta['spacy_model'])
-        except (OSError, ValueError, KeyError, EOFError) as e:
-            if not retrain_if_needed or (isinstance(e, OSError)
-                                         and 'spaCy model' in str(e)):
-                raise
-            logger.warning('Retraining the NLU model (%s).', e)
-            return cls.train(spacy_model=spacy_model or DEFAULT_SPACY_MODEL)
+        if model_dir is not None:
+            candidates = [(model_dir, None)]
+        else:
+            candidates = [(DEFAULT_MODEL_DIR, None)]
+            if cache:
+                candidates.append((cache_dir(), training_data_checksum()))
+        error = None
+        for directory, checksum in candidates:
+            try:
+                return cls._load_directory(directory, spacy_model, checksum)
+            except (OSError, ValueError, KeyError, EOFError) as e:
+                if isinstance(e, OSError) and 'spaCy model' in str(e):
+                    raise
+                error = error or e
+        if not retrain_if_needed:
+            raise error
+        logger.warning('Retraining the NLU model (%s).', error)
+        nlu = cls.train(spacy_model=spacy_model or DEFAULT_SPACY_MODEL)
+        if model_dir is None and cache:
+            try:
+                nlu.save(cache_dir())
+                logger.info('Saved the retrained NLU model to %s.',
+                            cache_dir())
+            except OSError as e:  # pragma: no cover (read-only home)
+                logger.warning('Could not cache the NLU model: %s', e)
+        return nlu
 
     # --------------------------------------------------------------- parsing
     def parse(self, text):

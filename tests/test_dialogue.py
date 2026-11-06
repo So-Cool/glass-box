@@ -13,22 +13,21 @@ import random
 import pytest
 
 from glassbox.dialogue import DialogueManager
-from glassbox.dialogue.templates import FEATURE_TALK, Templates
+from glassbox.dialogue.templates import Templates
 from glassbox.model import GlassBoxModel
 
 PERSONAS = ['{:02d}'.format(i) for i in range(10)]
 
 
 @pytest.fixture(scope='module')
-def original_model():
-    return GlassBoxModel(implementation='original',
+def legacy_model():
+    return GlassBoxModel(implementation='legacy',
                          fixes={'deterministic_order': True})
 
 
 def _run(manager, script, pid, channel='chat'):
     names = PERSONAS
     other = names[(names.index(pid) + 1) % len(names)]
-    random.seed(2018)
     answers = []
     for intent, args in script:
         a = dict(args)
@@ -42,45 +41,64 @@ def _run(manager, script, pid, channel='chat'):
 
 @pytest.mark.parametrize('channel', ['chat', 'speech'])
 @pytest.mark.parametrize('pid', PERSONAS)
-def test_original_dialogue(pid, channel, original_model, dialogue_reference):
-    manager = DialogueManager(original_model, implementation='original')
+def test_legacy_dialogue(pid, channel, legacy_model, dialogue_reference):
+    manager = DialogueManager(legacy_model, seed=2018)
     assert _run(manager, dialogue_reference['script'], pid, channel) == \
         dialogue_reference['runs'][channel][pid]
 
 
 @pytest.mark.parametrize('pid', PERSONAS)
 def test_fixed_dialogue_runs(pid, model, dialogue_reference):
-    manager = DialogueManager(model, implementation='fixed')
     for channel in ('chat', 'speech'):
+        manager = DialogueManager(model, seed=2018)
         answers = _run(manager, dialogue_reference['script'], pid, channel)
         assert all(isinstance(a, str) and a for a in answers[:-1])
         assert not any('  ' in a for a in answers)
         assert not any('process you application' in a for a in answers)
 
 
-def test_implementation():
+def test_seed(model):
+    def answers(manager):
+        manager.process_intent('hello')
+        manager.process_intent('apply', {'persona': '03'})
+        return [manager.process_intent('why') for _ in range(5)]
+    random.seed(1)
+    first = answers(DialogueManager(model, seed=7))
+    random.seed(2)  # the global random state does not matter
+    assert answers(DialogueManager(model, seed=7)) == first
+    assert any(answers(DialogueManager(model, seed=s)) != first
+               for s in range(8, 12))
     with pytest.raises(ValueError):
-        DialogueManager(implementation='newest')
+        GlassBoxModel(implementation='original')  # now called 'legacy'
 
 
-def test_corrected_wording():
+def test_corrected_wording(model):
     t = Templates()
     assert 'process your application' in t.APPLICATION_RECEIVED
     assert t.NO_ACTION.endswith('{}.')
-    assert FEATURE_TALK['credit_history']['part1'] == 'had {value}'
-    assert 'instalment' in FEATURE_TALK['installment_rate']['name']
+    assert model.phrasing['A3']['part1'] == 'had {value}'
+    assert 'instalment' in model.phrasing['A8']['name']
 
 
-def _applied(model, implementation='fixed', pid='03'):
-    manager = DialogueManager(model, implementation=implementation)
+def test_single_sources(model):
+    from glassbox.data import FEATURE_SUBSET, load_personas, persona_names
+    assert set(model.phrasing) == set(model.feature_id) == set(FEATURE_SUBSET)
+    assert set(model.actionable) | set(model.protected) <= set(
+        model.feature_id)
+    assert persona_names() == {i: p.name for i, p in load_personas().items()}
+    assert model.persona_names == persona_names()
+
+
+def _applied(model, pid='03'):
+    manager = DialogueManager(model)
     manager.process_intent('hello')
     manager.process_intent('apply', {'persona': pid})
     return manager
 
 
-@pytest.mark.parametrize('implementation', ['original', 'fixed'])
-def test_myself_default(model, implementation):
-    manager = _applied(model, implementation=implementation)
+@pytest.mark.parametrize('implementation', ['legacy', 'fixed'])
+def test_myself_default(implementation):
+    manager = _applied(GlassBoxModel(implementation=implementation))
     chat = manager.process_intent('myself', channel='chat')
     speech = manager.process_intent('myself', channel='speech')
     assert 'pounds' in chat and 'savings account' in chat and 'age' not in \
@@ -96,8 +114,8 @@ def test_myself_default(model, implementation):
 
 @pytest.mark.parametrize('channel', ['chat', 'speech'])
 def test_exhausted_queue(model, channel):
-    for implementation in ('original', 'fixed'):
-        manager = _applied(model, implementation=implementation)
+    for explainer_model in (model, GlassBoxModel(implementation='legacy')):
+        manager = _applied(explainer_model)
         answers = [manager.process_intent('action', channel=channel)
                    for _ in range(30)]
         exhausted = [i for i, a in enumerate(answers)
@@ -110,8 +128,8 @@ def test_exhausted_queue(model, channel):
 
 
 def test_integer_ranges(model):
-    for implementation in ('original', 'fixed'):
-        manager = _applied(model, implementation=implementation)
+    for explainer_model in (model, GlassBoxModel(implementation='legacy')):
+        manager = _applied(explainer_model)
         answer = manager.process_intent('action', channel='speech')
         assert '954.5' not in answer and '955' in answer
 
@@ -128,7 +146,7 @@ def test_events(model):
 
 
 def test_crash_fixes(model):
-    manager = _applied(model, implementation='original')
+    manager = _applied(GlassBoxModel(implementation='legacy'))
     # applying again as an unknown person crashed the original (NameError)
     answer = manager.process_intent('apply', {'persona': '99'})
     assert 'we do not have this person on record' in answer
@@ -149,6 +167,6 @@ def test_action_restrictions(model):
     assert 'months' in answer and 'When considering using: loan duration' \
         in answer
     # also with the original explainer (the original dialogue ignored them)
-    original = _applied(model, implementation='original')
+    original = _applied(GlassBoxModel(implementation='legacy'))
     assert 'asked for' not in original.process_intent(
         'action', {'features_drop': ['A5']})

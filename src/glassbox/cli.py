@@ -14,8 +14,8 @@ __all__ = ['main']
 def _box(args):
     from glassbox.core import GlassBox
     overrides = {}
-    if getattr(args, 'implementation', None):
-        overrides['dialogue'] = {'implementation': args.implementation}
+    if getattr(args, 'explainer', None):
+        overrides['explainer'] = {'implementation': args.explainer}
     return GlassBox(load_config(args.config, overrides))
 
 
@@ -117,7 +117,8 @@ def main(argv=None):
     p = sub.add_parser('serve', help='run the chat web application')
     p.add_argument('--host')
     p.add_argument('--port', type=int)
-    p.add_argument('--implementation', choices=['original', 'fixed'])
+    p.add_argument('--explainer', choices=['legacy', 'fixed'],
+                   help='the 2018 explainer (legacy) or the fixed one')
     p.set_defaults(func=cmd_serve)
 
     p = sub.add_parser('device', help='run the Raspberry Pi device server')
@@ -126,7 +127,8 @@ def main(argv=None):
     p.set_defaults(func=cmd_device)
 
     p = sub.add_parser('chat', help='chat in the terminal')
-    p.add_argument('--implementation', choices=['original', 'fixed'])
+    p.add_argument('--explainer', choices=['legacy', 'fixed'],
+                   help='the 2018 explainer (legacy) or the fixed one')
     p.set_defaults(func=cmd_chat)
 
     p = sub.add_parser('data', help='download and verify the German Credit '

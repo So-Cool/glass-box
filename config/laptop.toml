@@ -9,12 +9,15 @@ poll_interval = 2.0          # seconds between polls for voice/QR messages
 [model]
 # tree = "path/to/tree.json"   # default: the original Glass-Box tree
 
-[dialogue]
-implementation = "fixed"     # "original": the 2018 explainer (CtreeX legacy)
+[explainer]
+implementation = "fixed"     # "legacy": the 2018 explainer
 
-[dialogue.explainer_fixes]
+[explainer.fixes]
 # Override individual explainer fixes (see ctreex.fixes), e.g.,
 # deterministic_order = true
+
+[dialogue]
+# seed = 2018                # reproducible choice of sentence templates
 
 [nlu]
 backend = "spacy"            # or "rasa-legacy" (Docker, docker/rasa-legacy)

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "glassbox"
-version = "0.0.1"
+version = "0.0.2"
 description = "Glass-Box: Explaining automated loan decisions with counterfactual statements through a dialogue"
 readme = "README.md"
 license = "BSD-3-Clause"

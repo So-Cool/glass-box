@@ -2,7 +2,8 @@
 import json
 import re
 
-from glassbox.dialogue.templates import APPLICANT_NAMES, NUMBERS
+from glassbox.data import persona_names
+from glassbox.dialogue.templates import NUMBERS
 from glassbox.resources import resource_path
 
 __all__ = ['Intentioner', 'decode_feature',
@@ -22,7 +23,7 @@ def decode_persona(persona):
         pass
     if persona in NUMBERS:
         return NUMBERS[persona]
-    for i, name in APPLICANT_NAMES.items():
+    for i, name in persona_names().items():
         if name.lower() == persona.lower():
             return i
     return persona

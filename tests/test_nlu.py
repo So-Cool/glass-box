@@ -134,3 +134,40 @@ def test_data_generation_reproduces_the_data(tmp_path):
     other = data_generation.generate(data_generation.TRAIN, 'train',
                                      repeats=1, seed=1)
     assert 0 < len(other) < n_train
+
+
+@pytest.mark.slow
+def test_retrained_model_is_cached(tmp_path, monkeypatch):
+    """An unusable shipped model is retrained once and then cached."""
+    pytest.importorskip('spacy')
+    from glassbox.nlu import spacy_backend
+    try:
+        spacy_backend._load_spacy(spacy_backend.DEFAULT_SPACY_MODEL)
+    except OSError:
+        pytest.skip('The spaCy model is not installed.')
+    monkeypatch.setenv('GLASSBOX_CACHE', str(tmp_path / 'cache'))
+    # pretend that the shipped model cannot be loaded
+    monkeypatch.setattr(spacy_backend, 'DEFAULT_MODEL_DIR',
+                        str(tmp_path / 'missing'))
+    calls = []
+    train = spacy_backend.SpacyNLU.train.__func__
+
+    def counting_train(cls, *args, **kwargs):
+        calls.append(1)
+        return train(cls, *args, **kwargs)
+    monkeypatch.setattr(spacy_backend.SpacyNLU, 'train',
+                        classmethod(counting_train))
+    first = spacy_backend.SpacyNLU.load()
+    assert calls == [1]
+    assert first.training_data_sha256 == \
+        spacy_backend.training_data_checksum()
+    second = spacy_backend.SpacyNLU.load()  # from the cache
+    assert calls == [1]
+    assert second.parse('hello')['intent']['name'] == 'greet'
+    # a cache trained on other data is not used
+    first.training_data_sha256 = 'other'
+    first.save(spacy_backend.cache_dir())
+    spacy_backend.SpacyNLU.load()
+    assert calls == [1, 1]
+    with pytest.raises((OSError, ValueError)):
+        spacy_backend.SpacyNLU.load(cache=False, retrain_if_needed=False)

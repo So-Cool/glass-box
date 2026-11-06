@@ -6,7 +6,7 @@
 host = "0.0.0.0"             # reachable by the Pi (voice input, QR scanner)
 port = 5000
 
-[dialogue]
+[explainer]
 implementation = "fixed"
 
 [nlu]

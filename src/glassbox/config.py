@@ -14,8 +14,8 @@ __all__ = ['DEFAULTS', 'load_config', 'merge']
 DEFAULTS = {
     'app': {'host': '127.0.0.1', 'port': 5000, 'poll_interval': 2.0},
     'model': {'tree': None},
-    'dialogue': {'implementation': 'fixed',
-                 'explainer_fixes': {}},
+    'explainer': {'implementation': 'fixed', 'fixes': {}},
+    'dialogue': {'seed': None},
     'nlu': {'backend': 'spacy', 'thinking_delay': 0.0,
             'spacy': {'model_dir': None, 'spacy_model': None},
             'rasa_legacy': {'url': 'http://127.0.0.1:5005',
@@ -28,6 +28,16 @@ DEFAULTS = {
                'device': '/dev/video0'}},
     'device': {'host': '0.0.0.0', 'port': 5001},
     'logging': {'level': 'INFO'},
+}
+
+
+#: keys of earlier versions -> what to use instead
+REMOVED_KEYS = {
+    'implementation': 'use [explainer] implementation = "legacy" or "fixed" '
+                      '("original" is now "legacy").',
+    'explainer_fixes': 'use [explainer.fixes].',
+    'fixes': 'the dialogue fixes are always applied (the explainer fixes are '
+             'in [explainer.fixes]).',
 }
 
 
@@ -61,12 +71,14 @@ def load_config(path=None, overrides=None):
             config = merge(config, tomllib.load(f))
     if overrides:
         config = merge(config, overrides)
-    if 'fixes' in config['dialogue']:
-        raise ValueError('The dialogue fixes are no longer switchable -- '
-                         'remove [dialogue.fixes] from the configuration '
-                         '(the explainer fixes are in '
-                         '[dialogue.explainer_fixes]).')
-    if config['dialogue']['implementation'] not in ('original', 'fixed'):
-        raise ValueError("dialogue.implementation has to be 'original' or "
+    for key, hint in REMOVED_KEYS.items():
+        if key in config['dialogue']:
+            raise ValueError('[dialogue] {} is no longer supported: {}'.format(
+                key, hint))
+    if config['explainer']['implementation'] not in ('legacy', 'fixed'):
+        raise ValueError("explainer.implementation has to be 'legacy' or "
                          "'fixed'.")
+    seed = config['dialogue'].get('seed')
+    if seed is not None and not isinstance(seed, int):
+        raise ValueError('dialogue.seed has to be an integer.')
     return config

@@ -128,7 +128,10 @@ Asking the same question again gives the next explanation
 (the next counterfactual);
 when all the explanations have been given Glass-Box says so, and the next
 request starts from the beginning.
-The wording of the answers is chosen at random from a few sentence templates.
+The wording of the answers is chosen at random from a few sentence templates
+(set `[dialogue] seed` in the configuration for reproducible answers).
+Scanning another application card during an application is answered with a
+request to finish the current application first (say "goodbye").
 
 | Request                           | Example sentences | Answer |
 |-----------------------------------|-------------------|--------|
@@ -252,7 +255,8 @@ The following options can be configured:
 |---------------------|------|
 | `[app]`             | `host`, `port`, `poll_interval` (seconds between polls for voice and QR messages) |
 | `[model]`           | `tree` points to a tree as JSON or a (modern) scikit-learn pickle; default: the original tree |
-| `[dialogue]`        | `implementation` (`original` / `fixed` explainer); `[dialogue.explainer_fixes]` for individual CtreeX fixes |
+| `[explainer]`       | `implementation` (`legacy` -- the 2018 explainer -- or `fixed`); `[explainer.fixes]` for individual CtreeX fixes |
+| `[dialogue]`        | `seed` -- seed of the random choice of sentence templates (reproducible answers) |
 | `[nlu]`             | `backend` (`spacy` / `rasa-legacy`), `thinking_delay` (seconds the "thinking" LEDs are shown); `[nlu.spacy]` has `model_dir`, `spacy_model`; `[nlu.rasa_legacy]` has `url`, `project`, `model` |
 | `[hardware.leds]`   | `backend` (`neopixel` / `remote` / `mock` / `disabled`), `url` (remote), `ring` / `square` (neopixel options, e.g., `led_dma`, `brightness`) |
 | `[hardware.speech]` | `backend` (`aiy` / `remote` / `mock` / `disabled`), `url`, `lang`, `volume` |
@@ -264,8 +268,8 @@ The following options can be configured:
 
 | Command | Purpose |
 |---------|---------|
-| `glassbox chat [--implementation original]`                        | chat in the terminal |
-| `glassbox serve [--host H] [--port P] [--implementation original]` | the web chat (and the endpoints of the voice input and the QR scanner) |
+| `glassbox chat [--explainer legacy]`                               | chat in the terminal |
+| `glassbox serve [--host H] [--port P] [--explainer legacy]`        | the web chat (and the endpoints of the voice input and the QR scanner) |
 | `glassbox device [--host H] [--port P]`                            | the Raspberry Pi device server (LEDs, speech, voice input, QR scanner) |
 | `glassbox data [--data-home DIR]`                                  | download the German Credit data, pre-process it and verify it against the original data |
 | `glassbox nlu train [--spacy-model M] [--output DIR] [--seed N]`   | retrain the default NLU model on the original and the added training data |
@@ -294,6 +298,11 @@ Two backends turn sentences into requests
   `intent.joblib` and the metadata in `metadata.json`, all in the
   `src/glassbox/resources/nlu/model/` directory);
   `glassbox nlu train` retrains it.
+  The shipped model can only be loaded by the scikit-learn version that saved
+  it (the one in `uv.lock`);
+  with another version a model is retrained from the shipped training data on
+  the first start (a few seconds) and cached in `~/.cache/glassbox`
+  (`$XDG_CACHE_HOME/glassbox` or `$GLASSBOX_CACHE`).
 
 * `rasa-legacy` (set `nlu.backend = "rasa-legacy"` and `nlu.rasa_legacy.url`)
   serves the *original* model based on Rasa NLU 0.12.3, which is
